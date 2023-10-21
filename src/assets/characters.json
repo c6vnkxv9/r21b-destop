@@ -11,7 +11,7 @@
         "label": "總統女兒",
         "desc":"總統的職務代理人",
         "color": ["blue"],
-        "selected": true
+        "selected": false
     },
     {
         "key": "Bomber",
@@ -25,7 +25,7 @@
         "label": "殉道者",
         "desc":"炸彈客的職務代理人",
         "color": ["red"],
-        "selected": true
+        "selected": false
     },
     {
         "key": "Doctor",
@@ -39,7 +39,7 @@
         "label": "護士",
         "desc":"醫生的職務代理人",
         "color": ["blue"],
-        "selected": true
+        "selected": false
     },
     {
         "key": "Engineer",
@@ -53,7 +53,7 @@
         "label": "修補匠",
         "desc":"工程師的職務代理人",
         "color": ["red"],
-        "selected": true
+        "selected": false
     },
     {
         "key": "Clown",
@@ -67,7 +67,7 @@
         "label": "談判專家",
         "desc":"你只能執行分享卡片",
         "color": ["blue","red"],
-        "selected": true
+        "selected": false
     },
     {
         "key": "Coy Boy",
@@ -95,7 +95,7 @@
         "label": "篡位者",
         "desc":"你可以在前四回合中，保底成為一次室長",
         "color": ["blue","red"],
-        "selected": false
+        "selected": true
     },
     {
         "key": "Security",
@@ -116,6 +116,20 @@
         "label": "害羞小子",
         "desc":"無法進行任何卡片行為",
         "color": ["blue","red"],
+        "selected": true
+    },
+    {
+        "key": "Gambler",
+        "label": "賭徒",
+        "desc":"公開預判哪個顏色獲勝",
+        "color": ["grey"],
+        "selected": false
+    },
+    {
+        "key": "Private Investigator",
+        "label": "私家偵探",
+        "desc":"預測那張 被埋葬的卡片是誰",
+        "color": ["grey"],
         "selected": false
     }
 ]

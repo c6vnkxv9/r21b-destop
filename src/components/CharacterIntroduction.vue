@@ -1,11 +1,12 @@
 <template lang="pug">
-.char-panel()
-  p.title-font-style
-  .char-block(v-for='person in member')
-    p.font-style(:style='{color: color.colorDark}')
-      i.bi.bi-person-vcard-fill.icon-style
-      | {{ person.label }}
-    p.desc-font-style {{ person.desc }}
+.char-panel
+  p.title-font-style.text-center(:style='{color: color.colorDark}') {{ title }}
+  .d-flex.flex-column
+    .char-block(v-for='person in member')
+      p.font-style(:style='{color: color.colorDark}')
+        i.bi.bi-person-vcard-fill.icon-style
+        | {{ person.label }}
+      p.desc-font-style {{ person.desc }}
 </template>
 <script lang="ts">
 /* eslint-disable */
@@ -31,16 +32,13 @@ export default defineComponent({
     color: {
       type: Object as () => Props['color'], // 使用 Props 中對應的顏色類型
       required: true
+    },
+    title: {
+      type:String,
+      required: true
     }
   },
   setup() {
-    const title = ref('這是一個標題')
-    const description = ref('這是一段描述文字。')
-
-    return {
-      title,
-      description
-    }
   }
 })
 </script>
@@ -52,7 +50,7 @@ p {
 }
 
 .char-panel {
-  padding: 2rem;
+  padding: 3rem;
 
   .char-block {
     margin-bottom: 1rem;

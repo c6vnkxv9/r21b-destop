@@ -1,19 +1,17 @@
 <template lang="pug">
 .wrap
-  .wrap-color-grey.upper-wrap
+  .bgc-grey.upper-wrap
     .mx-auto.content-wrap
-      //GameConfigurationSection
-      CountdownTimer.w-1-2.bgc-grey
-  .wrap-color.down-wrap
-    .d-flex.content-wrap.mx-auto
-        CharacterIntroduction.flex-grow-1.bgc-blue( :color='blueTeam.color' :member='blueTeam.teamMember')
-        CharacterIntroduction.flex-grow-1.bgc-red( :color='redTeam.color' :member='redTeam.teamMember')
-        CharacterIntroduction.flex-grow-1.bgc-grey( :color='greyTeam.color' :member='greyTeam.teamMember')
+      GameConfigurationSection
+  .down-wrap(:class="bgColor")
+    .d-flex.content-wrap.mx-auto.align-stretch
+        CharacterIntroduction.flex-grow-1.bgc-blue( :color='blueTeam.color' :member='blueTeam.teamMember' :title="'藍隊'")
+        CharacterIntroduction.flex-grow-1.bgc-red( :color='redTeam.color' :member='redTeam.teamMember' :title="'紅隊'")
+        CharacterIntroduction.flex-grow-1.bgc-grey(v-if='isGreyTeam' :color='greyTeam.color' :member='greyTeam.teamMember' :title="'灰隊'")
 </template>
 <script lang="ts">
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import { ref, defineComponent } from 'vue'
-import CountdownTimer from '@/components/CountdownTimer.vue'
+import { ref,Ref, defineComponent } from 'vue'
 import GameConfigurationSection from '@/components/GameConfigurationSection.vue'
 import CharacterIntroduction from '@/components/CharacterIntroduction.vue'
 import charactersData from '@/assets/characters.json'
@@ -42,14 +40,13 @@ export default defineComponent({
   components: {
     CharacterIntroduction,
     GameConfigurationSection,
-    CountdownTimer
   },
   setup () {
-    const title = ref('這是一個標題')
-    const description = ref('這是一段描述文字。')
     const blueTeam = createTeam('blue')
     const redTeam = createTeam('red')
     const greyTeam = createTeam('grey')
+    const isGreyTeam:Ref<boolean> = ref(greyTeam.value.teamMember.length>0)
+    const bgColor:string=isGreyTeam.value?'wrap-color-grey':'wrap-color-red'
     function createTeam (color: string) {
       const selectedColor = selectingColor(color)
 
@@ -77,12 +74,12 @@ export default defineComponent({
     }
 
     return {
-      title,
       blueTeam,
       redTeam,
       greyTeam,
       charactersData,
-      description
+      isGreyTeam,
+      bgColor
     }
   }
 })
@@ -104,21 +101,22 @@ $grey:#7B7B7B;
 .wrap{
   height: 100vh;
 }
-.wrap-color{
+.wrap-color-red{
   background: linear-gradient(90deg,lighten($blue,20%) 50%,lighten($red,20%) 50%);
+}
+.wrap-color-grey{
+  background: linear-gradient(90deg,lighten($blue,20%) 50%,lighten($grey,20%) 50%);
 }
 .down-wrap{
   width: 100vw;
-  height: 80%;
+  height: 70%;
 }
 .upper-wrap{
   width: 100vw;
-  height: 20%;
+  height: 30%;
 }
 .content-wrap{
   max-width: 1400px;
-}
-.w-1-2 {
-  width: 50%;
+  height: 100%;
 }
 </style>

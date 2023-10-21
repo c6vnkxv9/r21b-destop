@@ -1,14 +1,11 @@
 <template lang="pug">
 .d-flex.justify-content-center.align-items-center
-  div
+  .d-flex.justify-content-center.flex-column
     .d-flex.justify-content-center
       .boom-style
         BoomIcon(:btnIsActive='btnIsActive')
       p.lg-text.dark-font(v-if="timeDuration > 0" :class="{active:btnIsActive}") {{ formattedTime }}
-    button.text-style.dark-font.button-style(@click="pressCountdownButton" :class="{active:btnIsActive}")
-      i.bi(:class='timeStatus.icon')
-      | {{timeStatus.key}}
-    ExchangeIcon
+      i.bi(:class='timeStatus.icon' @click="pressCountdownButton")
 </template>
 <script lang="ts">
 // 暫停倒數計時
@@ -17,7 +14,6 @@
 // 版型設計
 // 時間到，畫面會抖一下？
 import BoomIcon from '@/components/BoomIcon.vue'
-import ExchangeIcon from '@/components/ExchangeIcon.vue'
 import { ref, computed, Ref, defineComponent } from 'vue'
 const COUNT_DOWN_TIMER_STATUS = [
   {
@@ -40,8 +36,7 @@ interface ButtonStyle {
 export default defineComponent({
   name: 'CountdownTimer',
   components: {
-    BoomIcon,
-    ExchangeIcon
+    BoomIcon
   },
   setup () {
     const minuteUnit: number = 5 // 總共五分鐘
@@ -98,10 +93,10 @@ $lighten-grey: #919191;
 $mid-grey: #353535;
 $dark-grey: #222222;
 .lg-text {
-  font-size: 5rem;
+  font-size: 4rem;
 }
 .text-style {
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 .dark-font {
   color: $mid-grey;
@@ -111,7 +106,7 @@ $dark-grey: #222222;
 }
 .button-style{
   background-color: transparent;
-  padding: 1rem;
+  padding: 0.5rem;
   border-radius: 2rem;
   border: $dark-grey 2px solid;
   &.active,
