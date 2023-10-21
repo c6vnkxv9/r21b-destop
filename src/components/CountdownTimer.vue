@@ -3,7 +3,7 @@
   div
     .d-flex.justify-content-center
       .boom-style
-        BoomIcon
+        BoomIcon(:btnIsActive='btnIsActive')
       p.lg-text.dark-font(v-if="timeDuration > 0" :class="{active:btnIsActive}") {{ formattedTime }}
     button.text-style.dark-font.button-style(@click="pressCountdownButton" :class="{active:btnIsActive}")
       i.bi(:class='timeStatus.icon')
@@ -56,7 +56,12 @@ export default defineComponent({
     function pressCountdownButton (): void {
       btnIsActive.value = !btnIsActive.value
       startCountdown()
+      playMusic ()
     }
+    function playMusic ():void{
+      const audio = new Audio('/bgm.mp3');
+      audio.play();
+    };
     function startCountdown (): void {
       const interval = setInterval(() => {
         if (timeDuration.value > 0) {

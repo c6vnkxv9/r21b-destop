@@ -2,14 +2,13 @@
 .wrap
   .wrap-color-grey.upper-wrap
     .mx-auto.content-wrap
-      GameConfigurationSection
+      //GameConfigurationSection
+      CountdownTimer.w-1-2.bgc-grey
   .wrap-color.down-wrap
     .d-flex.content-wrap.mx-auto
-        CharacterIntroduction.w-1-4.bgc-blue( :color='blueTeam.color' :member='blueTeam.teamMember')
-        CountdownTimer.w-1-2.bgc-grey
-        CharacterIntroduction.w-1-4.bgc-red( :color='redTeam.color' :member='redTeam.teamMember')
-    div
-        CharacterIntroduction
+        CharacterIntroduction.flex-grow-1.bgc-blue( :color='blueTeam.color' :member='blueTeam.teamMember')
+        CharacterIntroduction.flex-grow-1.bgc-red( :color='redTeam.color' :member='redTeam.teamMember')
+        CharacterIntroduction.flex-grow-1.bgc-grey( :color='greyTeam.color' :member='greyTeam.teamMember')
 </template>
 <script lang="ts">
 import 'bootstrap-icons/font/bootstrap-icons.css'
@@ -50,6 +49,7 @@ export default defineComponent({
     const description = ref('這是一段描述文字。')
     const blueTeam = createTeam('blue')
     const redTeam = createTeam('red')
+    const greyTeam = createTeam('grey')
     function createTeam (color: string) {
       const selectedColor = selectingColor(color)
 
@@ -80,6 +80,7 @@ export default defineComponent({
       title,
       blueTeam,
       redTeam,
+      greyTeam,
       charactersData,
       description
     }
@@ -99,9 +100,6 @@ $grey:#7B7B7B;
 }
 .bgc-red{
   background-color: lighten($red,20%);
-}
-.w-1-4 {
-  width: 25%;
 }
 .wrap{
   height: 100vh;

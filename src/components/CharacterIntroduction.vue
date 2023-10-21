@@ -8,6 +8,7 @@
     p.desc-font-style {{ person.desc }}
 </template>
 <script lang="ts">
+/* eslint-disable */
 import { ref, defineComponent } from 'vue'
 
 // 在這裡先定義好 props 的數據類型
@@ -32,7 +33,7 @@ export default defineComponent({
       required: true
     }
   },
-  setup () {
+  setup() {
     const title = ref('這是一個標題')
     const description = ref('這是一段描述文字。')
 
@@ -45,27 +46,33 @@ export default defineComponent({
 </script>
 <style scoped lang="scss">
 /* :style="{ backgroundColor: color.colorDark}" */
-p{
+p {
   margin: 0;
   text-align: start;
 }
+
 .char-panel {
   padding: 2rem;
-  .char-block{
+
+  .char-block {
     margin-bottom: 1rem;
   }
 }
-.desc-font-style{
+
+.desc-font-style {
   color: '5b5b5b';
   font-size: 1rem;
 }
-.title-font-style{
+
+.title-font-style {
   font-size: 2.5rem;
 }
-.font-style{
+
+.font-style {
   width: 200px;
   font-size: 1.5rem;
 }
+
 .icon-style {
   margin-right: 8px;
 }
