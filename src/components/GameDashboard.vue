@@ -24,7 +24,7 @@ interface TeamMember {
   key: string
   label: string
   desc: string
-  color: string
+  color: String[]
   selected: boolean
 }
 interface Color {
@@ -55,13 +55,13 @@ export default defineComponent({
 
       return ref<Team>({
         color: selectedColor,
-        teamMember: selectingTeam([color, 'both'])
+        teamMember: selectingTeam(color)
       })
     }
 
-    function selectingTeam (color: Array<string>): TeamMember[] {
+    function selectingTeam (color: string): TeamMember[] {
       return charactersData.filter(
-        (x) => [...color].includes(x.color) && x.selected
+        (x) => x.color.includes(color) && x.selected
       )
     }
     function selectingColor (color: string): Color {

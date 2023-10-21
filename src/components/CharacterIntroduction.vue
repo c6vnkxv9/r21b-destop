@@ -66,6 +66,7 @@ p {
 
 .title-font-style {
   font-size: 2.5rem;
+  font-weight: 700;
 }
 
 .font-style {
