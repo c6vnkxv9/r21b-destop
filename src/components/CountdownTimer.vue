@@ -22,11 +22,11 @@ const COUNT_DOWN_TIMER_STATUS = [
   },
   {
     key: 'PAUSE',
-    icon: 'bi-pause-fill'
+    icon: 'bi-play-circle'
   },
   {
     key: 'CONTINUE',
-    icon: 'skip-start-fill'
+    icon: 'bi-play-circle-fill'
   }
 ]
 interface ButtonStyle {
@@ -44,8 +44,8 @@ export default defineComponent({
     const timeUnit: number = (60 * minuteUnit) / timeCountDownUnit
     const timeDuration: Ref<number> = ref(timeUnit)
     const timeStatus: Ref<ButtonStyle> = ref({
-      icon: COUNT_DOWN_TIMER_STATUS[0].icon,
-      key: COUNT_DOWN_TIMER_STATUS[0].key
+      icon: COUNT_DOWN_TIMER_STATUS[1].icon,
+      key: COUNT_DOWN_TIMER_STATUS[1].key
     })
     const btnIsActive: Ref<boolean> = ref(false)
     function pressCountdownButton (): void {
@@ -92,11 +92,23 @@ export default defineComponent({
 $lighten-grey: #919191;
 $mid-grey: #353535;
 $dark-grey: #222222;
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
 .lg-text {
   font-size: 4rem;
+  &.active{
+    animation: heartbeat 1s infinite;
+  }
 }
 .text-style {
   font-size: 1.5rem;
+  
 }
 .dark-font {
   color: $mid-grey;
@@ -104,17 +116,17 @@ $dark-grey: #222222;
     color: $dark-grey;
   }
 }
-.button-style{
-  background-color: transparent;
-  padding: 0.5rem;
-  border-radius: 2rem;
-  border: $dark-grey 2px solid;
-  &.active,
-  &:hover{
-    color: #fff;
-    background-color: $dark-grey;
-  }
-}
+// .button-style{
+//   background-color: transparent;
+//   padding: 0.5rem;
+//   border-radius: 2rem;
+//   border: $dark-grey 2px solid;
+//   &.active,
+//   &:hover{
+//     color: #fff;
+//     background-color: $dark-grey;
+//   }
+// }
 .boom-style{
   margin-right: 1rem;
   width: 100px;

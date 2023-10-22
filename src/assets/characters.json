@@ -63,6 +63,13 @@
         "selected": true
     },
     {
+        "key": "Shy Guy",
+        "label": "害羞小子",
+        "desc":"無法進行任何卡片行為",
+        "color": ["blue","red"],
+        "selected": true
+    },
+    {
         "key": "Negotiator",
         "label": "談判專家",
         "desc":"你只能執行分享卡片",
@@ -79,28 +86,28 @@
     {
         "key": "Spy",
         "label": "間諜",
-        "desc":"你的卡片顏色與你效忠的隊伍恰好相反",
+        "desc":"卡片顏色與隊伍相反",
         "color": ["blue","red"],
         "selected": true
     },
     {
         "key": "Mayor",
         "label": "市長",
-        "desc":"公開卡片後，你的票永久計為兩票",
+        "desc":"公開後，一票值兩票",
         "color": ["blue","red"],
-        "selected": false
+        "selected": true
     },
     {
         "key": "Usurper",
         "label": "篡位者",
-        "desc":"你可以在前四回合中，保底成為一次室長",
+        "desc":"在前四回合中，室長篡位一次",
         "color": ["blue","red"],
         "selected": true
     },
     {
         "key": "Security",
         "label": "保安",
-        "desc":"你可以擁有一次扣押一名人質的資格",
+        "desc":"擁有一次扣押人質資格",
         "color": ["blue","red"],
         "selected": false
     },
@@ -112,18 +119,11 @@
         "selected": false
     },
     {
-        "key": "Shy Guy",
-        "label": "害羞小子",
-        "desc":"無法進行任何卡片行為",
-        "color": ["blue","red"],
-        "selected": true
-    },
-    {
         "key": "Gambler",
         "label": "賭徒",
         "desc":"公開預判哪個顏色獲勝",
         "color": ["grey"],
-        "selected": false
+        "selected":false
     },
     {
         "key": "Private Investigator",

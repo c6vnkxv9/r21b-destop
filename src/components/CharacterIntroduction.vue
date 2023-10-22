@@ -1,8 +1,8 @@
 <template lang="pug">
 .char-panel
   p.title-font-style.text-center(:style='{color: color.colorDark}') {{ title }}
-  .d-flex.flex-column
-    .char-block(v-for='person in member')
+  .d-flex.flex-wrap
+    .char-block(v-for='person in member' :class='color.label=="grey"?"":"w-1-2"')
       p.font-style(:style='{color: color.colorDark}')
         i.bi.bi-person-vcard-fill.icon-style
         | {{ person.label }}
@@ -50,10 +50,13 @@ p {
 }
 
 .char-panel {
-  padding: 3rem;
+  padding: 1rem 3rem;
 
   .char-block {
     margin-bottom: 1rem;
+  }
+  .w-1-2{
+    width: 50%;
   }
 }
 
@@ -63,8 +66,9 @@ p {
 }
 
 .title-font-style {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
+  margin-bottom: 16px;
 }
 
 .font-style {
