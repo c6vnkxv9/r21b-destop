@@ -356,7 +356,7 @@
         "color": "grey",
         "label": "賭徒",
         "desc": "公開預判哪個顏色獲勝",
-        "pair": "",
+        "pair": 20,
         "src": "@/assets/pic/rolegrey-gambler.png"
     }
 ]

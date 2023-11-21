@@ -25,7 +25,8 @@
             "blueUsurper",
             "redUsurper",
             "blueSecurity",
-            "redSecurity"
+            "redSecurity",
+            "greyGambler"
         ]
     },
     {
@@ -55,8 +56,7 @@
             "greyQueen",
             "greyDecoy",
             "greyTarget",
-            "greySniper",
-            "greyGambler"
+            "greySniper"
         ]
     }
 ]
