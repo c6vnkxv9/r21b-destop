@@ -1,15 +1,15 @@
 <template>
   <div class="home">
-    <GameDashboard/>
+    <GameSetting/>
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import GameDashboard from '@/components/GameDashboard.vue'
+import GameSetting from '@/components/GameSetting.vue'
 @Options({
   components: {
-    GameDashboard
+    GameSetting
   }
 })
 export default class HomeView extends Vue {}

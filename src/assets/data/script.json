@@ -1,0 +1,62 @@
+[
+    {
+        "key": 0,
+        "name": "nomal",
+        "label": "一般",
+        "required": [
+            "bluePresident",
+            "redBomer",
+            "blueDoctor",
+            "redEngineer"
+        ],
+        "options": [
+            "blueTuesdayKnight",
+            "redDr.Boom",
+            "blueEnforcer",
+            "redEnforcer",
+            "blueSpy",
+            "redSpy",
+            "blueCoyboy",
+            "redCoyboy",
+            "bluePapanoid",
+            "redPapanoid",
+            "blueMayor",
+            "redMayor",
+            "blueUsurper",
+            "redUsurper",
+            "blueSecurity",
+            "redSecurity"
+        ]
+    },
+    {
+        "key": 1,
+        "name": "Valentine's Day",
+        "label": "愛恨情仇",
+        "required": [
+            "bluePresident",
+            "redBomer"
+        ],
+        "options": [
+            "blueEris",
+            "redCupid",
+            "greyRival",
+            "greyIntern",
+            "greySurvivor",
+            "greyVictim",
+            "greyRomeo",
+            "greyJuliet",
+            "greyButler",
+            "greyMaid",
+            "greyAhab",
+            "greyMoby",
+            "greyWife",
+            "greyMistress",
+            "greyBomb-Bot",
+            "greyQueen",
+            "greyDecoy",
+            "greyTarget",
+            "greySniper",
+            "greyGambler"
+        ]
+    }
+]
