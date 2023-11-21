@@ -35,12 +35,18 @@ export default defineComponent({
         const selectedList = ref<string[]>([]);
 
         watch(selected, (newValue) => {
+            concatRoleList(newValue)
+
+        }, { immediate: true });
+        function concatRoleList(newValue:number){
             const item = script.find(s => s.key === newValue);
             if (item) {
                 selectedList.value = item.required.concat(item.options);
             }
-        }, { immediate: true });
-
+        }
+        function pickRoleList(){
+            charactersData
+        }
         return {
             options, selected, selectedList
         };
