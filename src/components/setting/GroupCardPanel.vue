@@ -47,13 +47,14 @@ export default defineComponent({
     setup(props,{ emit }) {
        
         const colorListTyped: ColorItem[] = colorList as ColorItem[];
-        const localData = ref<GroupedRoles[]>([]);
-        const _groupLength=props.data.length
+        const groupLength = computed(() => {
+            return props.data.length
+        })
         const groupedStatusLength = computed(() => {
             return props.data.filter(x=>x.checked).length
         })
         const groupedStatusStyle = computed(() => {
-            if(groupedStatusLength.value ==_groupLength){
+            if(groupedStatusLength.value ==groupLength.value){
                 return 'bi bi-check-square-fill fill-color'
             }else if(groupedStatusLength.value >0){
                 return 'bi bi-dash-square'
@@ -75,13 +76,13 @@ export default defineComponent({
             //dash-square
         }
         function setGroupStatus(){
-            const status=_groupLength==groupedStatusLength.value?false:true
+            const status=groupLength.value==groupedStatusLength.value?false:true
             emit('setGroupStatus', props.index,status);
         }
         function setSingleStatus(pair:GroupedRoles, index:number) {
             emit('setSingleStatus', props.index,index);
         }
-        return { localData, SetTeamColor,groupedStatusStyle, setSingleStatus,setGroupStatus, setSingleCheckColor }
+        return { SetTeamColor,groupedStatusStyle, setSingleStatus,setGroupStatus, setSingleCheckColor }
 
     }
 }
