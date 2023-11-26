@@ -6,26 +6,34 @@
                 img(src='@/assets/pic/logo.svg')
     .setting-wrap.mx-1280.flex-grow-1
         h1.title-style.text-start.mb-6 創建遊戲
-        .d-flex
-            .d-flex
-                p 卡片牌局：
+        .d-flex.align-items-center.mb-4
+            .d-flex.align-items-center
+                p.text-nowrap.fw-bold 卡片牌局：
                 BFormSelect(v-model="selectedModeId" :options="roleOptions")
-
-            div
-                i( class="bi bi-person-badge")
-                p.d-inline-block 人數：
-        .d-flex.flex-wrap.group-card-wrap
-            GroupCardPanel.group-card-panel(v-for='roles in filteredRoles' :data='roles')
+            .count-wrap
+                p.d-inline-block.fw-bold 人數：
+                    span.fw-normal {{ countChecked }}
+        .d-flex.flex-wrap.group-card-wrap.flex-grow-1
+            GroupCardPanel.group-card-panel(
+                v-for='(roles,index) in filteredRoles' 
+                :data='roles' 
+                :index='index'
+                @setGroupStatus='setGroupStatus'
+                @setSingleStatus='setSingleStatus'
+                )
+        .d-flex.justify-content-center
+            .button-style.cursor Game Start
     FooterCopyright.position-absolute.bottom-0.start-0
 </template>
 <script lang="ts">
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import { BFormSelect, BFormCheckboxGroup, BFormCheckbox, BFormGroup } from 'bootstrap-vue-3'
-import { ref, Ref, watch, defineComponent } from 'vue'
+import { ref, computed, watch, defineComponent } from 'vue'
 import FooterCopyright from '@/components/FooterCopyright.vue'
 import GroupCardPanel from '@/components/setting/GroupCardPanel.vue'
 import charactersData from '@/assets/data/characters.json'
 import script from '@/assets/data/script.json'
+import _ from 'lodash';
 interface RoleOptions {
     value: number;
     text: string;
@@ -55,13 +63,23 @@ export default defineComponent({
         const selectedModeId = ref<number>(roleOptions[0].value);
         const selectedPairId = ref<string[]>([]);
         const filteredRoles = ref<GroupedRoles[][]>([])
+        const countChecked = computed(() => {
+            return filteredRoles.value.reduce((total, currentGroup) => {
+                return total + currentGroup.reduce((groupTotal, currentItem) => {
+                    if (currentItem.checked) {
+                        return groupTotal + currentItem.roles.length;
+                    }
+                    return groupTotal;
+                }, 0);
+            }, 0);
+        })
 
         watch(selectedModeId, (newValue) => {
 
             const requiredIdList = setRoleGroupList(newValue, 'required')
             const optionsIdList = setRoleGroupList(newValue, 'options')
-            const concatedList=requiredIdList.concat(optionsIdList)
-            filteredRoles.value = chunkGroupRoles(concatedList,4)
+            const concatedList = requiredIdList.concat(optionsIdList)
+            filteredRoles.value = chunkGroupRoles(concatedList, 4)
 
         }, { immediate: true });
         function setRoleGroupList(value: number, attr: "required" | "options") {
@@ -100,33 +118,64 @@ export default defineComponent({
                 return acc
             }, [] as GroupedRoles[])
         }
+        function setGroupStatus(index: number, status: boolean) {
+            filteredRoles.value[index].forEach(x => {
+                if (!x.required) {
+                    x.checked = status
+                }
+            })
+        }
+        function setSingleStatus(groupIndex: number, pairIndex: number) {
+            const group = filteredRoles.value[groupIndex];
+            const role = group[pairIndex];
+            if (!role.required) {
+                role.checked = !role.checked;
+            }
+        }
 
         return {
-            roleOptions, selectedModeId, filteredRoles, selectedPairId
+            roleOptions, selectedModeId, filteredRoles, selectedPairId, setSingleStatus, setGroupStatus, countChecked
         };
     }
 });
 </script>
 <style lang="scss" scoped>
+
 ::v-deep {
     .banner-wrap {
         background-color: #4a1212;
         padding: 20px 0;
     }
 }
-.group-card-wrap{
-    gap: 24px;
-    .group-card-panel{
-    width: calc((100% - 48px)/3);
-    padding: 24px;
-    border-radius: 13px;
-border: 1px solid #BFBFBF;
+
+.button-style {
+    border-radius: 12px;
+    background: #942121;
+    color: #fff;
+    padding: 16px 24px;
+    margin: 24px auto;
+    &:hover{
+        background: #4a1212;  
+    }
 }
+
+.group-card-wrap {
+    gap: 24px;
+
+    .group-card-panel {
+        width: calc((100% - 48px)/3);
+        padding: 24px;
+        border-radius: 12px;
+        border: 1px solid #BFBFBF;
+    }
 }
 
 .wrap {
     width: 100vw;
     height: 100vh;
+    .count-wrap{
+        margin-left: 24px;
+    }
 }
 
 .icon {
@@ -158,4 +207,5 @@ border: 1px solid #BFBFBF;
     color: #282828;
     font-size: 32px;
     font-weight: 500;
-}</style>
+}
+</style>
