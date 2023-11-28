@@ -1,11 +1,11 @@
 <template lang="pug">
 div
-    p.text-start.title-style
-        i.mr-1.cursor(:class='groupedStatusStyle' @click='setGroupStatus()') 
-        | Card Zone {{ index+1 }}
-    .d-flex.roles-style(v-for="(pair,index) in data" )
-        .mr-1.cursor(@click='setSingleStatus(pair,index)')
-            i(class='bi' :class='setSingleCheckColor(pair.checked)') 
+    p.text-start.title-style.cursor(@click='setGroupStatus()')
+        i.mr-1(:class='groupedStatusStyle' ) 
+        | 角色-zone {{ index+1 }}
+    .d-flex.roles-style.cursor(v-for="(pair,index) in data" @click='setSingleStatus(pair,index)')
+        .mr-1
+            i(class='bi' :class='setSingleCheckColor(pair.checked,pair.required)') 
         .d-flex.justify-content-between.flex-grow-1
             p.pole-style.w-50.text-start(v-for="person in pair?.roles" )
                 i( class="bi bi-person-badge icon-color" :style='SetTeamColor(person.color)') 
@@ -68,8 +68,10 @@ export default defineComponent({
             let colorHex = colorListTyped.find(x => x.label == color)?.color
             return { '--color': colorHex }
         }
-        function setSingleCheckColor(status:boolean) {
-            if (status) {
+        function setSingleCheckColor(status:boolean,required:boolean) {
+            if(required){
+                return 'bi-check-square-fill checked-disable-color'
+            }else if (status) {
                 return 'bi-check-square-fill fill-color'
             }
             return 'bi-square'
@@ -88,7 +90,10 @@ export default defineComponent({
 }
 )
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
+.checked-disable-color{
+    color: #646464;
+}
 .icon-color {
     color: var(--color);
 }

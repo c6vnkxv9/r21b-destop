@@ -31,8 +31,8 @@
     },
     {
         "key": 1,
-        "name": "Valentine's Day",
-        "label": "愛恨情仇",
+        "name": "LoveAndHate",
+        "label": "愛恨",
         "required": [
             "bluePresident",
             "redBomer"

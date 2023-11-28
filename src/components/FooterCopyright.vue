@@ -1,6 +1,6 @@
 <template lang="pug">
 .banner-wrap.w-100.p-2
-    p.footer-text.text-end Copyright © 2023 by Paulina Tung and Kami Liu. 
+    p.footer-text.text-end Copyright © 2023 by Paulina Tong and Kami Liu. 
     p.text-end.footer-text All rights reserved.
 </template>
 <script>

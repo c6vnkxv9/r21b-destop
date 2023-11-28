@@ -8,13 +8,23 @@
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Noto Sans CJK TC', Helvetica, Arial, sans-serif; 
+  
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  .rb-fz{
+    letter-spacing: 0.1rem;
+    font-family: 'R2B1Style', Helvetica, Arial, sans-serif; 
+  }
+  .clock-fz{
+    font-family: 'ClockStyle', Helvetica, Arial, sans-serif;;
+  }
+  .cursor {
+        cursor: pointer;
+    }
 }
-
 nav {
   padding: 30px;
 

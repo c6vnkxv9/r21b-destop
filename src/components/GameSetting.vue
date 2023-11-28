@@ -3,7 +3,7 @@
     .banner-wrap
         .mx-1280
             .banner-img-wrap
-                img(src='@/assets/pic/logo.svg')
+                img(src='@/assets/pic/logo-red.png')
     .setting-wrap.mx-1280.flex-grow-1
         h1.title-style.text-start.mb-6 創建遊戲
         .d-flex.align-items-center.mb-4
@@ -13,6 +13,7 @@
             .count-wrap
                 p.d-inline-block.fw-bold 人數：
                     span.fw-normal {{ countChecked }}
+                    span.fw-bold.fs-red.ml-2(v-if='countChecked>20') (人數已達上限20人)
         .d-flex.flex-wrap.group-card-wrap.flex-grow-1
             GroupCardPanel.group-card-panel(
                 v-for='(roles,index) in filteredRoles' 
@@ -22,13 +23,15 @@
                 @setSingleStatus='setSingleStatus'
                 )
         .d-flex.justify-content-center
-            .button-style.cursor Game Start
+            .button-style.cursor.fw-bold(@click="submitSetting") Game Start
     FooterCopyright.position-absolute.bottom-0.start-0
 </template>
 <script lang="ts">
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import { BFormSelect, BFormCheckboxGroup, BFormCheckbox, BFormGroup } from 'bootstrap-vue-3'
 import { ref, computed, watch, defineComponent } from 'vue'
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 import FooterCopyright from '@/components/FooterCopyright.vue'
 import GroupCardPanel from '@/components/setting/GroupCardPanel.vue'
 import charactersData from '@/assets/data/characters.json'
@@ -59,9 +62,10 @@ export default defineComponent({
         GroupCardPanel, FooterCopyright
     },
     setup() {
+        const router = useRouter();
+        const store = useStore();
         const roleOptions: RoleOptions[] = script.map(x => ({ value: x.key, text: x.label }));
         const selectedModeId = ref<number>(roleOptions[0].value);
-        const selectedPairId = ref<string[]>([]);
         const filteredRoles = ref<GroupedRoles[][]>([])
         const countChecked = computed(() => {
             return filteredRoles.value.reduce((total, currentGroup) => {
@@ -132,30 +136,44 @@ export default defineComponent({
                 role.checked = !role.checked;
             }
         }
-
+        
+        function submitSetting() {
+            const gameMode = script[selectedModeId.value]
+            const setting = {
+                gameMode: {
+                    text: gameMode.name,
+                    label: gameMode.label
+                },
+                count: countChecked
+            }
+            store.dispatch('updateGameSetting', setting);
+            router.push({ path: `/game/${gameMode.name}`})
+        }
         return {
-            roleOptions, selectedModeId, filteredRoles, selectedPairId, setSingleStatus, setGroupStatus, countChecked
+            roleOptions, selectedModeId, filteredRoles, setSingleStatus, setGroupStatus, submitSetting, countChecked
         };
     }
 });
 </script>
 <style lang="scss" scoped>
-
 ::v-deep {
     .banner-wrap {
-        background-color: #4a1212;
+        background-color: #942121;
         padding: 20px 0;
     }
 }
-
+.fs-red{
+    color: #942121;
+}
 .button-style {
     border-radius: 12px;
     background: #942121;
     color: #fff;
     padding: 16px 24px;
     margin: 24px auto;
-    &:hover{
-        background: #4a1212;  
+
+    &:hover {
+        background: #4a1212;
     }
 }
 
@@ -173,7 +191,8 @@ export default defineComponent({
 .wrap {
     width: 100vw;
     height: 100vh;
-    .count-wrap{
+
+    .count-wrap {
         margin-left: 24px;
     }
 }
@@ -193,8 +212,19 @@ export default defineComponent({
     max-width: 1280px;
 }
 
-.banner-img-wrap {}
-
+.banner-img-wrap {
+    width: 30%;
+    height: 100px;
+    margin: 0 auto;
+    img{
+        display: block;
+        max-width: 100%;
+        height: 100px;
+    }
+}
+.ml-2{
+    margin-left: 0.5rem;
+}
 .mb-6 {
     margin-bottom: 24px;
 }

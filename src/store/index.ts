@@ -1,14 +1,22 @@
-import { createStore } from 'vuex'
-
+import { createStore } from 'vuex';
 export default createStore({
   state: {
-  },
-  getters: {
+    gameSetting:{
+      gameMode: {
+        "text": "nomal",
+        "label": "一般",
+      },
+      count: 20
+  }
   },
   mutations: {
+    setGameSetting(state, payload) {
+      state.gameSetting = payload;
+    }
   },
   actions: {
-  },
-  modules: {
+    updateGameSetting(context, payload) {
+      context.commit('setGameSetting', payload);
+    }
   }
-})
+});
