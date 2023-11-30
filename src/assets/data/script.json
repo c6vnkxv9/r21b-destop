@@ -3,6 +3,7 @@
         "key": 0,
         "name": "nomal",
         "label": "一般",
+        "route":"nomal",
         "required": [
             "bluePresident",
             "redBomer",
@@ -31,7 +32,8 @@
     },
     {
         "key": 1,
-        "name": "LoveAndHate",
+        "name": "Love And Hate",
+        "route":"love-and-hate",
         "label": "愛恨",
         "required": [
             "bluePresident",

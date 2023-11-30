@@ -21,7 +21,6 @@ export default defineComponent({
   }
 })
 </script>
-
 <style lang="scss" scoped>
 .wrap{
   width: 100vw;

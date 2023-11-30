@@ -16,7 +16,7 @@
                     span.fw-bold.fs-red.ml-2(v-if='countChecked>20') (人數已達上限20人)
         .d-flex.flex-wrap.group-card-wrap.flex-grow-1
             GroupCardPanel.group-card-panel(
-                v-for='(roles,index) in filteredRoles' 
+                v-for='(roles,index) in groupedRoles' 
                 :data='roles' 
                 :index='index'
                 @setGroupStatus='setGroupStatus'
@@ -66,25 +66,25 @@ export default defineComponent({
         const store = useStore();
         const roleOptions: RoleOptions[] = script.map(x => ({ value: x.key, text: x.label }));
         const selectedModeId = ref<number>(roleOptions[0].value);
-        const filteredRoles = ref<GroupedRoles[][]>([])
+        const roleList=ref<GroupedRoles[]>([])
         const countChecked = computed(() => {
-            return filteredRoles.value.reduce((total, currentGroup) => {
-                return total + currentGroup.reduce((groupTotal, currentItem) => {
-                    if (currentItem.checked) {
-                        return groupTotal + currentItem.roles.length;
+            return roleList.value.reduce((total, currentGroup) => {
+                    if (currentGroup.checked) {
+                        return total + currentGroup.roles.length;
                     }
-                    return groupTotal;
-                }, 0);
+                    return total;
             }, 0);
         })
-
+        const roleCheckedList= computed(() => {
+            return roleList.value.filter(x=>x.checked)
+        })
+        const groupedRoles= computed(() => {
+            return chunkGroupRoles(roleList.value, 4)
+        })
         watch(selectedModeId, (newValue) => {
-
             const requiredIdList = setRoleGroupList(newValue, 'required')
             const optionsIdList = setRoleGroupList(newValue, 'options')
-            const concatedList = requiredIdList.concat(optionsIdList)
-            filteredRoles.value = chunkGroupRoles(concatedList, 4)
-
+            roleList.value = requiredIdList.concat(optionsIdList)
         }, { immediate: true });
         function setRoleGroupList(value: number, attr: "required" | "options") {
             const _v = attr == 'required' ? true : false
@@ -123,14 +123,14 @@ export default defineComponent({
             }, [] as GroupedRoles[])
         }
         function setGroupStatus(index: number, status: boolean) {
-            filteredRoles.value[index].forEach(x => {
+            groupedRoles.value[index].forEach(x => {
                 if (!x.required) {
                     x.checked = status
                 }
             })
         }
         function setSingleStatus(groupIndex: number, pairIndex: number) {
-            const group = filteredRoles.value[groupIndex];
+            const group = groupedRoles.value[groupIndex];
             const role = group[pairIndex];
             if (!role.required) {
                 role.checked = !role.checked;
@@ -140,17 +140,13 @@ export default defineComponent({
         function submitSetting() {
             const gameMode = script[selectedModeId.value]
             const setting = {
-                gameMode: {
-                    text: gameMode.name,
-                    label: gameMode.label
-                },
-                count: countChecked
+                roles:roleCheckedList.value
             }
             store.dispatch('updateGameSetting', setting);
-            router.push({ path: `/game/${gameMode.name}`})
+            router.push({ path: `/game/${gameMode.route}`})
         }
         return {
-            roleOptions, selectedModeId, filteredRoles, setSingleStatus, setGroupStatus, submitSetting, countChecked
+            roleOptions, selectedModeId, groupedRoles, setSingleStatus, setGroupStatus, submitSetting, countChecked
         };
     }
 });

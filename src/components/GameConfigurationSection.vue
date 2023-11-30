@@ -7,13 +7,15 @@
         .title-style {{ gameMode.label }}局
         .subtitle-style.rb-fz {{ gameMode.text.toUpperCase() }}
         .subtitle-style.rb-fz ROUND
-        .number-style-wrap.icon-text-style
+        .number-style-wrap.icon-text-style.mt-1
           i.bi.bi-number-style.cursor(v-for='i in 5' :class='i==gameRound+1?`bi-${i}-circle-fill`:`bi-${i}-circle`' @click='changeGameRound(i)')
     .w-100.pt-50.h-50.d-flex.justify-content-center.align-items-center
       .px-6
         p.text-start.icon-text-style 討論時間結束後
           span.d-block 請室長在1分鐘內
-          span.d-block 選出 {{quantity}} 位人質
+          span.d-block 選出 
+            span.fw-bold {{quantity}} 
+            |  位人質
         .hostage-icon-container
           i.bi.bi-person-walking(v-for="i in quantity")
           i.bi.bi-door-open.door

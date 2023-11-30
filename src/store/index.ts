@@ -6,7 +6,8 @@ export default createStore({
         "text": "nomal",
         "label": "一般",
       },
-      count: 20
+      count: 20,
+      roles:[]
   }
   },
   mutations: {
@@ -16,6 +17,7 @@ export default createStore({
   },
   actions: {
     updateGameSetting(context, payload) {
+      
       context.commit('setGameSetting', payload);
     }
   }
