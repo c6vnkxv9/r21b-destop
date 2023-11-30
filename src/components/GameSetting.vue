@@ -126,7 +126,8 @@ export default defineComponent({
         function submitSetting() {
             const gameMode = script[selectedModeId.value]
             const setting = {
-                roles:roleCheckedList.value
+                roles:roleCheckedList.value,
+                mode:selectedModeId
             }
             store.dispatch('updateGameSetting', setting);
             router.push({ path: `/game/${gameMode.route}`})
@@ -138,8 +139,6 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
-$red-team-color:#942121;
-$red-team-dark-color:#4a1212;
 ::v-deep {
     .banner-wrap {
         background-color: $red-team-color;

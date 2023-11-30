@@ -1,4 +1,4 @@
-/* @font-face {
+@font-face {
     font-family: 'ClockStyle';
     src: url('@/assets/font/digital.otf') format('opentype');
 }
@@ -6,4 +6,10 @@
     font-family: 'R2B1Style';
     src: url('@/assets/font/coolvetica-rg.otf') format('opentype');
 }
-   */
+.rb-fz{
+    letter-spacing: 0.1rem;
+    font-family: 'R2B1Style', Helvetica, Arial, sans-serif; 
+  }
+  .clock-fz{
+    font-family: 'ClockStyle', Helvetica, Arial, sans-serif;;
+  }

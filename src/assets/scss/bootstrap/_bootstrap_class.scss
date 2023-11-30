@@ -1,7 +1,7 @@
-@import 'bootstrap-variables.scss';
+@import '@/assets/scss/_variable.scss';
 @import 'bootstrap/scss/_functions.scss';
 @import 'bootstrap/scss/_mixins.scss';
-
+@import 'bootstrap/scss/_variables.scss';
 // font size
 // fs-{break-point}-{spacer}
 @each $breakpoint in map-keys($grid-breakpoints) {
@@ -147,25 +147,4 @@ $positions: absolute, relative, static, fixed, sticky;
       }
     }
   }
-}
-
-.zindex-sticky {
-  z-index: $zindex-sticky;
-}
-.zindex-fixed {
-  z-index: $zindex-fixed;
-}
-
-.rounded-xl {
-  border-radius: $border-radius-xl;
-}
-.rounded-x2l {
-  border-radius: $border-radius-x2l;
-}
-.rounded-x3l {
-  border-radius: $border-radius-x3l;
-}
-
-.btn-outline-DA924F:hover {
-  color: #ffffff;
 }

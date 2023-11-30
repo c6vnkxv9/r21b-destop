@@ -3,9 +3,9 @@
   CountdownTimer.position-absolute.timer-wrap(:gameRound='gameRound ' @addGameRound='addGameRound')
   .position-absolute.ver-wrap.d-flex.flex-column
     .w-100.d-flex.justify-content-center.bi-number-style-wrap.pb-50.h-50.align-items-center
-      div
+      .text-center
         .title-style {{ gameMode.label }}局
-        .subtitle-style.rb-fz {{ gameMode.text.toUpperCase() }}
+        .subtitle-style.rb-fz {{ gameMode.name.toUpperCase() }}
         .subtitle-style.rb-fz ROUND
         .number-style-wrap.icon-text-style.mt-1
           i.bi.bi-number-style.cursor(v-for='i in 5' :class='i==gameRound+1?`bi-${i}-circle-fill`:`bi-${i}-circle`' @click='changeGameRound(i)')
@@ -24,7 +24,7 @@
       .mx-auto.pic-wrap
         img.d-block(src='@/assets/pic/logo-red.png')
     .w-50.pl-25(:style="{'background-color':rightColor}")
-      p.player-style.rb-fz {{ playerCount }}
+      p.player-style.rb-fz.text-center {{ playerCount }}
         span.ml-2 Players
 </template>
 <script lang="ts">
@@ -32,6 +32,7 @@ import CountdownTimer from '@/components/CountdownTimer.vue'
 import { ref, Ref, defineComponent, computed } from 'vue'
 import { useStore } from 'vuex';
 import exchangeSetting from '@/assets/data/exchangeSetting.json'
+import script from '@/assets/data/script.json'
 export default defineComponent({
   name: 'GameConfigurationSection',
   props: {
@@ -53,8 +54,12 @@ export default defineComponent({
     const quantity = computed(() => {
       return exchangeSetting[gameRound.value]
     })
-    const playerCount = store.state.gameSetting.count
-    const gameMode = store.state.gameSetting.gameMode
+    const playerCount = store.state.gameSetting.roles.length
+    const gameMode = computed(() => {
+      const modeId=store.state.gameSetting.mode
+      const {name,label} = script[modeId]
+      return  {name,label}
+    });
     function changeGameRound(i: number) {
       gameRound.value = i - 1
     }
@@ -69,9 +74,6 @@ export default defineComponent({
 </script>
 
 <style lang='scss' scoped>
-$configuration-width: 200px;
-$configuration-height: 100px;
-$clock-rect: 340px;
 
 .configuration-wrap {
   width: 100vw;

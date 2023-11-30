@@ -2,7 +2,7 @@
 .position-relative.boom-style
   .boom-wrap.d-flex.justify-content-center.align-items-center
     .boom-inner-warp.d-flex.justify-content-center.align-items-center
-      div
+      .text-center
         p.rb-fz.fz-6.mb-12 ROUND {{ gameRound +1}}
         p.fz-5.mb-12 討論時間
         .timer-banner.mb-12
@@ -18,7 +18,6 @@
 // 時間到，畫面會抖一下？
 //一次只能按一次倒數按鈕，不會因為多按要倒數很多次
 //渲染的不是很順
-import BoomIcon from '@/components/BoomIcon.vue'
 import { ref, computed, Ref, defineComponent } from 'vue'
 const COUNT_DOWN_TIMER_STATUS = [
   {
@@ -41,7 +40,7 @@ interface ButtonStyle {
 export default defineComponent({
   name: 'CountdownTimer',
   components: {
-    BoomIcon
+    
   }, props: {
     gameRound: {
       type: Number,
@@ -106,10 +105,6 @@ export default defineComponent({
 })
 </script>
 <style scoped lang="scss">
-$boom-rect: 300px;
-$boom-bot-w: 90px;
-$boom-bot-h: 72px;
-
 .fz-6 {
   font-size: 24px;
   line-height: 1em;
@@ -128,7 +123,6 @@ $boom-bot-h: 72px;
 .mb-12 {
   margin-bottom: 12px;
 }
-
 .boom-style::before,
 .boom-style::after {
   content: '';
