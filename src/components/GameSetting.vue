@@ -28,6 +28,9 @@
 </template>
 <script lang="ts">
 import 'bootstrap-icons/font/bootstrap-icons.css'
+import RoleOptions from '@/interfaces/RoleOptionsInterface';
+import Role from '@/interfaces/RoleInterface';
+import GroupedRoles from '@/interfaces/GroupedRolesInterface';
 import { BFormSelect, BFormCheckboxGroup, BFormCheckbox, BFormGroup } from 'bootstrap-vue-3'
 import { ref, computed, watch, defineComponent } from 'vue'
 import { useStore } from 'vuex';
@@ -37,25 +40,6 @@ import GroupCardPanel from '@/components/setting/GroupCardPanel.vue'
 import charactersData from '@/assets/data/characters.json'
 import script from '@/assets/data/script.json'
 import _ from 'lodash';
-interface RoleOptions {
-    value: number;
-    text: string;
-}
-interface Role {
-    key: string;
-    role: string;
-    color: string;
-    label: string;
-    desc: string;
-    pair: number;
-    src: string;
-}
-interface GroupedRoles {
-    pair: Number;
-    required: Boolean;
-    checked: Boolean;
-    roles: Role[]
-}
 export default defineComponent({
     components: {
         BFormSelect, BFormCheckboxGroup, BFormCheckbox, BFormGroup,
@@ -136,7 +120,9 @@ export default defineComponent({
                 role.checked = !role.checked;
             }
         }
-        
+        function popUpAlertModal(){
+            //this.$bvModal.hide(this.currentModalId);
+        }
         function submitSetting() {
             const gameMode = script[selectedModeId.value]
             const setting = {
@@ -152,24 +138,26 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
+$red-team-color:#942121;
+$red-team-dark-color:#4a1212;
 ::v-deep {
     .banner-wrap {
-        background-color: #942121;
+        background-color: $red-team-color;
         padding: 20px 0;
     }
 }
 .fs-red{
-    color: #942121;
+    color: $red-team-color;
 }
 .button-style {
     border-radius: 12px;
-    background: #942121;
+    background: $red-team-color;
     color: #fff;
     padding: 16px 24px;
     margin: 24px auto;
 
     &:hover {
-        background: #4a1212;
+        background: $red-team-dark-color;
     }
 }
 

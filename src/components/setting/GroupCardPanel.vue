@@ -12,25 +12,8 @@ div
                 | {{ person.label }}
 </template>
 <script lang="ts">
-interface GroupedRoles {
-    pair: Number;
-    required: Boolean;
-    checked: Boolean;
-    roles: Role[]
-}
-interface Role {
-    key: string;
-    role: string;
-    color: string;
-    label: string;
-    desc: string;
-    pair: number;
-    src: string;
-}
-type ColorItem = {
-    label: string;
-    color: string;
-};
+import Color from '@/interfaces/ColorInterface';
+import GroupedRoles from '@/interfaces/GroupedRolesInterface';
 import colorList from '@/assets/data/colorList.json'
 import { defineComponent,computed, PropType, ref } from 'vue'
 export default defineComponent({
@@ -46,7 +29,7 @@ export default defineComponent({
     },
     setup(props,{ emit }) {
        
-        const colorListTyped: ColorItem[] = colorList as ColorItem[];
+        const colorListTyped: Color[] = colorList as Color[];
         const groupLength = computed(() => {
             return props.data.length
         })

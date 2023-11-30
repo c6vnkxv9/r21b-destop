@@ -69,8 +69,8 @@ export default defineComponent({
 </script>
 
 <style lang='scss' scoped>
-$width: 200px;
-$height: 100px;
+$configuration-width: 200px;
+$configuration-height: 100px;
 $clock-rect: 340px;
 
 .configuration-wrap {
@@ -85,12 +85,12 @@ $clock-rect: 340px;
   z-index: 3;
 }
 .ver-wrap {
-  width: $width;
+  width: $configuration-width;
   height: 100vh;
   background-color: #282828;
   z-index: 1;
   top: 0;
-  left: calc(50% - ($width/2));
+  left: calc(50% - ($configuration-width/2));
 box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   .title-style {
     color: #FFF;
@@ -103,8 +103,6 @@ box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     font-size: 16px;
     font-weight: 400;
   }
-
-  .number-style-wrap {}
 
   .icon-text-style {
     color: #FFF;
@@ -151,22 +149,22 @@ box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
 .ho-wrap {
   width: 100vw;
-  height: $height;
+  height: $configuration-height;
   background-color: #942121;
   z-index: 1;
-  top: calc(50% - ($height/2));
+  top: calc(50% - ($configuration-height/2));
   left: 0;
 
   .player-style {
     color: #FFF;
     font-size: 48px;
     font-weight: 700;
-    line-height: $height;
+    line-height: $configuration-height;
   }
 
   .pic-wrap {
     width: 40%;
-    height: $height;
+    height: $configuration-height;
 
     img {
       max-width: 100%;

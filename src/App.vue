@@ -6,12 +6,11 @@
   <router-view/>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import '@/assets/scss/main.scss';//npm install -D sass-loader node-sass
+//https://hoyis-note.coderbridge.io/2021/08/16/Vue3%E5%AE%89%E8%A3%9DSCSS%E7%B7%A8%E8%AD%AF%E5%99%A8/
 #app {
   font-family: 'Noto Sans CJK TC', Helvetica, Arial, sans-serif; 
-  
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   .rb-fz{
@@ -24,17 +23,5 @@
   .cursor {
         cursor: pointer;
     }
-}
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
 }
 </style>
