@@ -39,15 +39,10 @@ export default defineComponent({
       get: () => props.show,
       set: (v) => emit('update:show', v)
     });
-    return {showLoc
-    }
+    return {showLoc }
   }
 })
 </script>
 
 <style lang="scss" scoped>
-.backdrop-blur {
-  will-change: backdrop-filter;
-  backdrop-filter: blur(5px);
-}
 </style>

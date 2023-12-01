@@ -25,6 +25,7 @@
         .d-flex.justify-content-center
             .button-style.cursor.fw-bold(@click="submitSetting") Game Start
     FooterCopyright.position-absolute.bottom-0.start-0
+    Alert(:show='modalShow')
 </template>
 <script lang="ts">
 import 'bootstrap-icons/font/bootstrap-icons.css'
@@ -37,32 +38,34 @@ import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import FooterCopyright from '@/components/FooterCopyright.vue'
 import GroupCardPanel from '@/components/setting/GroupCardPanel.vue'
+import Alert from '@/components/setting/Alert.vue'
 import charactersData from '@/assets/data/characters.json'
 import script from '@/assets/data/script.json'
 import _ from 'lodash';
 export default defineComponent({
     components: {
         BFormSelect, BFormCheckboxGroup, BFormCheckbox, BFormGroup,
-        GroupCardPanel, FooterCopyright
+        GroupCardPanel, FooterCopyright, Alert
     },
     setup() {
         const router = useRouter();
         const store = useStore();
+        let modalShow = false
         const roleOptions: RoleOptions[] = script.map(x => ({ value: x.key, text: x.label }));
         const selectedModeId = ref<number>(roleOptions[0].value);
-        const roleList=ref<GroupedRoles[]>([])
+        const roleList = ref<GroupedRoles[]>([])
         const countChecked = computed(() => {
             return roleList.value.reduce((total, currentGroup) => {
-                    if (currentGroup.checked) {
-                        return total + currentGroup.roles.length;
-                    }
-                    return total;
+                if (currentGroup.checked) {
+                    return total + currentGroup.roles.length;
+                }
+                return total;
             }, 0);
         })
-        const roleCheckedList= computed(() => {
-            return roleList.value.filter(x=>x.checked)
+        const roleCheckedList = computed(() => {
+            return roleList.value.filter(x => x.checked)
         })
-        const groupedRoles= computed(() => {
+        const groupedRoles = computed(() => {
             return chunkGroupRoles(roleList.value, 4)
         })
         watch(selectedModeId, (newValue) => {
@@ -120,17 +123,21 @@ export default defineComponent({
                 role.checked = !role.checked;
             }
         }
-        function popUpAlertModal(){
-            //this.$bvModal.hide(this.currentModalId);
+        function popUpAlertModal() {
+            modalShow = true
         }
         function submitSetting() {
             const gameMode = script[selectedModeId.value]
             const setting = {
-                roles:roleCheckedList.value,
-                mode:selectedModeId
+                roles: roleCheckedList.value,
+                mode: selectedModeId
             }
-            store.dispatch('updateGameSetting', setting);
-            router.push({ path: `/game/${gameMode.route}`})
+            if (roleCheckedList.value.length > 20) {
+                popUpAlertModal()
+            } else {
+                store.dispatch('updateGameSetting', setting);
+                router.push({ path: `/game/${gameMode.route}` })
+            }
         }
         return {
             roleOptions, selectedModeId, groupedRoles, setSingleStatus, setGroupStatus, submitSetting, countChecked
@@ -145,9 +152,11 @@ export default defineComponent({
         padding: 20px 0;
     }
 }
-.fs-red{
+
+.fs-red {
     color: $red-team-color;
 }
+
 .button-style {
     border-radius: 12px;
     background: $red-team-color;
@@ -199,15 +208,18 @@ export default defineComponent({
     width: 30%;
     height: 100px;
     margin: 0 auto;
-    img{
+
+    img {
         display: block;
         max-width: 100%;
         height: 100px;
     }
 }
-.ml-2{
+
+.ml-2 {
     margin-left: 0.5rem;
 }
+
 .mb-6 {
     margin-bottom: 24px;
 }
@@ -220,5 +232,4 @@ export default defineComponent({
     color: #282828;
     font-size: 32px;
     font-weight: 500;
-}
-</style>
+}</style>

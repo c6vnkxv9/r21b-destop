@@ -2,3 +2,7 @@
 @import './font';
 @import './variable';
 @import './bootstrap/bootstrap_class';
+.backdrop-blur {
+    will-change: backdrop-filter;
+    backdrop-filter: blur(5px);
+  }
