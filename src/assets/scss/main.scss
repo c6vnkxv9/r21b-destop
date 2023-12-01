@@ -1,3 +1,4 @@
-@import '@/assets/scss/_variable.scss';
-@import '@/assets/scss/_font.scss';
-@import '@/assets/scss/bootstrap/_bootstrap_class.scss';
+@import '~bootstrap/dist/css/bootstrap.css';
+@import './font';
+@import './variable';
+@import './bootstrap/bootstrap_class';
