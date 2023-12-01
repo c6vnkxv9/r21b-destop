@@ -54,9 +54,9 @@ export default defineComponent({
     const quantity = computed(() => {
       return exchangeSetting[gameRound.value]
     })
-    const playerCount = store.state.gameSetting.roles.length
+    const playerCount = store.state.gameSetting.roles?.length
     const gameMode = computed(() => {
-      const modeId=store.state.gameSetting.mode
+      const modeId=store.state.gameSetting?.mode || 0
       const {name,label} = script[modeId]
       return  {name,label}
     });
