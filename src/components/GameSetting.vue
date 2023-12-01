@@ -140,7 +140,7 @@ export default defineComponent({
             }
         }
         return {
-            roleOptions, selectedModeId, groupedRoles, setSingleStatus, setGroupStatus, submitSetting, countChecked
+            modalShow, roleOptions, selectedModeId, groupedRoles, setSingleStatus, setGroupStatus, submitSetting, countChecked
         };
     }
 });
