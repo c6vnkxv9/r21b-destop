@@ -21,10 +21,9 @@ export default defineComponent({
         const router = useRouter();
         watch(store.state.gameSetting, (newValue) => {
             if (_.isEmpty(newValue)) {
-                router.push({ path: `/setting` });
+                router.push({ name: 'home' });
             }
-        });
-
+        },{immediate:true});
         return {
         }
     }

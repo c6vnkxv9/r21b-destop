@@ -6,7 +6,7 @@
         p.rb-fz.fz-6.mb-12 ROUND {{ gameRound +1}}
         p.fz-5.mb-12 討論時間
         .timer-banner.mb-12
-          p.fz-15.clock-fz {{formattedTime}}
+          p.mb-0.fz-15.clock-fz {{formattedTime}}
         .play-wrap.cursor(@click='pressCountdownButton')
           i(class="bi bi-play-circle-fill")
 </template>
@@ -61,6 +61,7 @@ export default defineComponent({
       btnIsActive.value = !btnIsActive.value
       startCountdown()
       // playMusic()
+      //pause-circle-fill
     }
     function playMusic(): void {
       const audio = new Audio('/bgm.mp3');

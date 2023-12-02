@@ -1,14 +1,14 @@
 <template lang="pug">
 div
     p.text-start.title-style.cursor(@click='setGroupStatus()')
-        i.mr-1(:class='groupedStatusStyle' ) 
+        i.mr-12(:class='groupedStatusStyle' ) 
         | 角色-zone {{ index+1 }}
-    .d-flex.roles-style.cursor(v-for="(pair,index) in data" @click='setSingleStatus(pair,index)')
-        .mr-1
+    .d-flex.roles-style.cursor(v-for="(pair) in data" @click='setSingleStatus(pair.pair)')
+        .mr-12
             i(class='bi' :class='setSingleCheckColor(pair.checked,pair.required)') 
         .d-flex.justify-content-between.flex-grow-1
-            p.pole-style.w-50.text-start(v-for="person in pair?.roles" )
-                i( class="bi bi-person-badge icon-color" :style='SetTeamColor(person.color)') 
+            p.mb-0.pole-style.w-50.text-start(v-for="person in pair?.roles" )
+                i( class="bi mr-12 bi-person-badge icon-color" :style='SetTeamColor(person.color)') 
                 | {{ person.label }}
 </template>
 <script lang="ts">
@@ -64,8 +64,8 @@ export default defineComponent({
             const status=groupLength.value==groupedStatusLength.value?false:true
             emit('setGroupStatus', props.index,status);
         }
-        function setSingleStatus(pair:GroupedRoles, index:number) {
-            emit('setSingleStatus', props.index,index);
+        function setSingleStatus(pair:Number) {
+            emit('setSingleStatus', pair);
         }
         return { SetTeamColor,groupedStatusStyle, setSingleStatus,setGroupStatus, setSingleCheckColor }
 
@@ -80,7 +80,7 @@ export default defineComponent({
 .icon-color {
     color: var(--color);
 }
-.mr-1 {
+.mr-12 {
     margin-right: 12px
 }
 .roles-style{

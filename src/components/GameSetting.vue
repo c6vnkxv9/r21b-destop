@@ -6,14 +6,19 @@
                 img(src='@/assets/pic/logo-red.png')
     .setting-wrap.mx-1280.flex-grow-1
         h1.title-style.text-start.mb-6 創建遊戲
-        .d-flex.align-items-center.mb-4
-            .d-flex.align-items-center
-                p.text-nowrap.fw-bold 卡片牌局：
-                BFormSelect(v-model="selectedModeId" :options="roleOptions")
-            .count-wrap
-                p.d-inline-block.fw-bold 人數：
-                    span.fw-normal {{ countChecked }}
-                    span.fw-bold.fs-red.ml-2(v-if='countChecked>20') (人數已達上限20人)
+        .d-flex.justify-content-between.fs-20
+            .d-flex.align-items-center.mb-4
+                .d-flex.align-items-center
+                    p.mb-0.text-nowrap.fw-bold 卡片牌局：
+                    BFormSelect(v-model="selectedModeId" :options="roleOptions")
+                .count-wrap
+                    p.mb-0.d-inline-block.fw-bold 人數：
+                        span.fw-normal {{ countChecked }}
+                        span.fw-bold.fs-red.ml-2(v-if='countChecked>20') (人數已達上限20人)
+            div
+                p.mb-0.text-end.cursor.fw-bold(@click='setAllStatus')
+                    i.mr-12(:class='allStatusStyle' ) 
+                    | 全選
         .d-flex.flex-wrap.group-card-wrap.flex-grow-1
             GroupCardPanel.group-card-panel(
                 v-for='(roles,index) in groupedRoles' 
@@ -25,7 +30,7 @@
         .d-flex.justify-content-center
             .button-style.cursor.fw-bold(@click="submitSetting") Game Start
     FooterCopyright.position-absolute.bottom-0.start-0
-    Alert(:show='modalShow')
+    Alert(:show='modalShow' @update:modalShow="modalShow = $event")
 </template>
 <script lang="ts">
 import 'bootstrap-icons/font/bootstrap-icons.css'
@@ -41,7 +46,7 @@ import GroupCardPanel from '@/components/setting/GroupCardPanel.vue'
 import Alert from '@/components/setting/Alert.vue'
 import charactersData from '@/assets/data/characters.json'
 import script from '@/assets/data/script.json'
-import _ from 'lodash';
+import _, { xor } from 'lodash';
 export default defineComponent({
     components: {
         BFormSelect, BFormCheckboxGroup, BFormCheckbox, BFormGroup,
@@ -50,7 +55,7 @@ export default defineComponent({
     setup() {
         const router = useRouter();
         const store = useStore();
-        let modalShow = false
+        let modalShow = ref<boolean>(false)
         const roleOptions: RoleOptions[] = script.map(x => ({ value: x.key, text: x.label }));
         const selectedModeId = ref<number>(roleOptions[0].value);
         const roleList = ref<GroupedRoles[]>([])
@@ -109,30 +114,55 @@ export default defineComponent({
                 return acc
             }, [] as GroupedRoles[])
         }
-        function setGroupStatus(index: number, status: boolean) {
-            groupedRoles.value[index].forEach(x => {
+        const RoleLength = computed(() => {
+            return roleList.value.reduce((total, currentGroup) => {
+                return total + currentGroup.roles.length;
+            }, 0);
+        })
+        const allStatusStyle = computed(() => {
+            if(RoleLength.value ==countChecked.value){
+                return 'bi bi-check-square-fill fill-color'
+            }else if(countChecked.value >0){
+                return 'bi bi-dash-square'
+            }
+            return 'bi bi-square'
+        });
+        function setAllStatus(){
+            const status=RoleLength.value ==countChecked.value?false:true
+            roleList.value.forEach(x=>{
                 if (!x.required) {
-                    x.checked = status
-                }
+                        x.checked = status;
+                    } 
             })
         }
-        function setSingleStatus(groupIndex: number, pairIndex: number) {
-            const group = groupedRoles.value[groupIndex];
-            const role = group[pairIndex];
-            if (!role.required) {
-                role.checked = !role.checked;
+        function setGroupStatus(index: number, status: boolean) {
+            for (let i = index * 4; i < index * 4 + 4; i++) {
+                if (i < roleList.value.length) {
+                    const x = roleList.value[i];
+                    if (!x.required) {
+                        x.checked = status;
+                    }
+                }
+            }
+        }
+        function setSingleStatus(pair: number) {
+            let item = roleList.value.find(x => x.pair == pair)
+            if (item && !item.required) {
+                item.checked = !item.checked;
             }
         }
         function popUpAlertModal() {
-            modalShow = true
+            modalShow.value = true
+            console.log(modalShow);
         }
         function submitSetting() {
             const gameMode = script[selectedModeId.value]
             const setting = {
                 roles: roleCheckedList.value,
-                mode: selectedModeId
+                mode: selectedModeId.value,
+                count: countChecked.value
             }
-            if (roleCheckedList.value.length > 20) {
+            if (countChecked.value > 20) {
                 popUpAlertModal()
             } else {
                 store.dispatch('updateGameSetting', setting);
@@ -140,7 +170,7 @@ export default defineComponent({
             }
         }
         return {
-            modalShow, roleOptions, selectedModeId, groupedRoles, setSingleStatus, setGroupStatus, submitSetting, countChecked
+            modalShow, roleOptions, selectedModeId, groupedRoles,countChecked, setSingleStatus, setGroupStatus, submitSetting,setAllStatus,allStatusStyle
         };
     }
 });
@@ -156,7 +186,9 @@ export default defineComponent({
 .fs-red {
     color: $red-team-color;
 }
-
+.mr-12{
+    margin-right: 12px;
+}
 .button-style {
     border-radius: 12px;
     background: $red-team-color;
@@ -223,7 +255,9 @@ export default defineComponent({
 .mb-6 {
     margin-bottom: 24px;
 }
-
+.fs-20{
+    font-size: 20px;
+}
 .setting-wrap {
     padding: 24px 48px;
 }
@@ -232,4 +266,5 @@ export default defineComponent({
     color: #282828;
     font-size: 32px;
     font-weight: 500;
-}</style>
+}
+</style>

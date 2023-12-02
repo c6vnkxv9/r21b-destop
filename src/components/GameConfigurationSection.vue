@@ -1,36 +1,40 @@
 <template lang="pug">
-.position-relative.configuration-wrap
-  CountdownTimer.position-absolute.timer-wrap(:gameRound='gameRound ' @addGameRound='addGameRound')
-  .position-absolute.ver-wrap.d-flex.flex-column
-    .w-100.d-flex.justify-content-center.bi-number-style-wrap.pb-50.h-50.align-items-center
-      .text-center
-        .title-style {{ gameMode.label }}局
-        .subtitle-style.rb-fz {{ gameMode.name.toUpperCase() }}
-        .subtitle-style.rb-fz ROUND
-        .number-style-wrap.icon-text-style.mt-1
-          i.bi.bi-number-style.cursor(v-for='i in 5' :class='i==gameRound+1?`bi-${i}-circle-fill`:`bi-${i}-circle`' @click='changeGameRound(i)')
-    .w-100.pt-50.h-50.d-flex.justify-content-center.align-items-center
-      .px-6
-        p.text-start.icon-text-style 討論時間結束後
-          span.d-block 請室長在1分鐘內
-          span.d-block 選出 
-            span.fw-bold {{quantity}} 
-            |  位人質
-        .hostage-icon-container
-          i.bi.bi-person-walking(v-for="i in quantity")
-          i.bi.bi-door-open.door
-  .position-absolute.ho-wrap.d-flex
-    .w-50.pr-25(:style="{'background-color':leftColor}")
-      .mx-auto.pic-wrap
-        img.d-block(src='@/assets/pic/logo-red.png')
-    .w-50.pl-25(:style="{'background-color':rightColor}")
-      p.player-style.rb-fz.text-center {{ playerCount }}
-        span.ml-2 Players
+div
+  .position-relative.configuration-wrap
+    CountdownTimer.position-absolute.timer-wrap(:gameRound='gameRound ' @addGameRound='addGameRound')
+    .position-absolute.ver-wrap.d-flex.flex-column
+      .w-100.d-flex.justify-content-center.bi-number-style-wrap.pb-50.h-50.align-items-center
+        .text-center
+          .d-flex.align-items-center
+            .title-style {{ gameMode.label }}局
+            i.d-block.bi.bi-pencil-square.pencil-icon.cursor(@click="returnSetting")
+          .subtitle-style.rb-fz {{ gameMode.name.toUpperCase() }}
+          .subtitle-style.rb-fz ROUND
+          .number-style-wrap.icon-text-style.mt-1
+            i.bi.bi-number-style.cursor(v-for='i in 5' :class='i==gameRound+1?`bi-${i}-circle-fill`:`bi-${i}-circle`' @click='changeGameRound(i)')
+      .w-100.pt-50.h-50.d-flex.justify-content-center.align-items-center
+        .px-6
+          p.text-start.icon-text-style 討論時間結束後
+            span.d-block 請室長在1分鐘內
+            span.d-block 選出 
+              span.fw-bold {{quantity}} 
+              |  位人質
+          .hostage-icon-container
+            i.bi.bi-person-walking(v-for="i in quantity")
+            i.bi.bi-door-open.door
+    .position-absolute.ho-wrap.d-flex
+      .w-50.pr-25(:style="{'background-color':leftColor}")
+        .mx-auto.pic-wrap
+          img.d-block(src='@/assets/pic/logo-red.png')
+      .w-50.pl-25(:style="{'background-color':rightColor}")
+        p.player-style.rb-fz.text-center {{ playerCount }}
+          span.ml-2 Players
 </template>
 <script lang="ts">
 import CountdownTimer from '@/components/CountdownTimer.vue'
 import { ref, Ref, defineComponent, computed } from 'vue'
 import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 import exchangeSetting from '@/assets/data/exchangeSetting.json'
 import script from '@/assets/data/script.json'
 export default defineComponent({
@@ -50,11 +54,12 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
+    const router = useRouter();
     const gameRound = ref<number>(0)
     const quantity = computed(() => {
       return exchangeSetting[gameRound.value]
     })
-    const playerCount = store.state.gameSetting.roles?.length
+    const playerCount = store.state.gameSetting.count
     const gameMode = computed(() => {
       const modeId=store.state.gameSetting?.mode || 0
       const {name,label} = script[modeId]
@@ -66,15 +71,23 @@ export default defineComponent({
     function addGameRound(i: number) {
       gameRound.value++
     }
+    function returnSetting(){
+      router.push({ name: 'home' });
+    }
     return {
-      playerCount, gameMode, quantity, gameRound, changeGameRound,addGameRound
+      playerCount, gameMode, quantity, gameRound, returnSetting,changeGameRound,addGameRound
     }
   }
 })
 </script>
 
 <style lang='scss' scoped>
-
+.pencil-icon{
+ color:#6866DE;
+ font-size: 20px;
+ line-height: 40px;
+ margin-left: 8px;
+}
 .configuration-wrap {
   width: 100vw;
   height: 100vh;

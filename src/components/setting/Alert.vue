@@ -5,19 +5,12 @@ BModal(
     hide-header,
     centered,
     modalClass='backdrop-blur',
-    dialog-class='rounded-0 w-100 h-100 m-0 p-0',
-    body-class='rounded-0 m-0 p-0',
-    content-class='border-0 rounded-0 w-100 h-100'
+    content-class='p-6 position-relative'
 )
-  i.text-center.exclamation-octagon-fill.fs-6 
-  p.mb-0 角色人數已達上限20人，無法再新增角色。
-  p.mb-0 如需更改角色，請取消不需要的角色再新增其他角色。
-    //-   hide-header-close,
-    //- no-close-on-backdrop,
-    //- no-close-on-esc,
-    //- no-enforce-focus,
-    //- scrollable,
-    //- no-fade,
+  i.bi.bi-x-lg.close-icon.position-absolute.cursor(@click="closeModal")
+  i.d-block.text-center.bi.bi-exclamation-octagon-fill.fs-48.icon-color
+  p.mb-0.text-center 角色人數已達系統上限20人。
+  p.mb-0.text-center 請取消不需要的角色後，再開始遊戲。
 </template>
 <script lang="ts">
 import { BModal } from 'bootstrap-vue-3'
@@ -39,10 +32,25 @@ export default defineComponent({
       get: () => props.show,
       set: (v) => emit('update:show', v)
     });
-    return {showLoc }
+    function closeModal(){
+      emit('update:modalShow', false);
+      showLoc.value=!showLoc.value
+      console.log(showLoc.value);
+    }
+    return {showLoc ,closeModal}
   }
 })
 </script>
 
 <style lang="scss" scoped>
+.icon-color{
+  color:$red-icon-color
+}
+.close-icon{
+  top: 12px;
+  right: 12px;
+}
+.fs-48{
+  font-size: 48px;
+}
 </style>
