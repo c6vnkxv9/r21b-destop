@@ -1,16 +1,18 @@
-<template lang="pug">
+<template lang='pug'>
 .char-panel(:style="{ backgroundColor: color}")
-    .block(v-for='(item,i) in groupedChar')
+    CardSection.card-wrap(v-for='(item,i) in groupedChar' :data='item')
         p {{ item }}
 </template>
 <script lang="ts">
 // import _ from 'lodash';
-import { ref, Ref, computed, defineComponent } from 'vue'
+import { ref, Ref, computed, defineComponent,PropType } from 'vue'
+import CardSection from '@/components/common/CardSection.vue'
 import Role from '@/interfaces/RoleInterface';
 import GroupedRoles from '@/interfaces/GroupedRolesInterface';
 export default defineComponent({
     name: 'GroupedCharPannel',
     components: {
+        CardSection
     },
     props: {
         data: {
@@ -37,9 +39,21 @@ export default defineComponent({
     }
 })
 </script>
-<style lang="scss" scoped>
+<style lang='scss' scoped>
+$lg-length:48px;
+$sm-length:12px;
 .char-panel{
-    height:100%
+    
+.card-wrap{
+    height:calc(50% - ($configuration-height/2));
+    padding:$lg-length;
+    @media screen and (max-width: 1280px) {
+        padding:$sm-length;
+}
+}
+.card-wrap+.card-wrap{
+margin-top:$configuration-height;
+}
 }
 </style>
     

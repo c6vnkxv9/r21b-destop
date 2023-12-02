@@ -1,7 +1,7 @@
 <template lang="pug">
 .wrap.position-relative
     .d-flex.h-100
-        GroupedCharPannel.w-50( v-for='(item,i) in groupedChar'  :data='item.value' :color='COLOR_LIST[i]')
+        GroupedCharPannel.pannel-wrap( v-for='(item,i) in groupedChar'  :data='item.value' :color='COLOR_LIST[i]')
     GameConfigurationSection.position-absolute.config-wrap
 </template>
 <script lang="ts">
@@ -60,6 +60,12 @@ background-color: #666;
     height: 100%;
 }
 }
+.pannel-wrap{
+        width: calc(50% - ($configuration-width/2));
+    }
+    .pannel-wrap+.pannel-wrap{
+        margin-left: $configuration-width;
+    }
 .config-wrap{
     top: 0;
     bottom: 0;
