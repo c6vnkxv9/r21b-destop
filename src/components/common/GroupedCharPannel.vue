@@ -1,6 +1,6 @@
 <template lang='pug'>
 .char-panel(:style="{ backgroundColor: color}")
-    CardSection.card-wrap(v-for='(item,i) in groupedChar' :data='item')
+    CardSection.card-section-wrap(v-for='(item,i) in groupedChar' :data='item')
         p {{ item }}
 </template>
 <script lang="ts">
@@ -44,14 +44,15 @@ $lg-length:48px;
 $sm-length:12px;
 .char-panel{
     
-.card-wrap{
+.card-section-wrap{
     height:calc(50% - ($configuration-height/2));
+    width: 100%;
     padding:$lg-length;
     @media screen and (max-width: 1280px) {
         padding:$sm-length;
 }
 }
-.card-wrap+.card-wrap{
+.card-section-wrap+.card-section-wrap{
 margin-top:$configuration-height;
 }
 }

@@ -31,10 +31,10 @@ export default defineComponent({
        
         const colorListTyped: Color[] = colorList as Color[];
         const groupLength = computed(() => {
-            return props.data.length
+            return props.data?.length
         })
         const groupedStatusLength = computed(() => {
-            return props.data.filter(x=>x.checked).length
+            return props.data.filter(x=>x.checked)?.length
         })
         const groupedStatusStyle = computed(() => {
             if(groupedStatusLength.value ==groupLength.value){

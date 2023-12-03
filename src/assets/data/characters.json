@@ -51,7 +51,7 @@
         "label": "砰砰博士",
         "desc": "跟總統分享卡片，紅隊直接獲勝",
         "pair": 3,
-        "src": "pic/role/red-dr.boom.png"
+        "src": "pic/role/red-drboom.png"
     },
     {
         "key": "blueEnforcer",

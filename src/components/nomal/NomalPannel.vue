@@ -34,9 +34,9 @@ setup () {
         const blueRoles = _.flatMap(roles, item => _.filter(item.roles, { color: 'blue' }));
         const redRoles = _.flatMap(roles, item => _.filter(item.roles, { color: 'red' }));
         const greyRoles = _.flatMap(roles, item => _.filter(item.roles, { color: 'grey' }));
-        const more=blueRoles.length+greyRoles.length-10
+        const more=blueRoles?.length+greyRoles?.length-10
         if(more>0){
-            const _rest=10-blueRoles.length
+            const _rest=10-blueRoles.length || 0
             leftRound.value=[...redRoles,...greyRoles.slice(0).slice(_rest,100)]
             rightRound.value=[...blueRoles,...greyRoles.slice(0).slice(0,_rest)]
         }else{
