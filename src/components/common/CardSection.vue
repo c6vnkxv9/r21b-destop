@@ -3,7 +3,7 @@
     .card-wrap(v-for='item in data')
         p {{ item.label }}
         p {{ item.desc }}
-        img(:src='getImageSrc(item.pair)')
+        img(:src='require(`@/assets/${item.src}`)')
 </template>
 <script lang="ts">
 import { computed, defineComponent,PropType } from 'vue'
@@ -19,7 +19,7 @@ export default defineComponent({
   setup (props, { emit }) {
     function getImageSrc(src:string) {
         let images = require.context('@/assets/', false, /\.jpg$/);
-    return  `https://picsum.photos/id/${src}/200/300`
+    return images('../' + src);
   }
     return {getImageSrc}
   }
