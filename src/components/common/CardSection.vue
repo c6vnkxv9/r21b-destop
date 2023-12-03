@@ -3,7 +3,7 @@
     .card-wrap(v-for='item in data')
         p {{ item.label }}
         p {{ item.desc }}
-        img(:src='require(`@/assets/${item.src}`)')
+        //- img(:src='require(`@/assets/${item.src}`)')
 </template>
 <script lang="ts">
 import { computed, defineComponent,PropType } from 'vue'
