@@ -8,10 +8,10 @@
         .timer-banner.mb-12
           p.mb-0.fz-15.clock-fz {{formattedTime}}
         .play-wrap.cursor(@click='toggleCountdown')
-          i(class="bi" :class="btnIsActive?'bi-play-circle-fill':'bi-pause-circle-fill'")
+          i(class="bi" :class="btnIsActive?'bi-pause-circle-fill':'bi-play-circle-fill'")
 </template>
 <script lang="ts">
-import { ref, computed, Ref, defineComponent } from 'vue'
+import { ref,watch, computed, Ref, defineComponent } from 'vue'
 const COUNT_DOWN_TIMER_STATUS = [
   {
     key: 'START',
@@ -56,10 +56,10 @@ export default defineComponent({
       btnIsActive.value = !btnIsActive.value
       if (btnIsActive.value) {
         startCountdown();
-        playMusic();
+        // playMusic();
       } else {
         stopCountdown();
-        pauseMusic();
+        // pauseMusic();
       }
     }
     function clearTimer(){
@@ -71,6 +71,12 @@ export default defineComponent({
         clearTimer()
       }
     }
+    function resetTime() { 
+      timeDuration.value = timeUnit;
+      btnIsActive.value = false;
+      //audio.currentTime = 0//重返秒數為0
+      //audio.pause()
+    }
     function startCountdown() {
       if (intervalRef == undefined ) {
       intervalRef = setInterval(() => {
@@ -78,14 +84,18 @@ export default defineComponent({
           timeDuration.value--;
         } else {
           clearTimer()
-          timeDuration.value = timeUnit;
-          btnIsActive.value = false;
+          resetTime() 
           emit('addGameRound');
         }
       }, timeCountDownUnit * 1000);
       }
     }
-
+    watch(() => props.gameRound, () => {
+        console.log(props.gameRound);
+        clearTimer()
+        resetTime() 
+        });
+        
     function playMusic(): void {
       audio.play();
     };
@@ -141,7 +151,7 @@ export default defineComponent({
   width: $boom-bot-w;
   height: $boom-bot-h;
   border-radius: 9px;
-  background-color: #3F1212;
+  background-color: $boom-color;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   position: absolute;
   z-index: -1;
@@ -163,7 +173,7 @@ export default defineComponent({
   width: 100%;
   height: 100%;
   border-radius: 100%;
-  border: 9px solid #3F1212;
+  border: 9px solid $boom-color;
   background: #942121;
 }
 

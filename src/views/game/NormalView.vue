@@ -15,7 +15,7 @@ export default defineComponent({
     setup() {
         const store = useStore();
         const router = useRouter();
-        watch(store.state.gameSetting, (newValue) => {
+        watch(store.state.gameSetting, (newValue:object) => {
             if (_.isEmpty(newValue)) {
                 router.push({ name: 'home' });
             }

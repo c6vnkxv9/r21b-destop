@@ -37,11 +37,11 @@
         "label": "愛恨",
         "required": [
             "bluePresident",
-            "redBoomer"
+            "redBoomer",
+            "blueEris",
+            "redCupid"
         ],
         "options": [
-            "blueEris",
-            "redCupid",
             "greyRival",
             "greyIntern",
             "greySurvivor",

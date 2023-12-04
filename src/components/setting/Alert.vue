@@ -44,7 +44,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .icon-color{
-  color:$red-icon-color
+  color:$red-secondary-color
 }
 .close-icon{
   top: 12px;

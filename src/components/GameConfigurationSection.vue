@@ -23,9 +23,9 @@ div
             i.bi.bi-person-walking(v-for="i in quantity")
             i.bi.bi-door-open.door
     .position-absolute.ho-wrap.d-flex
-      .w-50.pr-25(:style="{'background-color':leftColor}")
-        .mx-auto.pic-wrap
-          img.d-block(src='@/assets/pic/logo-red.png')
+      .w-50.pr-25.d-flex.justify-content-center(:style="{'background-color':leftColor}")
+        .mx-auto.pic-wrap.py-8px
+          img.d-block(src='@/assets/pic/logo.svg')
       .w-50.pl-25(:style="{'background-color':rightColor}")
         p.player-style.rb-fz.text-center {{ playerCount }}
           span.ml-2 Players
@@ -69,7 +69,7 @@ export default defineComponent({
       gameRound.value = i - 1
     }
     function addGameRound(i: number) {
-      if(gameRound.value<5){
+      if(gameRound.value<4){
         gameRound.value++
       }
     }
@@ -135,7 +135,9 @@ box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     color: #FFF;
   }
 }
-
+.py-8px{
+  padding: 8px 0;
+}
 .px-6 {
   padding: 0 24px;
 }
@@ -180,9 +182,7 @@ box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   }
 
   .pic-wrap {
-    width: 40%;
     height: $configuration-height;
-
     img {
       max-width: 100%;
       height: 100%;

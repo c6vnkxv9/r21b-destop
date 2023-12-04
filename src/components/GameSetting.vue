@@ -3,7 +3,7 @@
     .banner-wrap
         .mx-1280
             .banner-img-wrap
-                img(src='@/assets/pic/logo-red.png')
+                img(src='@/assets/pic/logo.svg')
     .setting-wrap.mx-1280.flex-grow-1
         h1.title-style.text-start.mb-6 創建遊戲
         .d-flex.justify-content-between.fs-20
@@ -176,22 +176,21 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
-::deep() {
+::v-deep{
     .banner-wrap {
-        background-color: $red-team-color;
+        background-color: $red-primary-color;
         padding: 20px 0;
     }
 }
-
 .fs-red {
-    color: $red-team-color;
+    color: $red-primary-color;
 }
 .mr-12{
     margin-right: 12px;
 }
 .button-style {
     border-radius: 12px;
-    background: $red-team-color;
+    background: $red-primary-color;
     color: #fff;
     padding: 16px 24px;
     margin: 24px auto;

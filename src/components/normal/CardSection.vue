@@ -1,7 +1,8 @@
 <template lang="pug">
 .w-100
   .d-flex.justify-content-center
-      .card-wrap.d-flex.justify-content-center.position-relative(v-for='item in data' :class='item.color' :style="`background-image: url('./${item.src}')`")
+    .card-wrap.position-relative(v-for='item in data' :class='item.color' :style="`background-image: url('./${item.src}')`")
+      .card-panel.d-flex.justify-content-center
           p.ver-text.card-title.m-0 {{ item.label }}
           p.ver-text.card-desc.m-0(:class='item.color') {{ item.desc }}
 </template>
@@ -26,17 +27,16 @@ export default defineComponent({
 </script>
 <style scoped lang="scss">
 // 定义颜色和阴影变量
-$red: $shadow-red;
-$blue: $shadow-blue;
-$grey: $shadow-grey;
+$red: $info-red;
+$blue: $info-blue;
+$grey: $info-grey;
 $shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.25);
 
 .home {
     width: 100vw;
     height: 100vh;
 }
-
-.card-wrap {
+.card-wrap{
     width: 20%;
     height: calc((100vh - (48px * 4) - 100px) / 2);
     background-size: cover;
@@ -48,6 +48,11 @@ $shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.25);
     overflow: hidden;
     border-radius: 8px;
     box-shadow: $shadow;
+    border:1px solid #fff;
+}
+.card-panel {
+    width: 100%;
+    height: 100%;
     border-top-width: 1px;
     border-right-width: 1px;
     border-bottom-width: 1px;
