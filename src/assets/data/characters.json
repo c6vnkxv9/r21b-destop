@@ -15,7 +15,7 @@
         "label": "炸彈客",
         "desc": "最後與總統在同一個房間",
         "pair": 1,
-        "src": "pic/role/red-Boomer.png"
+        "src": "pic/role/red-boomer.png"
     },
     {
         "key": "blueDoctor",
