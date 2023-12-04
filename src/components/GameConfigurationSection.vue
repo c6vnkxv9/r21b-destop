@@ -69,7 +69,9 @@ export default defineComponent({
       gameRound.value = i - 1
     }
     function addGameRound(i: number) {
-      gameRound.value++
+      if(gameRound.value<5){
+        gameRound.value++
+      }
     }
     function returnSetting(){
       router.push({ name: 'home' });

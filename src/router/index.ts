@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import NomalView from '../views/game/NomalView.vue'
+import NormalView from '../views/game/NormalView.vue'
 import LAHView from '../views/game/LAHView.vue'
 const routes = [
   {
@@ -8,9 +8,9 @@ const routes = [
     name: 'home',
     component: HomeView
   }, {
-    path: '/game/nomal',
-    name: 'gameNomal',
-    component: NomalView
+    path: '/game/normal',
+    name: 'gameNormal',
+    component: NormalView
   }, {
     path: '/game/love-and-hate',
     name: 'LoveAndHate',

@@ -176,7 +176,7 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
-::v-deep {
+::deep() {
     .banner-wrap {
         background-color: $red-team-color;
         padding: 20px 0;

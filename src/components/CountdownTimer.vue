@@ -7,17 +7,10 @@
         p.fz-5.mb-12 討論時間
         .timer-banner.mb-12
           p.mb-0.fz-15.clock-fz {{formattedTime}}
-        .play-wrap.cursor(@click='pressCountdownButton')
-          i(class="bi bi-play-circle-fill")
+        .play-wrap.cursor(@click='toggleCountdown')
+          i(class="bi" :class="btnIsActive?'bi-play-circle-fill':'bi-pause-circle-fill'")
 </template>
 <script lang="ts">
-// 暫停倒數計時
-// 修正字體
-// 開始倒數計時，顏色要標亮
-// 版型設計
-// 時間到，畫面會抖一下？
-//一次只能按一次倒數按鈕，不會因為多按要倒數很多次
-//渲染的不是很順
 import { ref, computed, Ref, defineComponent } from 'vue'
 const COUNT_DOWN_TIMER_STATUS = [
   {
@@ -57,34 +50,48 @@ export default defineComponent({
       key: COUNT_DOWN_TIMER_STATUS[1].key
     })
     const btnIsActive: Ref<boolean> = ref(false)
-    function pressCountdownButton(): void {
-      btnIsActive.value = !btnIsActive.value
-      startCountdown()
-      // playMusic()
-      //pause-circle-fill
-    }
-    function playMusic(): void {
-      const audio = new Audio('/bgm.mp3');
-      audio.play();
-    };
+    const audio = new Audio('/bgm.mp3');
     let intervalRef:number| undefined = undefined ;
-    function startCountdown() {
-      if (intervalRef !== undefined ) {
-        // 如果定時器已經存在，則不創建新的定時器
-        return;
+    function toggleCountdown(): void {
+      btnIsActive.value = !btnIsActive.value
+      if (btnIsActive.value) {
+        startCountdown();
+        playMusic();
+      } else {
+        stopCountdown();
+        pauseMusic();
       }
+    }
+    function clearTimer(){
+      clearInterval(intervalRef);
+        intervalRef = undefined;
+    }
+    function stopCountdown() { 
+      if (intervalRef !== undefined) {
+        clearTimer()
+      }
+    }
+    function startCountdown() {
+      if (intervalRef == undefined ) {
       intervalRef = setInterval(() => {
         if (timeDuration.value > 0) {
           timeDuration.value--;
         } else {
-          clearInterval(intervalRef);
-          intervalRef = undefined ; // 清除定時器引用
+          clearTimer()
           timeDuration.value = timeUnit;
           btnIsActive.value = false;
           emit('addGameRound');
         }
       }, timeCountDownUnit * 1000);
+      }
     }
+
+    function playMusic(): void {
+      audio.play();
+    };
+    function pauseMusic(): void {
+      audio.pause();
+    };
     const formattedTime = computed(() => {
       const minutes = Math.floor((timeDuration.value * timeCountDownUnit) / 60)
         .toString()
@@ -98,13 +105,16 @@ export default defineComponent({
     return {
       timeDuration,
       formattedTime,
-      pressCountdownButton,
+      toggleCountdown,
       timeStatus,
       btnIsActive
     }
   }
 })
 </script>
+這是我目前的方法，我希望可以按一下的時候開始計時，再按一下時，暫停計時
+請問這樣寫的話，有甚麼需要調整的地方
+以及//TODO:如何停止計時該怎麼寫?
 <style scoped lang="scss">
 .fz-6 {
   font-size: 24px;

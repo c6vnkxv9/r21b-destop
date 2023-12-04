@@ -1,11 +1,8 @@
 <template lang="pug">
-.wrap
-    GameConfigurationSection
-    NormalPanel
+NormalPanel
 </template>
 <script lang="ts">
-import GameConfigurationSection from '@/components/GameConfigurationSection.vue'
-import NormalPanel from '@/components/normal/NormalPannel.vue'
+import NormalPanel from '@/components/normal/NormalPanel.vue'
 import { ref, watch, defineComponent } from 'vue'
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
@@ -13,8 +10,7 @@ import _ from 'lodash';
 export default defineComponent({
     name: 'GameDashboard',
     components: {
-        NormalPanel,
-        GameConfigurationSection
+        NormalPanel
     },
     setup() {
         const store = useStore();
@@ -24,15 +20,11 @@ export default defineComponent({
                 router.push({ name: 'home' });
             }
         },{immediate:true});
+
         return {
         }
     }
 })
 </script>
 <style lang="scss" scoped>
-.wrap {
-    width: 100vw;
-    height: 100vh;
-    background-color: #666;
-}
 </style>

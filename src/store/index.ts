@@ -3,7 +3,7 @@ export default createStore({
   state: {
     gameSetting:{
       // gameMode: {
-      //   "text": "nomal",
+      //   "text": "normal",
       //   "label": "一般",
       // },
       // count: 20,

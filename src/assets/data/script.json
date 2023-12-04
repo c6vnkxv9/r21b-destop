@@ -1,12 +1,12 @@
 [
     {
         "key": 0,
-        "name": "nomal",
+        "name": "normal",
         "label": "一般",
-        "route":"nomal",
+        "route":"normal",
         "required": [
             "bluePresident",
-            "redBomer",
+            "redBoomer",
             "blueDoctor",
             "redEngineer"
         ],
@@ -37,7 +37,7 @@
         "label": "愛恨",
         "required": [
             "bluePresident",
-            "redBomer"
+            "redBoomer"
         ],
         "options": [
             "blueEris",

@@ -9,13 +9,13 @@
         "src": "pic/role/blue-president.png"
     },
     {
-        "key": "redBomer",
-        "role": "Bomer",
+        "key": "redBoomer",
+        "role": "Boomer",
         "color": "red",
         "label": "炸彈客",
         "desc": "最後與總統在同一個房間",
         "pair": 1,
-        "src": "pic/role/red-bomer.png"
+        "src": "pic/role/red-Boomer.png"
     },
     {
         "key": "blueDoctor",
