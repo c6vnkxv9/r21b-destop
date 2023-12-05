@@ -1,6 +1,6 @@
 <template lang='pug'>
-.char-panel(:style="{ backgroundColor: color}")
-    CardSection.card-section-wrap(v-for='(item,i) in groupedChar' :data='item')
+.char-panel
+    CardSection.card-section-wrap(v-for='(item,i) in data' :data='item' :cardWidth='cardWidth')
 </template>
 <script lang="ts">
 import { ref, Ref, computed, defineComponent, PropType } from 'vue'
@@ -12,17 +12,16 @@ export default defineComponent({
         CardSection
     },
     props: {
-        data: {
-            type: Array as PropType<Role[]>,
-            required: true
-        },
-        color: {
-            type: String,
-            required: true
-        },
+    data: {
+        type: Array as PropType<Role[]>,
+        required: true
     },
+    cardWidth: {
+        type: Number,
+        default: 100 // 或者您想要的任何預設值
+    },
+},
     setup({ data }) {
-        //return {groupedChar}
     }
 })
 </script>
@@ -32,11 +31,7 @@ export default defineComponent({
     .card-section-wrap {
         height: calc(50% - ($configuration-height/2));
         width: 100%;
-        padding: $lg-length;
-
-        @media screen and (max-width: 1280px) {
-            padding: $sm-length;
-        }
+        
     }
 
     .card-section-wrap+.card-section-wrap {

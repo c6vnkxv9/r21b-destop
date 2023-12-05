@@ -1,4 +1,5 @@
 export default interface GroupedRoles {
-    bgc:string[],
-    configBgc:string[]
+    space:number,
+    configBgc:string[],
+    maxCardCount:number
 }
