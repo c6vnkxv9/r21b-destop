@@ -23,10 +23,10 @@ div
             i.bi.bi-person-walking(v-for="i in quantity")
             i.bi.bi-door-open.door
     .position-absolute.ho-wrap.d-flex
-      .w-50.pr-25.d-flex.justify-content-center(:style="{'background-color':leftColor}")
+      .w-50.pr-25.d-flex.justify-content-center(:style="{'background-color':configColor[0]}")
         .mx-auto.pic-wrap.py-8px
           img.d-block(src='@/assets/pic/logo.svg')
-      .w-50.pl-25(:style="{'background-color':rightColor}")
+      .w-50.pl-25(:style="{'background-color':configColor[1]}")
         p.player-style.rb-fz.text-center {{ playerCount }}
           span.ml-2 Players
 </template>
@@ -40,13 +40,11 @@ import script from '@/assets/data/script.json'
 export default defineComponent({
   name: 'GameConfigurationSection',
   props: {
-    leftColor: {
-      type: String,
-      default: '#942121'
-    },
-    rightColor: {
-      type: String,
-      default: '#3C55A5'
+    configColor: {
+      type: Array,
+      default: function () {
+        return ['#942121', '#3C55A5'];//使用一個函數來返回預設值
+      }
     }
   },
   components: {
@@ -61,46 +59,49 @@ export default defineComponent({
     })
     const playerCount = store.state.gameSetting.count
     const gameMode = computed(() => {
-      const modeId=store.state.gameSetting?.mode || 0
-      const {name,label} = script[modeId]
-      return  {name,label}
+      const modeId = store.state.gameSetting?.mode || 0
+      const { name, label } = script[modeId]
+      return { name, label }
     });
     function changeGameRound(i: number) {
       gameRound.value = i - 1
     }
     function addGameRound(i: number) {
-      if(gameRound.value<4){
+      if (gameRound.value < 4) {
         gameRound.value++
       }
     }
-    function returnSetting(){
+    function returnSetting() {
       router.push({ name: 'home' });
     }
     return {
-      playerCount, gameMode, quantity, gameRound, returnSetting,changeGameRound,addGameRound
+      playerCount, gameMode, quantity, gameRound, returnSetting, changeGameRound, addGameRound
     }
   }
 })
 </script>
 
 <style lang='scss' scoped>
-.pencil-icon{
- color:#6866DE;
- font-size: 20px;
- line-height: 40px;
- margin-left: 8px;
+.pencil-icon {
+  color: #6866DE;
+  font-size: 20px;
+  line-height: 40px;
+  margin-left: 8px;
 }
+
 .configuration-wrap {
   width: 100vw;
   height: 100vh;
 }
-.timer-wrap{
+
+.timer-wrap {
   width: $clock-rect;
   height: $clock-rect;
   left: calc(50% - $clock-rect/2);
   top: calc(50% - $clock-rect/2);
   z-index: 3;
 }
+
 .ver-wrap {
   width: $configuration-width;
   height: 100vh;
@@ -108,7 +109,8 @@ export default defineComponent({
   z-index: 1;
   top: 0;
   left: calc(50% - ($configuration-width/2));
-box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
   .title-style {
     color: #FFF;
     font-size: 40px;
@@ -125,7 +127,8 @@ box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     color: #FFF;
     font-size: 20px;
     font-weight: 400;
-    i+i{
+
+    i+i {
       margin-left: 4px;
     }
   }
@@ -135,9 +138,11 @@ box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     color: #FFF;
   }
 }
-.py-8px{
+
+.py-8px {
   padding: 8px 0;
 }
+
 .px-6 {
   padding: 0 24px;
 }
@@ -183,6 +188,7 @@ box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
   .pic-wrap {
     height: $configuration-height;
+
     img {
       max-width: 100%;
       height: 100%;
