@@ -1,54 +1,38 @@
 <template lang="pug">
 .wrap.position-relative
     .d-flex.h-100
-        GroupedCharPannel.pannel-wrap( v-for='(item,i) in groupedChar'  :data='item.value' :color='COLOR_LIST[i]')
-    GameConfigurationSection.position-absolute.config-wrap
+        GroupedCharPanel.pannel-wrap( v-for='(item,i) in data'  :data='item.value' :color='config.bgc[i]')
+    GameConfigurationSection(:configBgc='config.configBgc').position-absolute.config-wrap
 </template>
 <script lang="ts">
 import _ from 'lodash';
-import GroupedCharPannel from '@/components/normal/GroupedCharPannel.vue'
+import GroupedCharPanel from '@/components/normal/GroupedCharPanel.vue'
 import GameConfigurationSection from '@/components/GameConfigurationSection.vue'
-import { ref, Ref, computed, defineComponent, onMounted, onBeforeUnmount } from 'vue'
-import { useStore } from 'vuex';
 import Role from '@/interfaces/RoleInterface';
-import GroupedRoles from '@/interfaces/GroupedRolesInterface';
+import Config from '@/interfaces/ConfigInterface';
+import {  ref,computed,defineComponent,onMounted,onBeforeUnmount,PropType } from 'vue'
 export default defineComponent({
     name: 'NormalPanel',
     components: {
         GameConfigurationSection,
-        GroupedCharPannel
+        GroupedCharPanel
     },
-    setup() {
-        const store = useStore();
-        const leftRound = ref<Role[]>([])
-        const rightRound = ref<Role[]>([])
-        const COLOR_LIST = ['#CC333C', '#5595D5']
-        const groupedChar = computed(() => {
-            let roles: GroupedRoles[] = store.state.gameSetting?.roles
-            if (roles) {
-                return groupedRoles(roles)
-            }
-            return [[], []]
-        });
-        function groupedRoles(roles: GroupedRoles[]) {
-            const blueRoles = _.flatMap(roles, item => _.filter(item.roles, { color: 'blue' }));
-            const redRoles = _.flatMap(roles, item => _.filter(item.roles, { color: 'red' }));
-            const greyRoles = _.flatMap(roles, item => _.filter(item.roles, { color: 'grey' }));
-            const more = blueRoles?.length + greyRoles?.length - 10
-            if (more > 0) {
-                const _rest = 10 - blueRoles.length || 0
-                leftRound.value = [...redRoles, ...greyRoles.slice(0).slice(_rest, 100)]
-                rightRound.value = [...blueRoles, ...greyRoles.slice(0).slice(0, _rest)]
-            } else {
-                leftRound.value = [...redRoles]
-                rightRound.value = [...blueRoles, ...greyRoles]
-            }
-            return [leftRound, rightRound]
-        }
-
+    props: {
+        data: {
+            type: Array as PropType<Role[][]>,
+            required: true
+        },
+        config: {
+            type: Object as PropType<Config>,
+            required: true
+        },
+    },
+    //:data='groupedChar' :config='config'
+    setup({data,config}) {
         const screenWidth = ref(window.innerWidth);
         const cardGroupCount =  computed(() => {
-            const uniqueColors = _.uniqBy(store.state.gameSetting?.roles, 'color');
+            const _flattenArray=_.flatten(data)
+            const uniqueColors = _.uniqBy(_flattenArray, 'color');
             return uniqueColors.length;
         });
         const cardWidth =  computed(() => {
@@ -67,8 +51,9 @@ export default defineComponent({
         onBeforeUnmount(() => {
             window.removeEventListener('resize', updateScreenWidth);
         });
+        //config.cardWidth
         return {
-            groupedChar, COLOR_LIST
+            
         }
 
 
