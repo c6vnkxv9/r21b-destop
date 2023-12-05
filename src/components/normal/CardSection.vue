@@ -1,10 +1,9 @@
 <template lang="pug">
 .w-100.d-flex.justify-content-center
     .d-flex.justify-content-center.flex-grow-1.team-wrap(v-for='team in RoleArray' :style="[{'background-color': team.color}]")
-        .card-wrap.position-relative(v-for='item in team.roles' :class='item.color' :style="[{'background-image': `url(./${item.src})`},{'width': Math.round(cardWidth)+'px'}]")
-            .card-panel.d-flex.justify-content-center
-                p.ver-text.card-title.m-0 {{ item.label }}
-                p.ver-text.card-desc.m-0(:class='item.color') {{ item.desc }}
+        .card-wrap.position-relative.d-flex.justify-content-center(v-for='item in team.roles' :class='item.color' :style="[{'background-image': `url(./${item.src})`},{'width': Math.round(cardWidth)+'px'}]")
+            p.ver-text.card-title.m-0 {{ item.label }}
+            p.ver-text.card-desc.m-0(:class='item.color') {{ item.desc }}
 </template>
 <script lang="ts">
 import colorList from '@/assets/data/colorList.json'
@@ -66,7 +65,6 @@ $shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.25);
     width: 100vw;
     height: 100vh;
 }
-
 .card-wrap {
     height: calc((100vh - (48px * 4) - 100px) / 2);
     background-size: cover;
@@ -78,17 +76,12 @@ $shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.25);
     overflow: hidden;
     border-radius: 8px;
     box-shadow: $shadow;
-    border: 1px solid #fff;
-}
-
-.card-panel {
-    width: 100%;
-    height: 100%;
+    border-style:solid ;
+    border-left-width:0px ;
     border-top-width: 1px;
     border-right-width: 1px;
     border-bottom-width: 1px;
     padding: 24px 16px 0px 16px;
-
     &.red {
         border-color: $red;
     }
@@ -105,6 +98,9 @@ $shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.25);
         height: calc((100vh - (12px * 4) - 100px) / 2);
         padding: 32px 16px 0px 16px;
     }
+}
+.team-wrap>.card-wrap:first-child{
+    border-left-width:1px ;
 }
 .team-wrap{
     padding: $lg-length;
