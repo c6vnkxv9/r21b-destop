@@ -6,7 +6,7 @@
 </template>
 <script lang="ts">
 import _ from 'lodash';
-import NavigationSidebar from '@/components/common/GroupedCharPannel.vue'
+import NavigationSidebar from '@/components/common/NavigationSidebar.vue'
 import GameConfigurationSection from '@/components/GameConfigurationSection.vue'
 import Role from '@/interfaces/RoleInterface';
 import Config from '@/interfaces/ConfigInterface';

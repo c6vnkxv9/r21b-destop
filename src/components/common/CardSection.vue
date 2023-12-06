@@ -1,20 +1,18 @@
 <template lang="pug">
 .w-100.d-flex.justify-content-center
     .d-flex.justify-content-center.flex-grow-1.team-wrap(v-for='team in RoleArray' :style="[{'background-color': team.color}]")
-        .card-wrap.card-background.card-padding.card-full-height.d-flex.justify-content-center(v-for='item in team.singleRoles' :class='item.color' :style="generateStyle(item)")
+        .card-wrap.card-background.card-padding.card-full-height.d-flex.justify-content-center(v-if='team.groupedRoles.single' v-for='item in team.groupedRoles.single' :class='item.color' :style="generateStyle(item)")
             p.ver-text.card-title.m-0 {{ item.label }}
             p.ver-text.card-desc.m-0(:class='item.color') {{ item.desc }}
-        div(v-for='pair in team.pairRoles')
-            i.bi(:class='[item.color,findIcon(item.pair)]')
-            .d-flex.justify-content-center
-                .card-wrap.card-background.card-padding.card-md-height.d-flex.justify-content-center(v-for='item in pair' :class='item.color' :style="generateStyle(item)")
-                    p.ver-text.card-title.m-0 {{ item.label }}
-                    p.ver-text.card-desc.m-0(:class='item.color') {{ item.desc }}
+        .d-flex(v-if='team.groupedRoles.pair' v-for='pair in team.groupedRoles.pair')
+            .card-wrap.card-background.card-padding.card-md-height.d-flex.justify-content-center(v-for='item in pair' :class='item.color' :style="generateStyle(item)")
+                p.ver-text.card-title.m-0 {{ item.label }}
+                p.ver-text.card-desc.m-0(:class='item.color') {{ item.desc }}
 </template>
 <script lang="ts">
 import colorList from '@/assets/data/colorList.json'
 import pairIconList from '@/assets/data/pairIconList.json'
-import _ from 'lodash';
+import _, { map } from 'lodash';
 import { computed, defineComponent, PropType } from 'vue'
 import Role from '@/interfaces/RoleInterface';
 
@@ -26,7 +24,7 @@ interface CardSection {
 }
 interface GroupedRoles {
     single: Role[];
-    pair: Role[]
+    pair: Role[][]
 }
 export default defineComponent({
     name: 'CardSection',
@@ -42,13 +40,7 @@ export default defineComponent({
     },
     setup(props) {
         const RoleArray = computed(() => processRoles(props.data));
-        const singleRoles = computed(() => {
-            return RoleArray.value.flatMap((group:CardSection)=> group.groupedRoles.single);
-        });
 
-        const pairRoles = computed(() => {
-            return RoleArray.value.flatMap((group:CardSection) => group.groupedRoles.pair);
-        });
         function processRoles(data: Role[]): CardSection[] {
             let groupedData = groupByTeam(data);
             return groupedData.map(group => categorizeRoles(group));
@@ -69,6 +61,7 @@ export default defineComponent({
                 team.roles.push(role);
                 return acc;
             }, [] as CardSection[]);
+            
         }
 
         function categorizeRoles(group: CardSection): CardSection {
@@ -77,7 +70,12 @@ export default defineComponent({
                 if (count === 1) {
                     group.groupedRoles.single.push(...group.roles.filter(role => role.pair === +key));
                 } else if (count > 1) {
-                    group.groupedRoles.pair.push(...group.roles.filter(role => role.pair === +key));
+                    let pair={
+                        color:
+                        icon:
+                        card:group.roles.filter(role => role.pair === +key)
+                    }
+                    group.groupedRoles.pair.push(pair);
                 }
             });
             return group;
@@ -95,7 +93,7 @@ export default defineComponent({
                 'width': `${Math.round(props.cardWidth)}px`
             };
         };
-        return { RoleArray, findIcon, generateStyle, pairRoles, singleRoles };
+        return { RoleArray, findIcon, generateStyle };
     }
 })
 </script>

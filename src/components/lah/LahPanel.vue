@@ -1,12 +1,12 @@
 <template lang="pug">
 .wrap.position-relative
     .d-flex.h-100
-        GroupedCharPannel.pannel-wrap( v-for='(item,i) in groupedChar'  :data='item.value' :color='BACKGROUND_COLOR')
+        NavigationSidebar.pannel-wrap( v-for='(item,i) in groupedChar'  :data='item.value' :color='BACKGROUND_COLOR')
     GameConfigurationSection.position-absolute.config-wrap(:leftColor='CONFIGURATION_COLOR',:rightColor='CONFIGURATION_COLOR')
 </template>
 <script lang="ts">
 import _ from 'lodash';
-import GroupedCharPannel from '@/components/common/GroupedCharPannel.vue'
+import NavigationSidebar from '@/components/common/NavigationSidebar.vue'
 import GameConfigurationSection from '@/components/GameConfigurationSection.vue'
 import { ref, Ref, computed, defineComponent, onMounted, onBeforeUnmount } from 'vue'
 import { useStore } from 'vuex';
@@ -16,7 +16,7 @@ export default defineComponent({
     name: 'LahPanel',
     components: {
         GameConfigurationSection,
-        GroupedCharPannel
+        NavigationSidebar
     },
     setup() {
         const store = useStore();

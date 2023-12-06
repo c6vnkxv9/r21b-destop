@@ -33,7 +33,7 @@ export default defineComponent({
             }
             return [[], []]
         });
-        const count = computed(() => store.state.gameSetting?.roles?.some(role => role.color === 'grey') ? 2 : 1);
+        const count = computed(() => store.state.gameSetting?.roles?.some((role:Role) => role.color === 'grey') ? 2 : 1);
 
         function filterRolesByColor(roles: GroupedRoles[], color: string) {
             return _.flatMap(roles, item => _.filter(item.roles, { color }));
