@@ -1,21 +1,21 @@
 <template lang="pug">
 .wrap.position-relative
     .d-flex.h-100
-        GroupedCharPanel.pannel-wrap( v-for='(item,i) in data'  :data='item.value' :cardWidth='cardWidth')
+        NavigationSidebar.pannel-wrap( v-for='(item,i) in data'  :data='item.value' :cardWidth='cardWidth')
     GameConfigurationSection(:configBgc='config.configBgc').position-absolute.config-wrap
 </template>
 <script lang="ts">
 import _ from 'lodash';
-import GroupedCharPanel from '@/components/normal/GroupedCharPannel.vue'
+import NavigationSidebar from '@/components/common/GroupedCharPannel.vue'
 import GameConfigurationSection from '@/components/GameConfigurationSection.vue'
 import Role from '@/interfaces/RoleInterface';
 import Config from '@/interfaces/ConfigInterface';
 import {  ref,computed,defineComponent,onMounted,onBeforeUnmount,PropType } from 'vue'
 export default defineComponent({
-    name: 'NormalPanel',
+    name: 'LayoutContainer',
     components: {
         GameConfigurationSection,
-        GroupedCharPanel
+        NavigationSidebar
     },
     props: {
         data: {

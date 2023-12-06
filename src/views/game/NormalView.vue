@@ -1,8 +1,8 @@
 <template lang="pug">
-NormalPanel(:data='groupedChar' :config='config')
+LayoutContainer(:data='groupedChar' :config='config')
 </template>
 <script lang="ts">
-import NormalPanel from '@/components/normal/NormalPanel.vue'
+import LayoutContainer from '@/components/common/LayoutContainer.vue'
 import Role from '@/interfaces/RoleInterface';
 import GroupedRoles from '@/interfaces/GroupedRolesInterface';
 import { ref, watch, defineComponent, Ref, computed, onMounted, onBeforeUnmount } from 'vue'
@@ -12,7 +12,7 @@ import _ from 'lodash';
 export default defineComponent({
     name: 'GameDashboard',
     components: {
-        NormalPanel
+        LayoutContainer
     },
     setup() {
         const store = useStore();

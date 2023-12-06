@@ -6,7 +6,7 @@
 </template>
 <script lang="ts">
 import _ from 'lodash';
-import GroupedCharPannel from '@/components/normal/GroupedCharPannel.vue'
+import GroupedCharPannel from '@/components/common/GroupedCharPannel.vue'
 import GameConfigurationSection from '@/components/GameConfigurationSection.vue'
 import { ref, Ref, computed, defineComponent, onMounted, onBeforeUnmount } from 'vue'
 import { useStore } from 'vuex';
