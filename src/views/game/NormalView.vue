@@ -17,16 +17,15 @@ export default defineComponent({
     setup() {
         const store = useStore();
         const router = useRouter();
-        let LENGTH=5
-        watch(store.state.gameSetting, (newValue:object) => {
+        let MAX_CARDS_PER_SECTION = 5
+        watch(store.state.gameSetting, (newValue: object) => {
             if (_.isEmpty(newValue)) {
                 router.push({ name: 'home' });
             }
-        },{immediate:true});
+        }, { immediate: true });
 
         const leftRound = ref<Role[][]>([])
         const rightRound = ref<Role[][]>([])
-        const BACKGROUND_COLOR = ['#CC333C', '#5595D5']
         const groupedChar = computed(() => {
             let roles: GroupedRoles[] = store.state.gameSetting?.roles
             if (roles) {
@@ -34,14 +33,15 @@ export default defineComponent({
             }
             return [[], []]
         });
-        const count = computed(() => {
-            const flag=store.state.gameSetting?.roles?.some((x: { color: string; })=>x.color=='grey')
-            return flag?2:1
-        });
+        const count = computed(() => store.state.gameSetting?.roles?.some(role => role.color === 'grey') ? 2 : 1);
+
+        function filterRolesByColor(roles: GroupedRoles[], color: string) {
+            return _.flatMap(roles, item => _.filter(item.roles, { color }));
+        }
         function groupedRoles(roles: GroupedRoles[]) {
-            const blueRoles = _.flatMap(roles, item => _.filter(item.roles, { color: 'blue' }));
-            const redRoles = _.flatMap(roles, item => _.filter(item.roles, { color: 'red' }));
-            const greyRoles = _.flatMap(roles, item => _.filter(item.roles, { color: 'grey' }));
+            const blueRoles = filterRolesByColor(roles, 'blue');
+            const redRoles = filterRolesByColor(roles, 'red');
+            const greyRoles = filterRolesByColor(roles, 'grey');
             const more = blueRoles?.length + greyRoles?.length - 10
             if (more > 0) {
                 const _rest = 10 - blueRoles.length || 0
@@ -53,20 +53,20 @@ export default defineComponent({
             }
             return [leftRound, rightRound]
         }
-        function setCardSection(data:Role[]){
-        if(data){
-            return[data.slice(0).slice(0,LENGTH),data.slice(0).slice(LENGTH,1000)]
+        function setCardSection(data: Role[]) {
+            if (data) {
+                return [data.slice(0, MAX_CARDS_PER_SECTION), data.slice(MAX_CARDS_PER_SECTION, 1000)];
+            }
+            return [[], []];
         }
-        return [[],[]]
-    };
-        const config:object={
-            space:count.value,
-            maxCardCount:LENGTH
+        const config: object = {
+            space: count.value,
+            maxCardCount: MAX_CARDS_PER_SECTION
         }
-        return {config,groupedChar
+        return {
+            config, groupedChar
         }
     }
 })
 </script>
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
