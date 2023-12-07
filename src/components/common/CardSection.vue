@@ -7,8 +7,8 @@
         .h-100.d-flex.flex-column(v-if='team.groupedRoles.pair' v-for='pair in team.groupedRoles.pair')
             .text-center(v-if='pair.icon')
                 i(class='bi ' :class='[pair.color,`bi-${pair.icon}`]')
-            .d-flex.flex-grow-1
-                .card-wrap.card-background.card-padding.d-flex.justify-content-center(v-for='item in pair.card' :class='[item.color,pair.icon?"":""]' :style="generateStyle(item)")
+            .d-flex(:class='[pair.icon?"h--30":"h-100"]')
+                .card-wrap.card-background.card-padding.d-flex.justify-content-center(v-for='item in pair.card'  :style="generateStyle(item)")
                     p.ver-text.card-title.m-0 {{ item.label }}
                     p.ver-text.card-desc.m-0(:class='item.color') {{ item.desc }}
 </template>
@@ -116,7 +116,9 @@ $grey: $info-grey;
 $shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.25);
 $lg-full-height: calc((100vh - (48px * 4) - 100px) / 2);
 $md-full-height: calc((100vh - (12px * 4) - 100px) / 2);
-
+.h--30{
+    height: calc(100% - 30px);
+}
 .bi {
     font-size: 20px;
     &.red {
