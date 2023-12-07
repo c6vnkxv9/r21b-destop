@@ -184,7 +184,7 @@
         "role": "Eris",
         "color": "blue",
         "label": "紛爭女神厄里斯",
-        "desc": "你展示卡片的兩人，勝利條件變為終局處於不同房間",
+        "desc": "你可以使任兩名玩家進入相愛狀態",
         "pair": 11,
         "src": "pic/role/blue-eris.png"
     },
@@ -193,7 +193,7 @@
         "role": "Cupid",
         "color": "red",
         "label": "愛神丘比特",
-        "desc": "你展示卡片的兩人，勝利條件變為終局處於同個房間",
+        "desc": "你可以使任兩名玩家進入相恨狀態",
         "pair": 11,
         "src": "pic/role/red-cupid.png"
     },
