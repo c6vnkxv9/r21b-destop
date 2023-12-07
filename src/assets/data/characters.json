@@ -216,48 +216,12 @@
         "src": "pic/role/grey-intern.png"
     },
     {
-        "key": "greySurvivor",
-        "role": "Survivor",
-        "color": "grey",
-        "label": "倖存者",
-        "desc": "最後與炸彈客在不同房間",
-        "pair": 13,
-        "src": "pic/role/grey-survivor.png"
-    },
-    {
-        "key": "greyVictim",
-        "role": "Victim",
-        "color": "grey",
-        "label": "受害者",
-        "desc": "最後與炸彈客在同個房間",
-        "pair": 13,
-        "src": "pic/role/grey-victim.png"
-    },
-    {
-        "key": "greyRomeo",
-        "role": "Romeo",
-        "color": "grey",
-        "label": "羅密歐",
-        "desc": "最後與茱麗葉和炸彈客在同一個房間",
-        "pair": 14,
-        "src": "pic/role/grey-romeo.png"
-    },
-    {
-        "key": "greyJuliet",
-        "role": "Juliet",
-        "color": "grey",
-        "label": "茱麗葉",
-        "desc": "最後與羅密歐和炸彈客在同一個房間",
-        "pair": 14,
-        "src": "pic/role/grey-juliet.png"
-    },
-    {
         "key": "greyButler",
         "role": "Butler",
         "color": "grey",
         "label": "管家",
         "desc": "最後與女僕和總統在同一個房間",
-        "pair": 15,
+        "pair": 13,
         "src": "pic/role/grey-butler.png"
     },
     {
@@ -266,26 +230,8 @@
         "color": "grey",
         "label": "女僕",
         "desc": "最後與管家和總統在同一個房間",
-        "pair": 15,
+        "pair": 13,
         "src": "pic/role/grey-maid.png"
-    },
-    {
-        "key": "greyAhab",
-        "role": "Ahab",
-        "color": "grey",
-        "label": "亞哈",
-        "desc": "最後同時避開莫比與炸彈客",
-        "pair": 16,
-        "src": "pic/role/grey-ahab.png"
-    },
-    {
-        "key": "greyMoby",
-        "role": "Moby",
-        "color": "grey",
-        "label": "莫比",
-        "desc": "最後同時避開亞哈與炸彈客",
-        "pair": 16,
-        "src": "pic/role/grey-moby.png"
     },
     {
         "key": "greyWife",
@@ -293,7 +239,7 @@
         "color": "grey",
         "label": "妻子",
         "desc": "最後和總統待在一起，避開情婦",
-        "pair": 17,
+        "pair": 14,
         "src": "pic/role/grey-wife.png"
     },
     {
@@ -302,9 +248,64 @@
         "color": "grey",
         "label": "情婦",
         "desc": "最後和總統待在一起，避開妻子",
-        "pair": 17,
+        "pair": 14,
         "src": "pic/role/grey-mistress.png"
     },
+    {
+        "key": "greySurvivor",
+        "role": "Survivor",
+        "color": "grey",
+        "label": "倖存者",
+        "desc": "最後與炸彈客在不同房間",
+        "pair": 15,
+        "src": "pic/role/grey-survivor.png"
+    },
+    {
+        "key": "greyVictim",
+        "role": "Victim",
+        "color": "grey",
+        "label": "受害者",
+        "desc": "最後與炸彈客在同個房間",
+        "pair": 15,
+        "src": "pic/role/grey-victim.png"
+    },
+    {
+        "key": "greyRomeo",
+        "role": "Romeo",
+        "color": "grey",
+        "label": "羅密歐",
+        "desc": "最後與茱麗葉和炸彈客在同一個房間",
+        "pair": 16,
+        "src": "pic/role/grey-romeo.png"
+    },
+    {
+        "key": "greyJuliet",
+        "role": "Juliet",
+        "color": "grey",
+        "label": "茱麗葉",
+        "desc": "最後與羅密歐和炸彈客在同一個房間",
+        "pair": 16,
+        "src": "pic/role/grey-juliet.png"
+    },  
+    {
+        "key": "greyAhab",
+        "role": "Ahab",
+        "color": "grey",
+        "label": "亞哈",
+        "desc": "最後同時避開莫比與炸彈客",
+        "pair": 17,
+        "src": "pic/role/grey-ahab.png"
+    },
+    {
+        "key": "greyMoby",
+        "role": "Moby",
+        "color": "grey",
+        "label": "莫比",
+        "desc": "最後同時避開亞哈與炸彈客",
+        "pair": 17,
+        "src": "pic/role/grey-moby.png"
+    },
+    
     {
         "key": "greyBomb-Bot",
         "role": "Bomb-Bot",

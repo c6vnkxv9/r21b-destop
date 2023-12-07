@@ -4,10 +4,13 @@
         .card-wrap.card-background.card-padding.card-full-height.d-flex.justify-content-center(v-if='team.groupedRoles.single' v-for='item in team.groupedRoles.single' :class='item.color' :style="generateStyle(item)")
             p.ver-text.card-title.m-0 {{ item.label }}
             p.ver-text.card-desc.m-0(:class='item.color') {{ item.desc }}
-        .d-flex(v-if='team.groupedRoles.pair' v-for='pair in team.groupedRoles.pair')
-            .card-wrap.card-background.card-padding.card-md-height.d-flex.justify-content-center(v-for='item in pair' :class='item.color' :style="generateStyle(item)")
-                p.ver-text.card-title.m-0 {{ item.label }}
-                p.ver-text.card-desc.m-0(:class='item.color') {{ item.desc }}
+        .h-100.d-flex.flex-column(v-if='team.groupedRoles.pair' v-for='pair in team.groupedRoles.pair')
+            .text-center(v-if='pair.icon')
+                i(class='bi ' :class='[pair.color,`bi-${pair.icon}`]')
+            .d-flex.flex-grow-1
+                .card-wrap.card-background.card-padding.d-flex.justify-content-center(v-for='item in pair.card' :class='[item.color,pair.icon?"":""]' :style="generateStyle(item)")
+                    p.ver-text.card-title.m-0 {{ item.label }}
+                    p.ver-text.card-desc.m-0(:class='item.color') {{ item.desc }}
 </template>
 <script lang="ts">
 import colorList from '@/assets/data/colorList.json'
@@ -15,7 +18,11 @@ import pairIconList from '@/assets/data/pairIconList.json'
 import _, { map } from 'lodash';
 import { computed, defineComponent, PropType } from 'vue'
 import Role from '@/interfaces/RoleInterface';
-
+interface PairAttribute {
+    color?: string;
+    icon?: string;
+    card: Role[];
+}
 interface CardSection {
     team: string;
     color: string;
@@ -24,7 +31,7 @@ interface CardSection {
 }
 interface GroupedRoles {
     single: Role[];
-    pair: Role[][]
+    pair: PairAttribute[]
 }
 export default defineComponent({
     name: 'CardSection',
@@ -70,12 +77,13 @@ export default defineComponent({
                 if (count === 1) {
                     group.groupedRoles.single.push(...group.roles.filter(role => role.pair === +key));
                 } else if (count > 1) {
-                    let pair={
-                        color:
-                        icon:
+                    let icon=pairIconList.find(x=>x.pair.toString()==key)
+                    let pairAttr={
+                        color:icon?.color,
+                        icon:icon?.icon,
                         card:group.roles.filter(role => role.pair === +key)
                     }
-                    group.groupedRoles.pair.push(pair);
+                    group.groupedRoles.pair.push(pairAttr);
                 }
             });
             return group;
@@ -101,22 +109,26 @@ export default defineComponent({
 <style scoped lang="scss">
 $red: $info-red;
 $blue: $info-blue;
+$grey-icon: $grey-primary-color;
+$red-icon: $red-primary-color;
+$blue-icon: $blue-primary-color;
 $grey: $info-grey;
 $shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.25);
 $lg-full-height: calc((100vh - (48px * 4) - 100px) / 2);
 $md-full-height: calc((100vh - (12px * 4) - 100px) / 2);
 
 .bi {
+    font-size: 20px;
     &.red {
-        color: $red;
+        color: $red-icon;
     }
 
     &.blue {
-        color: $blue;
+        color: $blue-icon;
     }
 
     &.grey {
-        color: $grey;
+        color: $grey-icon;
     }
 }
 

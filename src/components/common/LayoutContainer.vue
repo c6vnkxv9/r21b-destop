@@ -30,10 +30,10 @@ export default defineComponent({
     //:data='groupedChar' :config='config'
     setup({data,config}) {
         const screenWidth = ref(window.innerWidth);
+        console.log(config.configBgc);
         const cardWidth =  computed(() => {
             let _unit=screenWidth.value>1280?48:12
             let _count=config.space*2
-            console.log(_unit, _count);
             return (((screenWidth.value-200)/2)-(_unit*_count*2))/(config.maxCardCount);
         })
         const updateScreenWidth = () => {
