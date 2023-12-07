@@ -1,17 +1,17 @@
 <template lang="pug">
 .wrap
   GameConfigurationSection
-  NormalPanel
+  LayoutContainer
 </template>
 <script lang="ts">
 import GameConfigurationSection from '@/components/GameConfigurationSection.vue'
-import NormalPanel from '@/components/normal/NormalPanel.vue'
+import LayoutContainer from '@/components/common/LayoutContainer.vue'
 import { ref,Ref, defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'GameDashboard',
   components: {
-    NormalPanel,
+    LayoutContainer,
     GameConfigurationSection
   },
   setup () {

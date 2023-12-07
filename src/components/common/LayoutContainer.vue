@@ -1,21 +1,21 @@
 <template lang="pug">
 .wrap.position-relative
     .d-flex.h-100
-        GroupedCharPanel.pannel-wrap( v-for='(item,i) in data'  :data='item.value' :cardWidth='cardWidth')
+        NavigationSidebar.pannel-wrap( v-for='(item,i) in data'  :data='item.value' :cardWidth='cardWidth')
     GameConfigurationSection(:configBgc='config.configBgc').position-absolute.config-wrap
 </template>
 <script lang="ts">
 import _ from 'lodash';
-import GroupedCharPanel from '@/components/normal/GroupedCharPannel.vue'
+import NavigationSidebar from '@/components/common/NavigationSidebar.vue'
 import GameConfigurationSection from '@/components/GameConfigurationSection.vue'
 import Role from '@/interfaces/RoleInterface';
 import Config from '@/interfaces/ConfigInterface';
 import {  ref,computed,defineComponent,onMounted,onBeforeUnmount,PropType } from 'vue'
 export default defineComponent({
-    name: 'NormalPanel',
+    name: 'LayoutContainer',
     components: {
         GameConfigurationSection,
-        GroupedCharPanel
+        NavigationSidebar
     },
     props: {
         data: {
@@ -30,10 +30,10 @@ export default defineComponent({
     //:data='groupedChar' :config='config'
     setup({data,config}) {
         const screenWidth = ref(window.innerWidth);
+        console.log(config.configBgc);
         const cardWidth =  computed(() => {
             let _unit=screenWidth.value>1280?48:12
             let _count=config.space*2
-            console.log(_unit, _count);
             return (((screenWidth.value-200)/2)-(_unit*_count*2))/(config.maxCardCount);
         })
         const updateScreenWidth = () => {

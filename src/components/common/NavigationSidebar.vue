@@ -4,10 +4,10 @@
 </template>
 <script lang="ts">
 import { ref, Ref, computed, defineComponent, PropType } from 'vue'
-import CardSection from '@/components/normal/CardSection.vue'
+import CardSection from '@/components/common/CardSection.vue'
 import Role from '@/interfaces/RoleInterface';
 export default defineComponent({
-    name: 'GroupedCharPannel',
+    name: 'NavigationSidebar',
     components: {
         CardSection
     },

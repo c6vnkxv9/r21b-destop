@@ -23,10 +23,10 @@ div
             i.bi.bi-person-walking(v-for="i in quantity")
             i.bi.bi-door-open.door
     .position-absolute.ho-wrap.d-flex
-      .w-50.pr-25.d-flex.justify-content-center(:style="{'background-color':configColor[0]}")
+      .w-50.pr-25.d-flex.justify-content-center(:style="{'background-color':configBgc[0]}")
         .mx-auto.pic-wrap.py-8px
           img.d-block(src='@/assets/pic/logo.svg')
-      .w-50.pl-25(:style="{'background-color':configColor[1]}")
+      .w-50.pl-25(:style="{'background-color':configBgc[1]}")
         p.player-style.rb-fz.text-center {{ playerCount }}
           span.ml-2 Players
 </template>
@@ -40,7 +40,7 @@ import script from '@/assets/data/script.json'
 export default defineComponent({
   name: 'GameConfigurationSection',
   props: {
-    configColor: {
+    configBgc: {
       type: Array,
       default: function () {
         return ['#942121', '#3C55A5'];//使用一個函數來返回預設值
