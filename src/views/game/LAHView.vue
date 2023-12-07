@@ -41,8 +41,7 @@ export default defineComponent({
                 .sort((a, b) => a.pair - b.pair);
             const [specialGreyRoles, normalGreyRoles] = _.partition(greyRoles, role => [18, 19].includes(role.pair));
             const firstQuadrantData = [...redRoles, ...blueRoles];
-            const secondQuadrantData = normalGreyRoles.slice(0, MAX_ROLES_PER_QUADRANT);
-            const thirdQuadrantData = normalGreyRoles.slice(MAX_ROLES_PER_QUADRANT, MAX_ROLES_PER_QUADRANT * 2);
+            const [secondQuadrantData ,thirdQuadrantData]= _.partition(normalGreyRoles, role => [12, 13,14].includes(role.pair));
             const fourthQuadrantData = specialGreyRoles;
 
             leftRound.value = [firstQuadrantData, fourthQuadrantData];
