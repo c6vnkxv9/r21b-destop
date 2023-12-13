@@ -8,7 +8,7 @@
             .text-center(v-if='pair.icon')
                 i(class='bi ' :class='[pair.color,`bi-${pair.icon}`]')
             .d-flex(:class='[pair.icon?"h--30":"h-100"]')
-                .card-wrap.card-background.card-padding.d-flex.justify-content-center(v-for='item in pair.card'  :style="generateStyle(item)")
+                .card-wrap.card-background.card-padding.d-flex.justify-content-center(v-for='item in pair.card' :class='item.color'  :style="generateStyle(item)")
                     p.ver-text.card-title.m-0 {{ item.label }}
                     p.ver-text.card-desc.m-0(:class='item.color') {{ item.desc }}
 </template>

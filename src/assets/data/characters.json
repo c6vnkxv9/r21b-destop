@@ -72,22 +72,22 @@
         "src": "pic/role/red-enforcer.png"
     },
     {
-        "key": "blueSpy",
-        "role": "Spy",
+        "key": "blueMayor",
+        "role": "Mayor",
         "color": "blue",
-        "label": "藍隊間諜",
-        "desc": "卡片顏色與隊伍相反",
+        "label": "市長",
+        "desc": "公開後，一票值兩票",
         "pair": 5,
-        "src": "pic/role/blue-spy.png"
+        "src": "pic/role/blue-mayor.png"
     },
     {
-        "key": "redSpy",
-        "role": "Spy",
+        "key": "redMayor",
+        "role": "Mayor",
         "color": "red",
-        "label": "紅隊間諜",
-        "desc": "卡片顏色與隊伍相反",
+        "label": "市長",
+        "desc": "公開後，一票值兩票",
         "pair": 5,
-        "src": "pic/role/red-spy.png"
+        "src": "pic/role/red-mayor.png"
     },
     {
         "key": "blueCoyboy",
@@ -124,24 +124,23 @@
         "desc": "五個回合內只能執行一次卡片分享",
         "pair": 7,
         "src": "pic/role/red-papanoid.png"
-    },
-    {
-        "key": "blueMayor",
-        "role": "Mayor",
+    },   {
+        "key": "blueSpy",
+        "role": "Spy",
         "color": "blue",
-        "label": "市長",
-        "desc": "公開後，一票值兩票",
+        "label": "藍隊間諜",
+        "desc": "卡片顏色與隊伍相反",
         "pair": 8,
-        "src": "pic/role/blue-mayor.png"
+        "src": "pic/role/blue-spy.png"
     },
     {
-        "key": "redMayor",
-        "role": "Mayor",
+        "key": "redSpy",
+        "role": "Spy",
         "color": "red",
-        "label": "市長",
-        "desc": "公開後，一票值兩票",
+        "label": "紅隊間諜",
+        "desc": "卡片顏色與隊伍相反",
         "pair": 8,
-        "src": "pic/role/red-mayor.png"
+        "src": "pic/role/red-spy.png"
     },
     {
         "key": "blueUsurper",
