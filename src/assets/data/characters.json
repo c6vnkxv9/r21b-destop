@@ -6,16 +6,16 @@
         "label": "總統",
         "desc": "最後不與炸彈客在同一個房間",
         "pair": 1,
-        "src": "@/assets/pic/roleblue-president.png"
+        "src": "pic/role/blue-president.png"
     },
     {
-        "key": "redBomer",
-        "role": "Bomer",
+        "key": "redBoomer",
+        "role": "Boomer",
         "color": "red",
         "label": "炸彈客",
         "desc": "最後與總統在同一個房間",
         "pair": 1,
-        "src": "@/assets/pic/rolered-bomer.png"
+        "src": "pic/role/red-boomer.png"
     },
     {
         "key": "blueDoctor",
@@ -24,7 +24,7 @@
         "label": "醫生",
         "desc": "遊戲結束前與總統分享卡片",
         "pair": 2,
-        "src": "@/assets/pic/roleblue-doctor.png"
+        "src": "pic/role/blue-doctor.png"
     },
     {
         "key": "redEngineer",
@@ -33,7 +33,7 @@
         "label": "工程師",
         "desc": "遊戲結束前與炸彈客分享卡片",
         "pair": 2,
-        "src": "@/assets/pic/rolered-engineer.png"
+        "src": "pic/role/red-engineer.png"
     },
     {
         "key": "blueTuesdayKnight",
@@ -42,7 +42,7 @@
         "label": "星期二騎士",
         "desc": "跟炸彈客分享卡片，藍隊直接獲勝",
         "pair": 3,
-        "src": "@/assets/pic/roleblue-tuesdayknight.png"
+        "src": "pic/role/blue-tuesdayknight.png"
     },
     {
         "key": "redDr.Boom",
@@ -51,7 +51,7 @@
         "label": "砰砰博士",
         "desc": "跟總統分享卡片，紅隊直接獲勝",
         "pair": 3,
-        "src": "@/assets/pic/rolered-dr.boom.png"
+        "src": "pic/role/red-drboom.png"
     },
     {
         "key": "blueEnforcer",
@@ -60,7 +60,7 @@
         "label": "執法者",
         "desc": "強制兩位玩家交換卡片",
         "pair": 4,
-        "src": "@/assets/pic/roleblue-enforcer.png"
+        "src": "pic/role/blue-enforcer.png"
     },
     {
         "key": "redEnforcer",
@@ -69,7 +69,7 @@
         "label": "執法者",
         "desc": "強制兩位玩家交換卡片",
         "pair": 4,
-        "src": "@/assets/pic/rolered-enforcer.png"
+        "src": "pic/role/red-enforcer.png"
     },
     {
         "key": "blueSpy",
@@ -78,7 +78,7 @@
         "label": "藍隊間諜",
         "desc": "卡片顏色與隊伍相反",
         "pair": 5,
-        "src": "@/assets/pic/roleblue-spy.png"
+        "src": "pic/role/blue-spy.png"
     },
     {
         "key": "redSpy",
@@ -87,7 +87,7 @@
         "label": "紅隊間諜",
         "desc": "卡片顏色與隊伍相反",
         "pair": 5,
-        "src": "@/assets/pic/rolered-spy.png"
+        "src": "pic/role/red-spy.png"
     },
     {
         "key": "blueCoyboy",
@@ -96,7 +96,7 @@
         "label": "靦腆少年",
         "desc": "你只能執行分享顏色",
         "pair": 6,
-        "src": "@/assets/pic/roleblue-coyboy.png"
+        "src": "pic/role/blue-coyboy.png"
     },
     {
         "key": "redCoyboy",
@@ -105,7 +105,7 @@
         "label": "靦腆少年",
         "desc": "你只能執行分享顏色",
         "pair": 6,
-        "src": "@/assets/pic/rolered-coyboy.png"
+        "src": "pic/role/red-coyboy.png"
     },
     {
         "key": "bluePapanoid",
@@ -114,7 +114,7 @@
         "label": "妄想者",
         "desc": "五個回合內只能執行一次卡片分享",
         "pair": 7,
-        "src": "@/assets/pic/roleblue-papanoid.png"
+        "src": "pic/role/blue-papanoid.png"
     },
     {
         "key": "redPapanoid",
@@ -123,7 +123,7 @@
         "label": "妄想者",
         "desc": "五個回合內只能執行一次卡片分享",
         "pair": 7,
-        "src": "@/assets/pic/rolered-papanoid.png"
+        "src": "pic/role/red-papanoid.png"
     },
     {
         "key": "blueMayor",
@@ -132,7 +132,7 @@
         "label": "市長",
         "desc": "公開後，一票值兩票",
         "pair": 8,
-        "src": "@/assets/pic/roleblue-mayor.png"
+        "src": "pic/role/blue-mayor.png"
     },
     {
         "key": "redMayor",
@@ -141,7 +141,7 @@
         "label": "市長",
         "desc": "公開後，一票值兩票",
         "pair": 8,
-        "src": "@/assets/pic/rolered-mayor.png"
+        "src": "pic/role/red-mayor.png"
     },
     {
         "key": "blueUsurper",
@@ -150,7 +150,7 @@
         "label": "篡位者",
         "desc": "在前四回合中，室長篡位一次",
         "pair": 9,
-        "src": "@/assets/pic/roleblue-usurper.png"
+        "src": "pic/role/blue-usurper.png"
     },
     {
         "key": "redUsurper",
@@ -159,7 +159,7 @@
         "label": "篡位者",
         "desc": "在前四回合中，室長篡位一次",
         "pair": 9,
-        "src": "@/assets/pic/rolered-usurper.png"
+        "src": "pic/role/red-usurper.png"
     },
     {
         "key": "blueSecurity",
@@ -168,7 +168,7 @@
         "label": "保安",
         "desc": "可以扣留一名房間成員不作為人質",
         "pair": 10,
-        "src": "@/assets/pic/roleblue-security.png"
+        "src": "pic/role/blue-security.png"
     },
     {
         "key": "redSecurity",
@@ -177,25 +177,25 @@
         "label": "保安",
         "desc": "可以扣留一名房間成員不作為人質",
         "pair": 10,
-        "src": "@/assets/pic/rolered-security.png"
+        "src": "pic/role/red-security.png"
     },
     {
         "key": "blueEris",
         "role": "Eris",
         "color": "blue",
         "label": "紛爭女神厄里斯",
-        "desc": "你展示卡片的兩人，勝利條件變為終局處於不同房間",
+        "desc": "你可以使任兩名玩家進入相愛狀態",
         "pair": 11,
-        "src": "@/assets/pic/roleblue-eris.png"
+        "src": "pic/role/blue-eris.png"
     },
     {
         "key": "redCupid",
         "role": "Cupid",
         "color": "red",
         "label": "愛神丘比特",
-        "desc": "你展示卡片的兩人，勝利條件變為終局處於同個房間",
+        "desc": "你可以使任兩名玩家進入相恨狀態",
         "pair": 11,
-        "src": "@/assets/pic/rolered-cupid.png"
+        "src": "pic/role/red-cupid.png"
     },
     {
         "key": "greyRival",
@@ -204,7 +204,7 @@
         "label": "競爭者",
         "desc": "最後與總統在不同房間",
         "pair": 12,
-        "src": "@/assets/pic/rolegrey-rival.png"
+        "src": "pic/role/grey-rival.png"
     },
     {
         "key": "greyIntern",
@@ -213,43 +213,7 @@
         "label": "實習生",
         "desc": "最後與總統在同個房間",
         "pair": 12,
-        "src": "@/assets/pic/rolegrey-intern.png"
-    },
-    {
-        "key": "greySurvivor",
-        "role": "Survivor",
-        "color": "grey",
-        "label": "倖存者",
-        "desc": "最後與炸彈客在不同房間",
-        "pair": 13,
-        "src": "@/assets/pic/rolegrey-survivor.png"
-    },
-    {
-        "key": "greyVictim",
-        "role": "Victim",
-        "color": "grey",
-        "label": "受害者",
-        "desc": "最後與炸彈客在同個房間",
-        "pair": 13,
-        "src": "@/assets/pic/rolegrey-victim.png"
-    },
-    {
-        "key": "greyRomeo",
-        "role": "Romeo",
-        "color": "grey",
-        "label": "羅密歐",
-        "desc": "最後與茱麗葉和炸彈客在同一個房間",
-        "pair": 14,
-        "src": "@/assets/pic/rolegrey-romeo.png"
-    },
-    {
-        "key": "greyJuliet",
-        "role": "Juliet",
-        "color": "grey",
-        "label": "茱麗葉",
-        "desc": "最後與羅密歐和炸彈客在同一個房間",
-        "pair": 14,
-        "src": "@/assets/pic/rolegrey-juliet.png"
+        "src": "pic/role/grey-intern.png"
     },
     {
         "key": "greyButler",
@@ -257,8 +221,8 @@
         "color": "grey",
         "label": "管家",
         "desc": "最後與女僕和總統在同一個房間",
-        "pair": 15,
-        "src": "@/assets/pic/rolegrey-butler.png"
+        "pair": 13,
+        "src": "pic/role/grey-butler.png"
     },
     {
         "key": "greyMaid",
@@ -266,26 +230,8 @@
         "color": "grey",
         "label": "女僕",
         "desc": "最後與管家和總統在同一個房間",
-        "pair": 15,
-        "src": "@/assets/pic/rolegrey-maid.png"
-    },
-    {
-        "key": "greyAhab",
-        "role": "Ahab",
-        "color": "grey",
-        "label": "亞哈",
-        "desc": "最後同時避開莫比與炸彈客",
-        "pair": 16,
-        "src": "@/assets/pic/rolegrey-ahab.png"
-    },
-    {
-        "key": "greyMoby",
-        "role": "Moby",
-        "color": "grey",
-        "label": "莫比",
-        "desc": "最後同時避開亞哈與炸彈客",
-        "pair": 16,
-        "src": "@/assets/pic/rolegrey-moby.png"
+        "pair": 13,
+        "src": "pic/role/grey-maid.png"
     },
     {
         "key": "greyWife",
@@ -293,8 +239,8 @@
         "color": "grey",
         "label": "妻子",
         "desc": "最後和總統待在一起，避開情婦",
-        "pair": 17,
-        "src": "@/assets/pic/rolegrey-wife.png"
+        "pair": 14,
+        "src": "pic/role/grey-wife.png"
     },
     {
         "key": "greyMistress",
@@ -302,9 +248,64 @@
         "color": "grey",
         "label": "情婦",
         "desc": "最後和總統待在一起，避開妻子",
-        "pair": 17,
-        "src": "@/assets/pic/rolegrey-mistress.png"
+        "pair": 14,
+        "src": "pic/role/grey-mistress.png"
     },
+    {
+        "key": "greySurvivor",
+        "role": "Survivor",
+        "color": "grey",
+        "label": "倖存者",
+        "desc": "最後與炸彈客在不同房間",
+        "pair": 15,
+        "src": "pic/role/grey-survivor.png"
+    },
+    {
+        "key": "greyVictim",
+        "role": "Victim",
+        "color": "grey",
+        "label": "受害者",
+        "desc": "最後與炸彈客在同個房間",
+        "pair": 15,
+        "src": "pic/role/grey-victim.png"
+    },
+    {
+        "key": "greyRomeo",
+        "role": "Romeo",
+        "color": "grey",
+        "label": "羅密歐",
+        "desc": "最後與茱麗葉和炸彈客在同一個房間",
+        "pair": 16,
+        "src": "pic/role/grey-romeo.png"
+    },
+    {
+        "key": "greyJuliet",
+        "role": "Juliet",
+        "color": "grey",
+        "label": "茱麗葉",
+        "desc": "最後與羅密歐和炸彈客在同一個房間",
+        "pair": 16,
+        "src": "pic/role/grey-juliet.png"
+    },  
+    {
+        "key": "greyAhab",
+        "role": "Ahab",
+        "color": "grey",
+        "label": "亞哈",
+        "desc": "最後同時避開莫比與炸彈客",
+        "pair": 17,
+        "src": "pic/role/grey-ahab.png"
+    },
+    {
+        "key": "greyMoby",
+        "role": "Moby",
+        "color": "grey",
+        "label": "莫比",
+        "desc": "最後同時避開亞哈與炸彈客",
+        "pair": 17,
+        "src": "pic/role/grey-moby.png"
+    },
+    
     {
         "key": "greyBomb-Bot",
         "role": "Bomb-Bot",
@@ -312,7 +313,7 @@
         "label": "拆彈機器人",
         "desc": "最後和炸彈客待在一起，避開總統",
         "pair": 18,
-        "src": "@/assets/pic/rolegrey-bomb-bot.png"
+        "src": "pic/role/grey-bomb-bot.png"
     },
     {
         "key": "greyQueen",
@@ -321,7 +322,7 @@
         "label": "皇后",
         "desc": "最後同時避開總統與炸彈客",
         "pair": 18,
-        "src": "@/assets/pic/rolegrey-queen.png"
+        "src": "pic/role/grey-queen.png"
     },
     {
         "key": "greyDecoy",
@@ -330,7 +331,7 @@
         "label": "誘餌",
         "desc": "被狙擊手打中",
         "pair": 19,
-        "src": "@/assets/pic/rolegrey-decoy.png"
+        "src": "pic/role/grey-decoy.png"
     },
     {
         "key": "greyTarget",
@@ -339,7 +340,7 @@
         "label": "目標",
         "desc": "不要被狙擊手打中",
         "pair": 19,
-        "src": "@/assets/pic/rolegrey-target.png"
+        "src": "pic/role/grey-target.png"
     },
     {
         "key": "greySniper",
@@ -348,7 +349,7 @@
         "label": "狙擊手",
         "desc": "打中目標",
         "pair": 19,
-        "src": "@/assets/pic/rolegrey-sniper.png"
+        "src": "pic/role/grey-sniper.png"
     },
     {
         "key": "greyGambler",
@@ -356,7 +357,7 @@
         "color": "grey",
         "label": "賭徒",
         "desc": "公開預判哪個顏色獲勝",
-        "pair": "",
-        "src": "@/assets/pic/rolegrey-gambler.png"
+        "pair": 20,
+        "src": "pic/role/grey-gambler.png"
     }
 ]

@@ -1,0 +1,150 @@
+@import '@/assets/scss/_variable.scss';
+@import 'bootstrap/scss/_functions.scss';
+@import 'bootstrap/scss/_mixins.scss';
+@import 'bootstrap/scss/_variables.scss';
+// font size
+// fs-{break-point}-{spacer}
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @each $space, $value in $spacers {
+    @include media-breakpoint-up($breakpoint) {
+      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+      .fs#{$infix}-#{$space} {
+        font-size: $value;
+      }
+    }
+  }
+}
+
+// position
+$positions: absolute, relative, static, fixed, sticky;
+@each $position in $positions {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+      .position#{$infix}-#{$position} {
+        position: $position;
+      }
+    }
+  }
+}
+
+// space-{x|y}-{break-point}-{spacer}
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @each $space, $value in $spacers {
+    @include media-breakpoint-up($breakpoint) {
+      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+      .space-x#{$infix}-#{$space} > * {
+        margin-right: $value;
+      }
+      .space-x#{$infix}-#{$space} > *:last-child {
+        margin-right: 0;
+      }
+      .space-y#{$infix}-#{$space} > * {
+        margin-bottom: $value;
+      }
+      .space-y#{$infix}-#{$space} > *:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+// width
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @for $i from 0 through 20 {
+    @include media-breakpoint-up($breakpoint) {
+      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+      .w#{$infix}-#{$i * 5}p {
+        width: #{$i * 5 + '%'} !important;
+      }
+      .width#{$infix}-#{$i * 5}p {
+        width: #{$i * 5 + '%'} !important;
+      }
+      .height#{$infix}-#{$i * 5}p {
+        height: #{$i * 5 + '%'} !important;
+      }
+      .width#{$infix}-#{$i * 5}vw {
+        width: #{$i * 5 + 'vw'} !important;
+      }
+      .min-width#{$infix}-#{$i * 5}vw {
+        min-width: #{$i * 5 + 'vw'} !important;
+      }
+      .max-width#{$infix}-#{$i * 5}vw {
+        max-width: #{$i * 5 + 'vw'} !important;
+      }
+    }
+  }
+}
+
+// max-width-{break-point}-{spacer}
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @each $space, $value in $spacers {
+    @include media-breakpoint-up($breakpoint) {
+      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+      .min-width#{$infix}-#{$space} {
+        min-width: $value * 10;
+      }
+      .max-width#{$infix}-#{$space} {
+        max-width: $value * 10;
+      }
+      .min-height#{$infix}-#{$space} {
+        min-height: $value * 10;
+      }
+      .max-height#{$infix}-#{$space} {
+        max-height: $value * 10;
+      }
+    }
+  }
+}
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @each $space, $value in $spacers {
+    @include media-breakpoint-up($breakpoint) {
+      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+      .width#{$infix}-#{$space} {
+        width: $value;
+      }
+      .height#{$infix}-#{$space} {
+        height: $value;
+      }
+    }
+  }
+}
+
+// line height
+// line-height-{break-point}-{spacer}
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @each $space, $value in $spacers {
+    @include media-breakpoint-up($breakpoint) {
+      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+      .line-height#{$infix}-#{$space} {
+        line-height: $value;
+      }
+    }
+  }
+}
+
+
+// opacity
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @for $i from 0 through 20 {
+    @include media-breakpoint-up($breakpoint) {
+      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+      .opacity#{$infix}-#{$i * 5} {
+        opacity: #{$i * 0.05} !important;
+      }
+    }
+  }
+}
+
+// rounded
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @each $space, $value in $spacers {
+    @include media-breakpoint-up($breakpoint) {
+      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+      .rounded#{$infix}-#{$space} {
+        border-radius: $value;
+      }
+    }
+  }
+}

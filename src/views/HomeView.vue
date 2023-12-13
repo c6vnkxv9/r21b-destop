@@ -14,3 +14,9 @@ import GameSetting from '@/components/GameSetting.vue'
 })
 export default class HomeView extends Vue {}
 </script>
+<style scoped>
+.home{
+  width: 100vw;
+  height: 100vh;
+}
+</style>

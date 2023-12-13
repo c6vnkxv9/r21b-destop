@@ -1,11 +1,12 @@
 [
     {
         "key": 0,
-        "name": "nomal",
+        "name": "normal",
         "label": "一般",
+        "route":"normal",
         "required": [
             "bluePresident",
-            "redBomer",
+            "redBoomer",
             "blueDoctor",
             "redEngineer"
         ],
@@ -25,20 +26,22 @@
             "blueUsurper",
             "redUsurper",
             "blueSecurity",
-            "redSecurity"
+            "redSecurity",
+            "greyGambler"
         ]
     },
     {
         "key": 1,
-        "name": "Valentine's Day",
-        "label": "愛恨情仇",
+        "name": "Love And Hate",
+        "route":"love-and-hate",
+        "label": "愛恨",
         "required": [
             "bluePresident",
-            "redBomer"
+            "redBoomer",
+            "blueEris",
+            "redCupid"
         ],
         "options": [
-            "blueEris",
-            "redCupid",
             "greyRival",
             "greyIntern",
             "greySurvivor",
@@ -55,8 +58,7 @@
             "greyQueen",
             "greyDecoy",
             "greyTarget",
-            "greySniper",
-            "greyGambler"
+            "greySniper"
         ]
     }
 ]
