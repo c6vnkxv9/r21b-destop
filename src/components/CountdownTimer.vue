@@ -11,7 +11,7 @@
           i(class="bi" :class="btnIsActive?'bi-pause-circle-fill':'bi-play-circle-fill'")
 </template>
 <script lang="ts">
-import { ref,watch, computed, Ref, defineComponent } from 'vue'
+import { ref,watch, onBeforeUnmount,computed, Ref, defineComponent } from 'vue'
 const COUNT_DOWN_TIMER_STATUS = [
   {
     key: 'START',
@@ -41,7 +41,7 @@ export default defineComponent({
     }
   },
   setup(props, { emit }) {
-    const minuteUnit: number = 1 // 總共五分鐘
+    const minuteUnit: number = 5 // 總共五分鐘
     const timeCountDownUnit: number = 1 // 每五秒倒數一次
     const timeUnit: number = (60 * minuteUnit) / timeCountDownUnit
     const timeDuration: Ref<number> = ref(timeUnit)
@@ -56,10 +56,10 @@ export default defineComponent({
       btnIsActive.value = !btnIsActive.value
       if (btnIsActive.value) {
         startCountdown();
-        // playMusic();
+        playMusic();
       } else {
         stopCountdown();
-        // pauseMusic();
+        pauseMusic();
       }
     }
     function clearTimer(){
@@ -71,11 +71,14 @@ export default defineComponent({
         clearTimer()
       }
     }
+    function resetMusic() { 
+      audio.currentTime = 0//重返秒數為0
+      audio.pause()
+    }
     function resetTime() { 
       timeDuration.value = timeUnit;
       btnIsActive.value = false;
-      //audio.currentTime = 0//重返秒數為0
-      //audio.pause()
+      
     }
     function startCountdown() {
       if (intervalRef == undefined ) {
@@ -85,15 +88,16 @@ export default defineComponent({
         } else {
           clearTimer()
           resetTime() 
+          //resetMusic()
           emit('addGameRound');
         }
       }, timeCountDownUnit * 1000);
       }
     }
     watch(() => props.gameRound, () => {
-        console.log(props.gameRound);
         clearTimer()
         resetTime() 
+        resetMusic()
         });
         
     function playMusic(): void {
@@ -111,7 +115,9 @@ export default defineComponent({
         .padStart(2, '0')
       return `${minutes} : ${seconds}`
     })
-
+    onBeforeUnmount(() => {
+      resetMusic()
+});
     return {
       timeDuration,
       formattedTime,
