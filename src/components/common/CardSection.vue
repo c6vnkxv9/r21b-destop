@@ -13,11 +13,11 @@
                     p.ver-text.card-desc.m-0(:class='item.color') {{ item.desc }}
 </template>
 <script lang="ts">
-import colorList from '@/assets/data/colorList.json'
-import pairIconList from '@/assets/data/pairIconList.json'
-import _, { map } from 'lodash';
-import { computed, defineComponent, PropType } from 'vue'
+import colorList from '@/data/colorList.json';
+import { pairIconList } from '@/data/pairIconList';
 import Role from '@/interfaces/RoleInterface';
+import _ from 'lodash';
+import { computed, defineComponent, PropType } from 'vue';
 interface PairAttribute {
     color?: string;
     icon?: string;

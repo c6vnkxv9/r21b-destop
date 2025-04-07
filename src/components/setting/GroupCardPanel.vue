@@ -12,10 +12,10 @@ div
                 | {{ person.label }}
 </template>
 <script lang="ts">
+import colorList from '@/data/colorList.json';
 import Color from '@/interfaces/ColorInterface';
 import GroupedRoles from '@/interfaces/GroupedRolesInterface';
-import colorList from '@/assets/data/colorList.json'
-import { defineComponent,computed, PropType, ref } from 'vue'
+import { computed, defineComponent, PropType } from 'vue';
 export default defineComponent({
     name: 'GroupCardPanel',
     props: {

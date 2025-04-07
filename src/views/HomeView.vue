@@ -1,15 +1,18 @@
 <template>
   <div class="home">
     <GameSetting/>
+    <FooterCopyright/>
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component'
-import GameSetting from '@/components/GameSetting.vue'
+import FooterCopyright from '@/components/FooterCopyright.vue';
+import GameSetting from '@/components/GameSetting.vue';
+import { Options, Vue } from 'vue-class-component';
 @Options({
   components: {
-    GameSetting
+    GameSetting,
+    FooterCopyright
   }
 })
 export default class HomeView extends Vue {}

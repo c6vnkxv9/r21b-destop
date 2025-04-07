@@ -31,12 +31,12 @@ div
           span.ml-2 Players
 </template>
 <script lang="ts">
-import CountdownTimer from '@/components/CountdownTimer.vue'
-import { ref, Ref, defineComponent, computed } from 'vue'
-import { useStore } from 'vuex';
+import CountdownTimer from '@/components/CountdownTimer.vue';
+import exchangeSetting from '@/data/exchangeSetting.json';
+import { script } from '@/data/script';
+import { computed, defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import exchangeSetting from '@/assets/data/exchangeSetting.json'
-import script from '@/assets/data/script.json'
+import { useStore } from 'vuex';
 export default defineComponent({
   name: 'GameConfigurationSection',
   props: {

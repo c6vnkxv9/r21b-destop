@@ -2,13 +2,13 @@
 LayoutContainer(:data='groupedChar' :config='config')
 </template>
 <script lang="ts">
-import LayoutContainer from '@/components/common/LayoutContainer.vue'
-import Role from '@/interfaces/RoleInterface';
+import LayoutContainer from '@/components/common/LayoutContainer.vue';
 import GroupedRoles from '@/interfaces/GroupedRolesInterface';
-import { ref, watch, defineComponent, Ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import { useStore } from 'vuex';
-import { useRouter } from 'vue-router';
+import Role from '@/interfaces/RoleInterface';
 import _ from 'lodash';
+import { computed, defineComponent, ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 export default defineComponent({
     name: 'GameDashboard',
     components: {
@@ -39,19 +39,50 @@ export default defineComponent({
             return _.flatMap(roles, item => _.filter(item.roles, { color }));
         }
         function groupedRoles(roles: GroupedRoles[]) {
-            const blueRoles = filterRolesByColor(roles, 'blue');
-            const redRoles = filterRolesByColor(roles, 'red');
-            const greyRoles = filterRolesByColor(roles, 'grey');
-            const more = blueRoles?.length + greyRoles?.length - 10
-            if (more > 0) {
-                const _rest = 10 - blueRoles.length || 0
-                leftRound.value = setCardSection([...redRoles, ...greyRoles.slice(0).slice(_rest, 100)])
-                rightRound.value = setCardSection([...blueRoles, ...greyRoles.slice(0).slice(0, _rest)])
-            } else {
-                leftRound.value = setCardSection([...redRoles])
-                rightRound.value = setCardSection([...blueRoles, ...greyRoles])
-            }
-            return [leftRound, rightRound]
+            const colorSet = new Set<string>();
+            roles.forEach(item => {
+                item.roles.forEach(role => {
+                    colorSet.add(role.color);
+                });
+            });
+            const colorRoles: Record<string, Role[]> = {};
+            colorSet.forEach(color => {
+                colorRoles[color] = filterRolesByColor(roles, color);
+            });
+            const leftSide: Role[] = [];
+            const rightSide: Role[] = [];
+            const colorCounts: Record<string, number> = {};
+            colorSet.forEach(color => {
+                colorCounts[color] = colorRoles[color].length;
+            });
+            const sortedColors = Array.from(colorSet).sort((a, b) => colorCounts[b] - colorCounts[a]);
+            let leftColorCount = 0;
+            let rightColorCount = 0;
+            sortedColors.forEach(color => {
+                const roles = colorRoles[color];
+                
+                if (leftColorCount < 2 && leftSide.length + roles.length <= 10) {
+                    leftSide.push(...roles);
+                    leftColorCount++;
+                } else if (rightColorCount < 2 && rightSide.length + roles.length <= 10) {
+                    rightSide.push(...roles);
+                    rightColorCount++;
+                } else {
+                    const leftRemaining = 10 - leftSide.length;
+                    const rightRemaining = 10 - rightSide.length;
+                    
+                    if (leftRemaining > 0 && leftSide.length <= rightSide.length) {
+                        leftSide.push(...roles.slice(0, leftRemaining));
+                        rightSide.push(...roles.slice(leftRemaining));
+                    } else if (rightRemaining > 0) {
+                        rightSide.push(...roles.slice(0, rightRemaining));
+                        leftSide.push(...roles.slice(rightRemaining));
+                    }
+                }
+            });
+            leftRound.value = setCardSection(leftSide);
+            rightRound.value = setCardSection(rightSide);
+            return [leftRound, rightRound];
         }
         function setCardSection(data: Role[]) {
             if (data) {
