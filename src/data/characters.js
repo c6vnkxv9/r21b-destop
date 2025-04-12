@@ -365,7 +365,7 @@ export const characters = [
         "role": "Angel",
         "color": "blue",
         "label": "天使",
-        "desc": "最後不與炸彈客在同一個房間",
+        "desc": "只能講真話",
         "pair": RolePair.Angel,
         "src": "pic/role/blue-angel.png"
     },
@@ -374,7 +374,7 @@ export const characters = [
         "role": "Angel",
         "color": "red",
         "label": "天使",
-        "desc": "最後不與炸彈客在同一個房間",
+        "desc": "只能講真話",
         "pair": RolePair.Angel,
         "src": "pic/role/red-angel.png"
     },
@@ -383,7 +383,7 @@ export const characters = [
         "role": "Demon",
         "color": "blue",
         "label": "惡魔",
-        "desc": "最後與炸彈客在同一個房間",
+        "desc": "撒謊",
         "pair": RolePair.Demon,
         "src": "pic/role/blue-demon.png"
     },
@@ -392,7 +392,7 @@ export const characters = [
         "role": "Demon",
         "color": "red",
         "label": "惡魔",
-        "desc": "最後與炸彈客在同一個房間",
+        "desc": "撒謊",
         "pair": RolePair.Demon,
         "src": "pic/role/red-demon.png"
     },
@@ -401,7 +401,7 @@ export const characters = [
         "role": "Clown",
         "color": "blue",
         "label": "啞劇小丑",
-        "desc": "最後與炸彈客在同一個房間",
+        "desc": "永遠不能說話",
         "pair": RolePair.Mime,
         "src": "pic/role/blue-mime.png"
     },
@@ -410,7 +410,7 @@ export const characters = [
         "role": "Mime",
         "color": "red",
         "label": "啞劇小丑",
-        "desc": "最後與炸彈客在同一個房間",
+        "desc": "永遠不能說話",
         "pair": RolePair.Mime,
         "src": "pic/role/red-mime.png"
     },
@@ -418,8 +418,8 @@ export const characters = [
         "key": "blueConman",
         "role": "Conman",
         "color": "blue",
-        "label": "謊言者",
-        "desc": "最後與炸彈客在同一個房間",
+        "label": "騙子",
+        "desc": "顏色分享變成卡片分享",
         "pair": RolePair.Conman,
         "src": "pic/role/blue-conman.png"
     },
@@ -427,8 +427,8 @@ export const characters = [
         "key": "redConman",
         "role": "Conman",
         "color": "red",
-        "label": "謊言者",
-        "desc": "最後與炸彈客在同一個房間",
+        "label": "騙子",
+        "desc": "顏色分享變成卡片分享",
         "pair": RolePair.Conman,
         "src": "pic/role/red-conman.png"
     },
@@ -437,7 +437,7 @@ export const characters = [
         "role": "Mummy",
         "color": "blue",
         "label": "木乃伊",
-        "desc": "最後與炸彈客在同一個房間",
+        "desc": "和你交換卡片的人都成為啞劇小丑",
         "pair": RolePair.Mummy,
         "src": "pic/role/blue-mummy.png"
     },
@@ -446,7 +446,7 @@ export const characters = [
         "role": "Mummy",
         "color": "red",
         "label": "木乃伊",
-        "desc": "最後與炸彈客在同一個房間",
+        "desc": "和你交換卡片的人都成為啞劇小丑",
         "pair": RolePair.Mummy,
         "src": "pic/role/red-mummy.png"
     },
@@ -454,8 +454,8 @@ export const characters = [
         "key": "blueNegotiator",
         "role": "Negotiator",
         "color": "blue",
-        "label": "談判者",
-        "desc": "最後與炸彈客在同一個房間",
+        "label": "談判專家",
+        "desc": "只能進行卡片分享，不能進行顏色分享",
         "pair": RolePair.Negotiator,
         "src": "pic/role/blue-negotiator.png"
     },
@@ -463,8 +463,8 @@ export const characters = [
         "key": "redNegotiator",
         "role": "Negotiator",
         "color": "red",
-        "label": "談判者",
-        "desc": "最後與炸彈客在同一個房間",
+        "label": "談判專家",
+        "desc": "只能進行卡片分享，不能進行顏色分享",
         "pair": RolePair.Negotiator,
         "src": "pic/role/red-negotiator.png"
     },
@@ -473,7 +473,7 @@ export const characters = [
         "role": "Drunk",
         "color": "purple",
         "label": "醉鬼",
-        "desc": "最後與炸彈客在同一個房間",
+        "desc": "最後一回合清醒過來",
         "pair": RolePair.Drunk,
         "src": "pic/role/purple-drunk.png"
     },
@@ -482,7 +482,7 @@ export const characters = [
         "role": "Zombie",
         "color": "green",
         "label": "殭屍",
-        "desc": "最後與炸彈客在同一個房間",
+        "desc": "想辦法把所有人變成殭屍",
         "pair": RolePair.Zombie,
         "src": "pic/role/green-zombie.png"
     }
