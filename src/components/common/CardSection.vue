@@ -8,16 +8,16 @@
             .text-center(v-if='pair.icon')
                 i(class='bi ' :class='[pair.color,`bi-${pair.icon}`]')
             .d-flex(:class='[pair.icon?"h--30":"h-100"]')
-                .card-wrap.card-background.card-padding.d-flex.justify-content-center(v-for='item in pair.card'  :style="generateStyle(item)")
+                .card-wrap.card-background.card-padding.d-flex.justify-content-center(v-for='item in pair.card' :class='item.color'  :style="generateStyle(item)")
                     p.ver-text.card-title.m-0 {{ item.label }}
                     p.ver-text.card-desc.m-0(:class='item.color') {{ item.desc }}
 </template>
 <script lang="ts">
-import colorList from '@/assets/data/colorList.json'
-import pairIconList from '@/assets/data/pairIconList.json'
-import _, { map } from 'lodash';
-import { computed, defineComponent, PropType } from 'vue'
+import colorList from '@/data/colorList.json';
+import { pairIconList } from '@/data/pairIconList';
 import Role from '@/interfaces/RoleInterface';
+import _ from 'lodash';
+import { computed, defineComponent, PropType } from 'vue';
 interface PairAttribute {
     color?: string;
     icon?: string;
@@ -109,9 +109,13 @@ export default defineComponent({
 <style scoped lang="scss">
 $red: $info-red;
 $blue: $info-blue;
+$green: $info-green;
+$purple: $info-purple;
 $grey-icon: $grey-primary-color;
 $red-icon: $red-primary-color;
 $blue-icon: $blue-primary-color;
+$green-icon: $green-primary-color;
+$purple-icon: $purple-primary-color;
 $grey: $info-grey;
 $shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.25);
 $lg-full-height: calc((100vh - (48px * 4) - 100px) / 2);
@@ -131,6 +135,12 @@ $md-full-height: calc((100vh - (12px * 4) - 100px) / 2);
 
     &.grey {
         color: $grey-icon;
+    }
+    &.green {
+        color: $green-icon;
+    }
+    &.purple {
+        color: $purple-icon;
     }
 }
 
@@ -171,7 +181,8 @@ $md-full-height: calc((100vh - (12px * 4) - 100px) / 2);
     border-top-width: 1px;
     border-right-width: 1px;
     border-bottom-width: 1px;
-
+    min-width: 78px;
+    max-width:150px;
     &.red {
         border-color: $red;
     }
@@ -182,6 +193,12 @@ $md-full-height: calc((100vh - (12px * 4) - 100px) / 2);
 
     &.grey {
         border-color: $grey;
+    }
+    &.green {
+        border-color: $green;
+    }
+    &.purple {
+        border-color: $purple;
     }
 }
 
@@ -222,6 +239,12 @@ $md-full-height: calc((100vh - (12px * 4) - 100px) / 2);
 
     &.grey {
         color: $grey;
+    }
+    &.green {
+        color: $green;
+    }
+    &.purple {
+        color: $purple;
     }
 }
 

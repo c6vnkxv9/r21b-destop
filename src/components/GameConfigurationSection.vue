@@ -31,12 +31,11 @@ div
           span.ml-2 Players
 </template>
 <script lang="ts">
-import CountdownTimer from '@/components/CountdownTimer.vue'
-import { ref, Ref, defineComponent, computed } from 'vue'
-import { useStore } from 'vuex';
+import CountdownTimer from '@/components/CountdownTimer.vue';
+import exchangeSetting from '@/data/exchangeSetting.json';
+import { computed, defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import exchangeSetting from '@/assets/data/exchangeSetting.json'
-import script from '@/assets/data/script.json'
+import { useStore } from 'vuex';
 export default defineComponent({
   name: 'GameConfigurationSection',
   props: {
@@ -59,8 +58,7 @@ export default defineComponent({
     })
     const playerCount = store.state.gameSetting.count
     const gameMode = computed(() => {
-      const modeId = store.state.gameSetting?.mode || 0
-      const { name, label } = script[modeId]
+      const { name='', label='' } = store.state.gameSetting.script || {}
       return { name, label }
     });
     function changeGameRound(i: number) {

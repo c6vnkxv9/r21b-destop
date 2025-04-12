@@ -64,6 +64,6 @@ export default defineComponent({
 .wrap {
     width: 100vw;
     height: 100vh;
-    background-color: #666;
+    //background-color: #666;
 }
 </style>

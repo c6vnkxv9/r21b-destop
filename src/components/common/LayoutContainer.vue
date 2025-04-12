@@ -5,12 +5,11 @@
     GameConfigurationSection(:configBgc='config.configBgc').position-absolute.config-wrap
 </template>
 <script lang="ts">
-import _ from 'lodash';
-import NavigationSidebar from '@/components/common/NavigationSidebar.vue'
-import GameConfigurationSection from '@/components/GameConfigurationSection.vue'
-import Role from '@/interfaces/RoleInterface';
+import NavigationSidebar from '@/components/common/NavigationSidebar.vue';
+import GameConfigurationSection from '@/components/GameConfigurationSection.vue';
 import Config from '@/interfaces/ConfigInterface';
-import {  ref,computed,defineComponent,onMounted,onBeforeUnmount,PropType } from 'vue'
+import Role from '@/interfaces/RoleInterface';
+import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, ref } from 'vue';
 export default defineComponent({
     name: 'LayoutContainer',
     components: {
@@ -27,10 +26,8 @@ export default defineComponent({
             required: true
         },
     },
-    //:data='groupedChar' :config='config'
     setup({data,config}) {
         const screenWidth = ref(window.innerWidth);
-        console.log(config.configBgc);
         const cardWidth =  computed(() => {
             let _unit=screenWidth.value>1280?48:12
             let _count=config.space*2
@@ -61,7 +58,7 @@ export default defineComponent({
 .wrap {
     width: 100vw;
     height: 100vh;
-    background-color: #666;
+    background-color: rgb(128, 128, 128);
 
     .h-100 {
         height: 100%;
@@ -81,4 +78,5 @@ export default defineComponent({
     bottom: 0;
     left: 0;
     right: 0;
-}</style>
+}
+</style>

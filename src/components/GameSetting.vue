@@ -15,7 +15,14 @@
                     p.mb-0.d-inline-block.fw-bold 人數：
                         span.fw-normal {{ countChecked }}
                         span.fw-bold.fs-red.ml-2(v-if='countChecked>20') (人數已達上限20人)
-            div
+            .d-flex.align-items-center
+                BButtonGroup.Toggle.rounded-pill.mr-4(:style='styleVars')
+                    BButton.px-6.text-nowrap.mb-0(
+                        v-for='(item, index) in roundOptions',
+                        :key='index',
+                        @click='selectedRoundOptions = item'
+                    )
+                    | {{ selectedRoundOptions.text }}
                 p.mb-0.text-end.cursor.fw-bold(@click='setAllStatus')
                     i.mr-12(:class='allStatusStyle' ) 
                     | 全選
@@ -29,35 +36,68 @@
                 )
         .d-flex.justify-content-center
             .button-style.cursor.fw-bold(@click="submitSetting") Game Start
-    FooterCopyright.position-absolute.bottom-0.start-0
     Alert(:show='modalShow' @update:modalShow="modalShow = $event")
 </template>
 <script lang="ts">
-import 'bootstrap-icons/font/bootstrap-icons.css'
-import RoleOptions from '@/interfaces/RoleOptionsInterface';
-import Role from '@/interfaces/RoleInterface';
+import FooterCopyright from '@/components/FooterCopyright.vue';
+import Alert from '@/components/setting/Alert.vue';
+import GroupCardPanel from '@/components/setting/GroupCardPanel.vue';
+import { characters } from '@/data/characters';
+import colorList from '@/data/colorList.json';
+import { REQUIRED_ROLES, script } from '@/data/script';
 import GroupedRoles from '@/interfaces/GroupedRolesInterface';
-import { BFormSelect, BFormCheckboxGroup, BFormCheckbox, BFormGroup } from 'bootstrap-vue-3'
-import { ref, computed, watch, defineComponent } from 'vue'
-import { useStore } from 'vuex';
+import Role from '@/interfaces/RoleInterface';
+import { IScript } from '@/interfaces/RoleOptionsInterface';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import { BButton, BButtonGroup, BFormCheckbox, BFormCheckboxGroup, BFormGroup, BFormSelect } from 'bootstrap-vue-3';
+import { computed, defineComponent, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import FooterCopyright from '@/components/FooterCopyright.vue'
-import GroupCardPanel from '@/components/setting/GroupCardPanel.vue'
-import Alert from '@/components/setting/Alert.vue'
-import charactersData from '@/assets/data/characters.json'
-import script from '@/assets/data/script.json'
-import _, { xor } from 'lodash';
+import { useStore } from 'vuex';
+interface IRoundOptions {
+    value: string;
+    text: string;
+}
+const ROUND_OPTIONS = [
+    {
+        value: 'three',
+        text: '三局'
+    },
+    {
+        value: 'five',
+        text: '五局'
+    },
+]
 export default defineComponent({
     components: {
         BFormSelect, BFormCheckboxGroup, BFormCheckbox, BFormGroup,
-        GroupCardPanel, FooterCopyright, Alert
+        GroupCardPanel, FooterCopyright, Alert, BButtonGroup, BButton
     },
     setup() {
         const router = useRouter();
         const store = useStore();
         let modalShow = ref<boolean>(false)
-        const roleOptions: RoleOptions[] = script.map(x => ({ value: x.key, text: x.label }));
-        const selectedModeId = ref<number>(roleOptions[0].value);
+        let roundOptions = ref<IRoundOptions[]>(ROUND_OPTIONS)
+        let selectedRoundOptions = ref<IRoundOptions>(roundOptions.value[0])
+        const SortedCharacters = computed(() => {
+            const _colorList = colorList.map(x => x.label)
+            return characters.sort((a, b) => _colorList.indexOf(a.color) - _colorList.indexOf(b.color))
+        })
+        const defaultScript = {
+            key: 'all',
+            name: '自由',
+            label: '自由',
+            route: 'normal',
+            required: REQUIRED_ROLES,
+            options: SortedCharacters.value.map(x => x.key).filter(x => !REQUIRED_ROLES.includes(x))
+        } as IScript
+        const allScript = computed(() => {
+            return [defaultScript].concat(script)
+        })
+
+        const roleOptions = computed(() => {
+            return allScript.value.map(x => ({ value: x.key, text: x.label }))
+        });
+        const selectedModeId = ref<string>(roleOptions.value[0].value);
         const roleList = ref<GroupedRoles[]>([])
         const countChecked = computed(() => {
             return roleList.value.reduce((total, currentGroup) => {
@@ -78,7 +118,7 @@ export default defineComponent({
             const optionsIdList = setRoleGroupList(newValue, 'options')
             roleList.value = requiredIdList.concat(optionsIdList)
         }, { immediate: true });
-        function setRoleGroupList(value: number, attr: "required" | "options") {
+        function setRoleGroupList(value: string, attr: "required" | "options") {
             const _v = attr == 'required' ? true : false
             const IdList = getRelatedRoleKeys(value, attr)
             const Roles = filterRolesByKeys(IdList)
@@ -91,16 +131,15 @@ export default defineComponent({
             }
             return result;
         }
-        function getRelatedRoleKeys(newValue: number, attr: "required" | "options") {
-            let list: string[] = []
-            const item = script.find(s => s.key === newValue);
-            if (item) {
-                list = item[attr];
+        function getRelatedRoleKeys(newValue: string, attr: "required" | "options") {
+            if(newValue == defaultScript.key){
+                return defaultScript[attr]
             }
-            return list
+            const item = allScript.value.find(s => s.key === newValue);
+            return item?.[attr] || [];
         }
         function filterRolesByKeys(selectedList: string[]) {
-            const list = charactersData.filter(x => selectedList.includes(x.key))
+            const list = SortedCharacters.value.filter(x => selectedList.includes(x.key))
             return list
         }
         function pairRoleList(list: Role[], attr: boolean) {
@@ -127,21 +166,21 @@ export default defineComponent({
             }
             return 'bi bi-square'
         });
-        function setAllStatus(){
-            const status=RoleLength.value ==countChecked.value?false:true
-            roleList.value.forEach(x=>{
+        function setAllStatus() {
+            const status = RoleLength.value !== countChecked.value;
+            roleList.value.forEach(x => {
                 if (!x.required) {
-                        x.checked = status;
-                    } 
-            })
+                    x.checked = status;
+                }
+            });
         }
         function setGroupStatus(index: number, status: boolean) {
-            for (let i = index * 4; i < index * 4 + 4; i++) {
-                if (i < roleList.value.length) {
-                    const x = roleList.value[i];
-                    if (!x.required) {
-                        x.checked = status;
-                    }
+            const startIndex = index * 4;
+            const endIndex = Math.min(startIndex + 4, roleList.value.length);
+            for (let i = startIndex; i < endIndex; i++) {
+                const x = roleList.value[i];
+                if (!x.required) {
+                    x.checked = status;
                 }
             }
         }
@@ -156,27 +195,28 @@ export default defineComponent({
             console.log(modalShow);
         }
         function submitSetting() {
-            const gameMode = script[selectedModeId.value]
+            if (countChecked.value > 20) {
+                popUpAlertModal();
+                return;
+            }
+            const gameMode = allScript.value.find(x => x.key === selectedModeId.value);
             const setting = {
                 roles: roleCheckedList.value,
                 mode: selectedModeId.value,
-                count: countChecked.value
-            }
-            if (countChecked.value > 20) {
-                popUpAlertModal()
-            } else {
-                store.dispatch('updateGameSetting', setting);
-                router.push({ path: `/game/${gameMode.route}` })
-            }
+                count: countChecked.value,
+                script: gameMode
+            };
+            store.dispatch('updateGameSetting', setting);
+            router.push({ path: `/game/${gameMode?.route}` });
         }
         return {
-            modalShow, roleOptions, selectedModeId, groupedRoles,countChecked, setSingleStatus, setGroupStatus, submitSetting,setAllStatus,allStatusStyle
+            modalShow, roleOptions, selectedModeId, groupedRoles,countChecked, setSingleStatus, setGroupStatus, submitSetting,setAllStatus,allStatusStyle,selectedRoundOptions,roundOptions
         };
     }
 });
 </script>
 <style lang="scss" scoped>
-::v-deep{
+.wrap{
     .banner-wrap {
         background-color: $red-primary-color;
         padding: 20px 0;
@@ -213,7 +253,7 @@ export default defineComponent({
 
 .wrap {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
 
     .count-wrap {
         margin-left: 24px;

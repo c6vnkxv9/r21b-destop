@@ -2,13 +2,13 @@
 LayoutContainer(:data='groupedChar' :config='config')
 </template>
 <script lang="ts">
-import LayoutContainer from '@/components/common/LayoutContainer.vue'
-import Role from '@/interfaces/RoleInterface';
+import LayoutContainer from '@/components/common/LayoutContainer.vue';
 import GroupedRoles from '@/interfaces/GroupedRolesInterface';
-import { ref, watch, defineComponent, Ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import { useStore } from 'vuex';
-import { useRouter } from 'vue-router';
+import Role from '@/interfaces/RoleInterface';
 import _ from 'lodash';
+import { computed, defineComponent, ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 export default defineComponent({
     name: 'GameDashboard',
     components: {
@@ -39,25 +39,56 @@ export default defineComponent({
             return _.flatMap(roles, item => _.filter(item.roles, { color }));
         }
         function groupedRoles(roles: GroupedRoles[]) {
-            const blueRoles = filterRolesByColor(roles, 'blue');
-            const redRoles = filterRolesByColor(roles, 'red');
-            const greyRoles = filterRolesByColor(roles, 'grey');
-            const more = blueRoles?.length + greyRoles?.length - 10
-            if (more > 0) {
-                const _rest = 10 - blueRoles.length || 0
-                leftRound.value = setCardSection([...redRoles, ...greyRoles.slice(0).slice(_rest, 100)])
-                rightRound.value = setCardSection([...blueRoles, ...greyRoles.slice(0).slice(0, _rest)])
-            } else {
-                leftRound.value = setCardSection([...redRoles])
-                rightRound.value = setCardSection([...blueRoles, ...greyRoles])
+            const roleCount = store.state.gameSetting?.roles?.reduce((acc:number, item:GroupedRoles) => acc + item.roles.length, 0)
+
+            const colorSet = new Set<string>();
+            roles.forEach(item => {
+                item.roles.forEach(role => {
+                    colorSet.add(role.color);
+                });
+            });
+            const colorRoles: Record<string, Role[]> = {};
+            colorSet.forEach(color => {
+                colorRoles[color] = filterRolesByColor(roles, color);
+            });
+            const rightSide: Role[] = [];
+            const leftSide: Role[] = [];
+            leftSide.push(...colorRoles['red'] || [])
+            rightSide.push(...colorRoles['blue'] || [])
+            
+            if (colorRoles['grey']) {
+                const greyRoles = colorRoles['grey'];
+                const pairedRoles = _.groupBy(greyRoles, 'pair');
+                const pairs = Object.values(pairedRoles);
+                const halfPairLength = Math.ceil(pairs.length / 2);
+                const leftPairs = pairs.slice(0, halfPairLength);
+                const rightPairs = pairs.slice(halfPairLength);
+                leftSide.push(..._.flatten(leftPairs));
+                rightSide.push(..._.flatten(rightPairs));
             }
-            return [leftRound, rightRound]
+            leftSide.push(...colorRoles['green'] || [])
+            rightSide.push(...colorRoles['purple'] || [])
+            leftRound.value = setCardSection(leftSide);
+            rightRound.value = setCardSection(rightSide);
+            return [leftRound, rightRound];
         }
         function setCardSection(data: Role[]) {
-            if (data) {
-                return [data.slice(0, MAX_CARDS_PER_SECTION), data.slice(MAX_CARDS_PER_SECTION, 1000)];
-            }
-            return [[], []];
+            // 1. 沒有考慮到 data 可能是 undefined 的情況，應該先檢查 data
+            if (!data) return [[], []];
+            
+            // 2. 當 data 是空陣列時，直接返回空的二維陣列
+            if (data.length === 0) return [[], []];
+            
+            // 3. 使用 _.groupBy 時沒有考慮到 pair 可能是 undefined 的情況
+            const pairedRoles = _.groupBy(data, role => role.pair || 'unpaired');
+            
+            const pairs = Object.values(pairedRoles);
+            const halfPairLength = Math.ceil(pairs.length / 2);
+            const upPairs = _.flatten(pairs.slice(0, halfPairLength));
+            const downPairs = _.flatten(pairs.slice(halfPairLength));
+            
+            // 4. 返回值的格式不一致，應該加上空格提高可讀性
+            return [upPairs, downPairs];
         }
         const config: object = {
             space: count.value,

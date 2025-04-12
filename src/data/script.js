@@ -1,15 +1,15 @@
-[
+export const REQUIRED_ROLES = [
+    "bluePresident",
+    "redBoomer",
+]
+
+export const script = [
     {
-        "key": 0,
+        "key": "normal",
         "name": "normal",
         "label": "一般",
-        "route":"normal",
-        "required": [
-            "bluePresident",
-            "redBoomer",
-            "blueDoctor",
-            "redEngineer"
-        ],
+        "route": "normal",
+        "required": [...REQUIRED_ROLES, "blueDoctor", "redEngineer"],
         "options": [
             "blueTuesdayKnight",
             "redDr.Boom",
@@ -31,13 +31,11 @@
         ]
     },
     {
-        "key": 1,
+        "key": "loveAndHate",
         "name": "Love And Hate",
-        "route":"love-and-hate",
+        "route": "love-and-hate",
         "label": "愛恨",
-        "required": [
-            "bluePresident",
-            "redBoomer",
+        "required": [...REQUIRED_ROLES,
             "blueEris",
             "redCupid"
         ],

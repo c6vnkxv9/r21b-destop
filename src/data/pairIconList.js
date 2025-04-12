@@ -1,37 +1,38 @@
-[
+import { RolePair } from "@/enum/Pair";
+export const pairIconList = [
     {
-        "pair": 12,
+        "pair": RolePair.PresidentBoomer,
         "icon": "person-bounding-box",
         "color": "blue"
     },
     {
-        "pair": 15,
+        "pair": RolePair.PresidentBoomer,
         "icon": "person-bounding-box",
         "color": "red"
     },
     {
-        "pair": 13,
+        "pair": RolePair.WifeMistress,
         "icon": "heart-fill",
         "color": "blue"
     },
     {
-        "pair": 16,
+        "pair": RolePair.RomeoJuliet,
         "icon": "heart-fill",
         "color": "red"
     },
     {
-        "pair": 17,
+        "pair": RolePair.AhabMoby,
         "icon": "signpost-split-fill",
         "color": "red"
     },
     {
-        "pair": 14,
+        "pair": RolePair.BombBotQueen,
         "icon": "signpost-split-fill",
         "color": "blue"
     },
     {
-        "pair": 19,
+        "pair": RolePair.DecoyTargetSniper,
         "icon": "recycle",
         "color": "grey"
-    }
+    },
 ]
