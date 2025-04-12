@@ -2,13 +2,14 @@
   "name": "my-vue3-project",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://kamiiliu.github.io/r21b-destop",
   "scripts": {
     "format": "prettier --write 'src/**/*.ts'",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "push_PROD": "sh deploy.sh prod",
-    "deploy": "gh-pages -d dist",
+    "deploy": "npm run build && gh-pages -d dist",
     "predeploy": "npm run build"
   },
   "dependencies": {
