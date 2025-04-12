@@ -11,7 +11,7 @@
           i(class="bi" :class="btnIsActive?'bi-pause-circle-fill':'bi-play-circle-fill'")
 </template>
 <script lang="ts">
-import { ref,watch, onBeforeUnmount,computed, Ref, defineComponent } from 'vue'
+import { computed, defineComponent, onBeforeUnmount, ref, Ref, watch } from 'vue'
 const COUNT_DOWN_TIMER_STATUS = [
   {
     key: 'START',
@@ -128,9 +128,6 @@ export default defineComponent({
   }
 })
 </script>
-這是我目前的方法，我希望可以按一下的時候開始計時，再按一下時，暫停計時
-請問這樣寫的話，有甚麼需要調整的地方
-以及//TODO:如何停止計時該怎麼寫?
 <style scoped lang="scss">
 .fz-6 {
   font-size: 24px;

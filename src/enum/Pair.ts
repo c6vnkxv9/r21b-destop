@@ -18,5 +18,14 @@ export enum RolePair {
     AhabMoby = 17,
     BombBotQueen = 18,
     DecoyTargetSniper = 19,
-    Gambler = 20
+    Gambler = 20,
+    Drunk = 21,
+    Negotiator = 22,
+    Zombie = 23,
+    Mummy = 24,
+    Conman = 25,
+    Negozombie = 26,
+    Angel = 27,
+    Demon = 28,
+    Mime = 29,
 }

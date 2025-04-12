@@ -33,7 +33,6 @@ div
 <script lang="ts">
 import CountdownTimer from '@/components/CountdownTimer.vue';
 import exchangeSetting from '@/data/exchangeSetting.json';
-import { script } from '@/data/script';
 import { computed, defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
@@ -59,8 +58,7 @@ export default defineComponent({
     })
     const playerCount = store.state.gameSetting.count
     const gameMode = computed(() => {
-      const modeId = store.state.gameSetting?.mode || 0
-      const { name, label } = script[modeId]
+      const { name='', label='' } = store.state.gameSetting.script || {}
       return { name, label }
     });
     function changeGameRound(i: number) {

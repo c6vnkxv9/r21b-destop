@@ -43,6 +43,7 @@ import FooterCopyright from '@/components/FooterCopyright.vue';
 import Alert from '@/components/setting/Alert.vue';
 import GroupCardPanel from '@/components/setting/GroupCardPanel.vue';
 import { characters } from '@/data/characters';
+import colorList from '@/data/colorList.json';
 import { REQUIRED_ROLES, script } from '@/data/script';
 import GroupedRoles from '@/interfaces/GroupedRolesInterface';
 import Role from '@/interfaces/RoleInterface';
@@ -77,17 +78,24 @@ export default defineComponent({
         let modalShow = ref<boolean>(false)
         let roundOptions = ref<IRoundOptions[]>(ROUND_OPTIONS)
         let selectedRoundOptions = ref<IRoundOptions>(roundOptions.value[0])
+        const SortedCharacters = computed(() => {
+            const _colorList = colorList.map(x => x.label)
+            return characters.sort((a, b) => _colorList.indexOf(a.color) - _colorList.indexOf(b.color))
+        })
         const defaultScript = {
             key: 'all',
             name: '自由',
             label: '自由',
             route: 'normal',
             required: REQUIRED_ROLES,
-            options: characters.map(x => x.key).filter(x => !REQUIRED_ROLES.includes(x))
+            options: SortedCharacters.value.map(x => x.key).filter(x => !REQUIRED_ROLES.includes(x))
         } as IScript
+        const allScript = computed(() => {
+            return [defaultScript].concat(script)
+        })
+
         const roleOptions = computed(() => {
-            const _script = [{value: defaultScript.key, text: defaultScript.label}].concat(script.map(x => ({ value: x.key, text: x.label })))
-            return _script
+            return allScript.value.map(x => ({ value: x.key, text: x.label }))
         });
         const selectedModeId = ref<string>(roleOptions.value[0].value);
         const roleList = ref<GroupedRoles[]>([])
@@ -127,11 +135,11 @@ export default defineComponent({
             if(newValue == defaultScript.key){
                 return defaultScript[attr]
             }
-            const item = script.find(s => s.key === newValue);
+            const item = allScript.value.find(s => s.key === newValue);
             return item?.[attr] || [];
         }
         function filterRolesByKeys(selectedList: string[]) {
-            const list = characters.filter(x => selectedList.includes(x.key))
+            const list = SortedCharacters.value.filter(x => selectedList.includes(x.key))
             return list
         }
         function pairRoleList(list: Role[], attr: boolean) {
@@ -191,11 +199,12 @@ export default defineComponent({
                 popUpAlertModal();
                 return;
             }
-            const gameMode = script.find(x => x.key === selectedModeId.value);
+            const gameMode = allScript.value.find(x => x.key === selectedModeId.value);
             const setting = {
                 roles: roleCheckedList.value,
                 mode: selectedModeId.value,
-                count: countChecked.value
+                count: countChecked.value,
+                script: gameMode
             };
             store.dispatch('updateGameSetting', setting);
             router.push({ path: `/game/${gameMode?.route}` });
@@ -207,7 +216,7 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
-:v-deep{
+.wrap{
     .banner-wrap {
         background-color: $red-primary-color;
         padding: 20px 0;
@@ -244,7 +253,7 @@ export default defineComponent({
 
 .wrap {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
 
     .count-wrap {
         margin-left: 24px;

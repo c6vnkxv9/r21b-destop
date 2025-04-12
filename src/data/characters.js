@@ -359,5 +359,131 @@ export const characters = [
         "desc": "公開預判哪個顏色獲勝",
         "pair": RolePair.Gambler,
         "src": "pic/role/grey-gambler.png"
+    },
+    {
+        "key": "blueAngel",
+        "role": "Angel",
+        "color": "blue",
+        "label": "天使",
+        "desc": "最後不與炸彈客在同一個房間",
+        "pair": RolePair.Angel,
+        "src": "pic/role/blue-angel.png"
+    },
+    {
+        "key": "redAngel",
+        "role": "Angel",
+        "color": "red",
+        "label": "天使",
+        "desc": "最後不與炸彈客在同一個房間",
+        "pair": RolePair.Angel,
+        "src": "pic/role/red-angel.png"
+    },
+    {
+        "key": "blueDemon",
+        "role": "Demon",
+        "color": "blue",
+        "label": "惡魔",
+        "desc": "最後與炸彈客在同一個房間",
+        "pair": RolePair.Demon,
+        "src": "pic/role/blue-demon.png"
+    },
+    {
+        "key": "redDemon",
+        "role": "Demon",
+        "color": "red",
+        "label": "惡魔",
+        "desc": "最後與炸彈客在同一個房間",
+        "pair": RolePair.Demon,
+        "src": "pic/role/red-demon.png"
+    },
+    {
+        "key": "blueClown",
+        "role": "Clown",
+        "color": "blue",
+        "label": "啞劇小丑",
+        "desc": "最後與炸彈客在同一個房間",
+        "pair": RolePair.Mime,
+        "src": "pic/role/blue-mime.png"
+    },
+    {
+        "key": "redMime",
+        "role": "Mime",
+        "color": "red",
+        "label": "啞劇小丑",
+        "desc": "最後與炸彈客在同一個房間",
+        "pair": RolePair.Mime,
+        "src": "pic/role/red-mime.png"
+    },
+    {
+        "key": "blueConman",
+        "role": "Conman",
+        "color": "blue",
+        "label": "謊言者",
+        "desc": "最後與炸彈客在同一個房間",
+        "pair": RolePair.Conman,
+        "src": "pic/role/blue-conman.png"
+    },
+    {
+        "key": "redConman",
+        "role": "Conman",
+        "color": "red",
+        "label": "謊言者",
+        "desc": "最後與炸彈客在同一個房間",
+        "pair": RolePair.Conman,
+        "src": "pic/role/red-conman.png"
+    },
+    {
+        "key": "blueMummy",
+        "role": "Mummy",
+        "color": "blue",
+        "label": "木乃伊",
+        "desc": "最後與炸彈客在同一個房間",
+        "pair": RolePair.Mummy,
+        "src": "pic/role/blue-mummy.png"
+    },
+    {
+        "key": "redMummy",
+        "role": "Mummy",
+        "color": "red",
+        "label": "木乃伊",
+        "desc": "最後與炸彈客在同一個房間",
+        "pair": RolePair.Mummy,
+        "src": "pic/role/red-mummy.png"
+    },
+    {
+        "key": "blueNegotiator",
+        "role": "Negotiator",
+        "color": "blue",
+        "label": "談判者",
+        "desc": "最後與炸彈客在同一個房間",
+        "pair": RolePair.Negotiator,
+        "src": "pic/role/blue-negotiator.png"
+    },
+    {
+        "key": "redNegotiator",
+        "role": "Negotiator",
+        "color": "red",
+        "label": "談判者",
+        "desc": "最後與炸彈客在同一個房間",
+        "pair": RolePair.Negotiator,
+        "src": "pic/role/red-negotiator.png"
+    },
+    {
+        "key": "drunk",
+        "role": "Drunk",
+        "color": "purple",
+        "label": "醉鬼",
+        "desc": "最後與炸彈客在同一個房間",
+        "pair": RolePair.Drunk,
+        "src": "pic/role/purple-drunk.png"
+    },
+    {
+        "key": "zombie",
+        "role": "Zombie",
+        "color": "green",
+        "label": "殭屍",
+        "desc": "最後與炸彈客在同一個房間",
+        "pair": RolePair.Zombie,
+        "src": "pic/role/green-zombie.png"
     }
 ]
