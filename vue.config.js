@@ -3,7 +3,7 @@ const fs = require('fs')
 const path = require('path')
 
 module.exports = defineConfig({
-  publicPath: process.env.NODE_ENV === "production" ? "https://kamiiliu.github.io/r21b-destop/" : "/",
+  publicPath: process.env.NODE_ENV === "production" ? "https://c6vnkxv9.github.io/r21b-destop/" : "/",
   transpileDependencies: true,
   outputDir: 'dist',
   css: {

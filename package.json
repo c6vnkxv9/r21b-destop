@@ -2,7 +2,7 @@
   "name": "two-rooms-and-one-boom",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://kamiiliu.github.io/r21b-destop",
+  "homepage": "https://c6vnkxv9.github.io/r21b-destop/",
   "scripts": {
     "format": "prettier --write 'src/**/*.ts'",
     "serve": "vue-cli-service serve",
