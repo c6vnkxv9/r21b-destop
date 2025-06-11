@@ -84,19 +84,19 @@ jobs:
           github_token: ${{ secrets.DEPLOY_SECRET }}
           publish_dir: ./frontend/dist
 
-  deploy-backend:
-    name: 部署後端到 Render
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
-    steps:
-      - name: 檢出代碼
-        uses: actions/checkout@v4
+  # deploy-backend:
+  #   name: 部署後端到 Render
+  #   runs-on: ubuntu-latest
+  #   if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+  #   steps:
+  #     - name: 檢出代碼
+  #       uses: actions/checkout@v4
 
-      - name: 設置 Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
+  #     - name: 設置 Node.js
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: '18'
 
-      - name: 觸發 Render 部署
-        run: |
-          curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+  #     - name: 觸發 Render 部署
+  #       run: |
+  #         curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
