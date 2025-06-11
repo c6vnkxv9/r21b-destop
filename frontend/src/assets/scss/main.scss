@@ -1,0 +1,11 @@
+@import 'variable';
+@import 'font';
+
+.backdrop-blur {
+  will-change: backdrop-filter;
+  backdrop-filter: blur(5px);
+}
+
+.cursor {
+  cursor: pointer;
+}

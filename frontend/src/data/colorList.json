@@ -1,0 +1,27 @@
+[
+    {
+        "label": "blue",
+        "color": "#5595D5",
+        "colorDark": "#1d3a5d"
+    },
+    {
+        "label": "red",
+        "color": "#CC333C",
+        "colorDark": "#401618"
+    },
+    {
+        "label": "grey",
+        "color": "#808080",
+        "colorDark": "#4c4c4c"
+    },
+    {
+        "label": "green",
+        "color": "#6EBE46",
+        "colorDark": "#30542f"
+    },
+    {
+        "label": "purple",
+        "color": "#755BA7",
+        "colorDark": "#3d2f84"
+    }
+]
