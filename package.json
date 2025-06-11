@@ -1,0 +1,26 @@
+{
+    "name": "r21b-monorepo",
+    "version": "1.0.0",
+    "description": "R21B - 兩個房間和一個爆炸物 - 前後端整合項目",
+    "private": true,
+    "workspaces": [
+        "frontend",
+        "backend"
+    ],
+    "scripts": {
+        "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+        "dev:frontend": "cd frontend && npm run serve",
+        "dev:backend": "cd backend && npm run dev",
+        "start": "cd backend && npm start",
+        "build": "cd frontend && npm run build",
+        "lint": "concurrently \"cd frontend && npm run lint\" \"cd backend && npm run lint\"",
+        "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install"
+    },
+    "engines": {
+        "node": ">=18.0.0",
+        "npm": ">=7.0.0"
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2"
+    }
+}

@@ -4,11 +4,11 @@ export interface IRoleOptions {
 }
 
 export interface IScript {
-    key: string,
-    name: string,
-    label: string,
-    route: string,
-    required: string[],
-    options: string[]
+    key: string;
+    name: string;
+    label: string;
+    route: string;
+    required: string[];
+    options: string[];
 }
 

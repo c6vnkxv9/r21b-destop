@@ -17,7 +17,7 @@ div
           p.text-start.icon-text-style 討論時間結束後
             span.d-block 請室長在1分鐘內
             span.d-block 選出 
-              span.fw-bold {{quantity}} 
+              span.fw-bold {{ isLoading ? "..." : quantity }} 
               |  位人質
           .hostage-icon-container
             i.bi.bi-person-walking(v-for="i in quantity")
@@ -32,10 +32,11 @@ div
 </template>
 <script lang="ts">
 import CountdownTimer from '@/components/CountdownTimer.vue';
-import exchangeSetting from '@/data/exchangeSetting.json';
-import { computed, defineComponent, ref } from 'vue';
+import { dataApi } from '@/services/api';
+import { computed, defineComponent, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
+
 export default defineComponent({
   name: 'GameConfigurationSection',
   props: {
@@ -52,31 +53,64 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const router = useRouter();
-    const gameRound = ref<number>(0)
-    const quantity = computed(() => {
-      return exchangeSetting[gameRound.value]
-    })
-    const playerCount = store.state.gameSetting.count
-    const gameMode = computed(() => {
-      const { name='', label='' } = store.state.gameSetting.script || {}
-      return { name, label }
+    const gameRound = ref<number>(0);
+    const exchangeSetting = ref<number[]>([]);
+    const isLoading = ref<boolean>(true);
+
+    // 從API獲取交換設置數據
+    const fetchExchangeSetting = async () => {
+      try {
+        isLoading.value = true;
+        const data = await dataApi.getExchangeSetting();
+        exchangeSetting.value = data;
+      } catch (error) {
+        console.error('獲取交換設置數據失敗:', error);
+      } finally {
+        isLoading.value = false;
+      }
+    };
+
+    onMounted(() => {
+      fetchExchangeSetting();
     });
+
+    const quantity = computed(() => {
+      if (isLoading.value || !exchangeSetting.value.length) return 0;
+      return exchangeSetting.value[gameRound.value];
+    });
+
+    const playerCount = store.state.gameSetting.count;
+    const gameMode = computed(() => {
+      const { name='', label='' } = store.state.gameSetting.script || {};
+      return { name, label };
+    });
+
     function changeGameRound(i: number) {
-      gameRound.value = i - 1
+      gameRound.value = i - 1;
     }
+
     function addGameRound(i: number) {
       if (gameRound.value < 4) {
-        gameRound.value++
+        gameRound.value++;
       }
     }
+
     function returnSetting() {
       router.push({ name: 'home' });
     }
+
     return {
-      playerCount, gameMode, quantity, gameRound, returnSetting, changeGameRound, addGameRound
-    }
+      playerCount, 
+      gameMode, 
+      quantity, 
+      gameRound, 
+      returnSetting, 
+      changeGameRound, 
+      addGameRound,
+      isLoading
+    };
   }
-})
+});
 </script>
 
 <style lang='scss' scoped>

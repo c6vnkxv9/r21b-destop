@@ -13,26 +13,29 @@
                     p.ver-text.card-desc.m-0(:class='item.color') {{ item.desc }}
 </template>
 <script lang="ts">
-import colorList from '@/data/colorList.json';
-import { pairIconList } from '@/data/pairIconList';
 import Role from '@/interfaces/RoleInterface';
+import { dataApi } from '@/services/api';
 import _ from 'lodash';
-import { computed, defineComponent, PropType } from 'vue';
+import { computed, defineComponent, onMounted, PropType, ref } from 'vue';
+
 interface PairAttribute {
     color?: string;
     icon?: string;
     card: Role[];
 }
+
 interface CardSection {
     team: string;
     color: string;
     roles: Role[];
     groupedRoles: GroupedRoles;
 }
+
 interface GroupedRoles {
     single: Role[];
     pair: PairAttribute[]
 }
+
 export default defineComponent({
     name: 'CardSection',
     props: {
@@ -46,6 +49,32 @@ export default defineComponent({
         },
     },
     setup(props) {
+        const colorList = ref<any[]>([]);
+        const pairIconList = ref<any[]>([]);
+        const isLoading = ref<boolean>(true);
+
+        // 從API獲取所需數據
+        const fetchData = async () => {
+            try {
+                isLoading.value = true;
+                const [colorListData, pairIconListData] = await Promise.all([
+                    dataApi.getColorList(),
+                    dataApi.getPairIconList()
+                ]);
+                
+                colorList.value = colorListData;
+                pairIconList.value = pairIconListData;
+            } catch (error) {
+                console.error('獲取數據失敗:', error);
+            } finally {
+                isLoading.value = false;
+            }
+        };
+
+        onMounted(() => {
+            fetchData();
+        });
+
         const RoleArray = computed(() => processRoles(props.data));
 
         function processRoles(data: Role[]): CardSection[] {
@@ -77,12 +106,12 @@ export default defineComponent({
                 if (count === 1) {
                     group.groupedRoles.single.push(...group.roles.filter(role => role.pair === +key));
                 } else if (count > 1) {
-                    let icon=pairIconList.find(x=>x.pair.toString()==key)
-                    let pairAttr={
-                        color:icon?.color,
-                        icon:icon?.icon,
-                        card:group.roles.filter(role => role.pair === +key)
-                    }
+                    let icon = pairIconList.value.find(x => x.pair.toString() == key);
+                    let pairAttr = {
+                        color: icon?.color,
+                        icon: icon?.icon,
+                        card: group.roles.filter(role => role.pair === +key)
+                    };
                     group.groupedRoles.pair.push(pairAttr);
                 }
             });
@@ -90,17 +119,21 @@ export default defineComponent({
         }
 
         function findIcon(pair: number) {
-            return pairIconList[pair as unknown as keyof typeof pairIconList];
+            const found = pairIconList.value.find(item => item.pair === pair);
+            return found || null;
         }
+
         function setBGC(label: string) {
-            return colorList.find(x => x.label === label)?.color || 'fff';
+            return colorList.value.find(x => x.label === label)?.color || 'fff';
         }
+
         function generateStyle(item: Role) {
             return {
                 'background-image': `url(./${item.src})`,
                 'width': `${Math.round(props.cardWidth)}px`
             };
-        };
+        }
+
         return { RoleArray, findIcon, generateStyle };
     }
 })

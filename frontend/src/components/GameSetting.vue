@@ -26,7 +26,9 @@
                 p.mb-0.text-end.cursor.fw-bold(@click='setAllStatus')
                     i.mr-12(:class='allStatusStyle' ) 
                     | 全選
-        .d-flex.flex-wrap.group-card-wrap.flex-grow-1
+        .d-flex.flex-wrap.group-card-wrap.flex-grow-1(v-if="isLoading")
+            .loading-indicator 載入中...
+        .d-flex.flex-wrap.group-card-wrap.flex-grow-1(v-else)
             GroupCardPanel.group-card-panel(
                 v-for='(roles,index) in groupedRoles' 
                 :data='roles' 
@@ -42,17 +44,16 @@
 import FooterCopyright from '@/components/FooterCopyright.vue';
 import Alert from '@/components/setting/Alert.vue';
 import GroupCardPanel from '@/components/setting/GroupCardPanel.vue';
-import { characters } from '@/data/characters';
-import colorList from '@/data/colorList.json';
-import { REQUIRED_ROLES, script } from '@/data/script';
 import GroupedRoles from '@/interfaces/GroupedRolesInterface';
 import Role from '@/interfaces/RoleInterface';
 import { IScript } from '@/interfaces/RoleOptionsInterface';
+import { dataApi } from '@/services/api';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { BButton, BButtonGroup, BFormCheckbox, BFormCheckboxGroup, BFormGroup, BFormSelect } from 'bootstrap-vue-3';
-import { computed, defineComponent, ref, watch } from 'vue';
+import { computed, defineComponent, onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
+
 interface IRoundOptions {
     value: string;
     text: string;
@@ -67,6 +68,7 @@ const ROUND_OPTIONS = [
         text: '五局'
     },
 ]
+
 export default defineComponent({
     components: {
         BFormSelect, BFormCheckboxGroup, BFormCheckbox, BFormGroup,
@@ -75,30 +77,44 @@ export default defineComponent({
     setup() {
         const router = useRouter();
         const store = useStore();
-        let modalShow = ref<boolean>(false)
-        let roundOptions = ref<IRoundOptions[]>(ROUND_OPTIONS)
-        let selectedRoundOptions = ref<IRoundOptions>(roundOptions.value[0])
+        const isLoading = ref<boolean>(true);
+        const modalShow = ref<boolean>(false);
+        const characters = ref<Role[]>([]);
+        const colorList = ref<any[]>([]);
+        const script = ref<IScript[]>([]);
+        const REQUIRED_ROLES = ref<string[]>([]);
+        const roundOptions = ref<IRoundOptions[]>(ROUND_OPTIONS);
+        const selectedRoundOptions = ref<IRoundOptions>(roundOptions.value[0]);
+        const roleList = ref<GroupedRoles[]>([]);
+        const selectedModeId = ref<string>('');
+
         const SortedCharacters = computed(() => {
-            const _colorList = colorList.map(x => x.label)
-            return characters.sort((a, b) => _colorList.indexOf(a.color) - _colorList.indexOf(b.color))
-        })
-        const defaultScript = {
-            key: 'all',
-            name: '自由',
-            label: '自由',
-            route: 'normal',
-            required: REQUIRED_ROLES,
-            options: SortedCharacters.value.map(x => x.key).filter(x => !REQUIRED_ROLES.includes(x))
-        } as IScript
+            if (!characters.value.length || !colorList.value.length) return [];
+            const _colorList = colorList.value.map(x => x.label);
+            return [...characters.value].sort((a, b) => 
+                _colorList.indexOf(a.color) - _colorList.indexOf(b.color)
+            );
+        });
+
+        const defaultScript = computed(() => {
+            return {
+                key: 'all',
+                name: '自由',
+                label: '自由',
+                route: 'normal',
+                required: REQUIRED_ROLES.value,
+                options: SortedCharacters.value.map(x => x.key).filter(x => !REQUIRED_ROLES.value.includes(x))
+            } as IScript;
+        });
+
         const allScript = computed(() => {
-            return [defaultScript].concat(script)
-        })
+            return [defaultScript.value].concat(script.value);
+        });
 
         const roleOptions = computed(() => {
-            return allScript.value.map(x => ({ value: x.key, text: x.label }))
+            return allScript.value.map(x => ({ value: x.key, text: x.label }));
         });
-        const selectedModeId = ref<string>(roleOptions.value[0].value);
-        const roleList = ref<GroupedRoles[]>([])
+
         const countChecked = computed(() => {
             return roleList.value.reduce((total, currentGroup) => {
                 if (currentGroup.checked) {
@@ -106,24 +122,61 @@ export default defineComponent({
                 }
                 return total;
             }, 0);
-        })
+        });
+
         const roleCheckedList = computed(() => {
-            return roleList.value.filter(x => x.checked)
-        })
+            return roleList.value.filter(x => x.checked);
+        });
+
         const groupedRoles = computed(() => {
-            return chunkGroupRoles(roleList.value, 4)
-        })
+            return chunkGroupRoles(roleList.value, 4);
+        });
+
+        // 獲取所有需要的數據
+        const fetchData = async () => {
+            isLoading.value = true;
+            try {
+                // 並行獲取所有數據
+                const [charactersData, scriptData, colorListData] = await Promise.all([
+                    dataApi.getCharacters(),
+                    dataApi.getScript(),
+                    dataApi.getColorList()
+                ]);
+                
+                characters.value = charactersData;
+                script.value = scriptData.script || [];
+                REQUIRED_ROLES.value = scriptData.REQUIRED_ROLES || [];
+                colorList.value = colorListData;
+                
+                // 初始化第一個選項
+                if (roleOptions.value.length > 0) {
+                    selectedModeId.value = roleOptions.value[0].value;
+                }
+            } catch (error) {
+                console.error('獲取數據失敗:', error);
+            } finally {
+                isLoading.value = false;
+            }
+        };
+
+        onMounted(() => {
+            fetchData();
+        });
+
         watch(selectedModeId, (newValue) => {
-            const requiredIdList = setRoleGroupList(newValue, 'required')
-            const optionsIdList = setRoleGroupList(newValue, 'options')
-            roleList.value = requiredIdList.concat(optionsIdList)
-        }, { immediate: true });
+            if (!newValue) return;
+            const requiredIdList = setRoleGroupList(newValue, 'required');
+            const optionsIdList = setRoleGroupList(newValue, 'options');
+            roleList.value = requiredIdList.concat(optionsIdList);
+        });
+
         function setRoleGroupList(value: string, attr: "required" | "options") {
-            const _v = attr == 'required' ? true : false
-            const IdList = getRelatedRoleKeys(value, attr)
-            const Roles = filterRolesByKeys(IdList)
-            return pairRoleList(Roles, _v)
+            const _v = attr == 'required' ? true : false;
+            const IdList = getRelatedRoleKeys(value, attr);
+            const Roles = filterRolesByKeys(IdList);
+            return pairRoleList(Roles, _v);
         }
+
         function chunkGroupRoles(array: GroupedRoles[], chunkSize: number) {
             let result = [];
             for (let i = 0; i < array.length; i += chunkSize) {
@@ -131,41 +184,47 @@ export default defineComponent({
             }
             return result;
         }
+
         function getRelatedRoleKeys(newValue: string, attr: "required" | "options") {
-            if(newValue == defaultScript.key){
-                return defaultScript[attr]
+            if (newValue == defaultScript.value.key) {
+                return defaultScript.value[attr];
             }
             const item = allScript.value.find(s => s.key === newValue);
             return item?.[attr] || [];
         }
+
         function filterRolesByKeys(selectedList: string[]) {
-            const list = SortedCharacters.value.filter(x => selectedList.includes(x.key))
-            return list
+            const list = SortedCharacters.value.filter(x => selectedList.includes(x.key));
+            return list;
         }
+
         function pairRoleList(list: Role[], attr: boolean) {
             return list.reduce((acc, arr) => {
-                const item = acc.find(x => x.pair == arr.pair)
+                const item = acc.find(x => x.pair == arr.pair);
                 if (item) {
-                    item.roles.push(arr)
+                    item.roles.push(arr);
                 } else {
-                    acc.push({ pair: arr.pair, required: attr, roles: [arr], checked: attr })
+                    acc.push({ pair: arr.pair, required: attr, roles: [arr], checked: attr });
                 }
-                return acc
-            }, [] as GroupedRoles[])
+                return acc;
+            }, [] as GroupedRoles[]);
         }
+
         const RoleLength = computed(() => {
             return roleList.value.reduce((total, currentGroup) => {
                 return total + currentGroup.roles.length;
             }, 0);
-        })
-        const allStatusStyle = computed(() => {
-            if(RoleLength.value ==countChecked.value){
-                return 'bi bi-check-square-fill fill-color'
-            }else if(countChecked.value >0){
-                return 'bi bi-dash-square'
-            }
-            return 'bi bi-square'
         });
+
+        const allStatusStyle = computed(() => {
+            if (RoleLength.value == countChecked.value) {
+                return 'bi bi-check-square-fill fill-color';
+            } else if (countChecked.value > 0) {
+                return 'bi bi-dash-square';
+            }
+            return 'bi bi-square';
+        });
+
         function setAllStatus() {
             const status = RoleLength.value !== countChecked.value;
             roleList.value.forEach(x => {
@@ -174,6 +233,7 @@ export default defineComponent({
                 }
             });
         }
+
         function setGroupStatus(index: number, status: boolean) {
             const startIndex = index * 4;
             const endIndex = Math.min(startIndex + 4, roleList.value.length);
@@ -184,16 +244,18 @@ export default defineComponent({
                 }
             }
         }
+
         function setSingleStatus(pair: number) {
-            let item = roleList.value.find(x => x.pair == pair)
+            let item = roleList.value.find(x => x.pair == pair);
             if (item && !item.required) {
                 item.checked = !item.checked;
             }
         }
+
         function popUpAlertModal() {
-            modalShow.value = true
-            console.log(modalShow);
+            modalShow.value = true;
         }
+
         function submitSetting() {
             if (countChecked.value > 20) {
                 popUpAlertModal();
@@ -209,8 +271,21 @@ export default defineComponent({
             store.dispatch('updateGameSetting', setting);
             router.push({ path: `/game/${gameMode?.route}` });
         }
+
         return {
-            modalShow, roleOptions, selectedModeId, groupedRoles,countChecked, setSingleStatus, setGroupStatus, submitSetting,setAllStatus,allStatusStyle,selectedRoundOptions,roundOptions
+            isLoading,
+            modalShow, 
+            roleOptions, 
+            selectedModeId, 
+            groupedRoles, 
+            countChecked, 
+            setSingleStatus, 
+            setGroupStatus, 
+            submitSetting, 
+            setAllStatus, 
+            allStatusStyle, 
+            selectedRoundOptions, 
+            roundOptions
         };
     }
 });
@@ -238,6 +313,14 @@ export default defineComponent({
     &:hover {
         background: $red-team-dark-color;
     }
+}
+
+.loading-indicator {
+    width: 100%;
+    text-align: center;
+    padding: 40px;
+    font-size: 20px;
+    color: $red-primary-color;
 }
 
 .group-card-wrap {

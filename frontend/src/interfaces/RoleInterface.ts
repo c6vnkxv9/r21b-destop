@@ -1,9 +1,13 @@
 export default interface Role {
     key: string;
-    role: string;
+    name: string;
     color: string;
-    label: string;
-    desc: string;
     pair: number;
-    src: string;
+    description?: string;
+    ability?: string;
+    faction?: string;
+    special?: boolean;
+    src?: string;
+    label?: string;
+    desc?: string;
 }

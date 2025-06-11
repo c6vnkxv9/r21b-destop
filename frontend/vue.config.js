@@ -22,5 +22,16 @@ module.exports = defineConfig({
       })
       return options
     })
+
+    // 定義環境變數
+    config.plugin('define').tap((definitions) => {
+      Object.assign(definitions[0], {
+        'process.env': {
+          ...definitions[0]['process.env'],
+          VUE_APP_API_BASE_URL: JSON.stringify('http://localhost:3000/api/v1')
+        }
+      })
+      return definitions
+    })
   }
 })

@@ -1,7 +1,8 @@
-import Role from '@/interfaces/RoleInterface';
+import Role from './RoleInterface';
+
 export default interface GroupedRoles {
-    pair: Number;
-    required: Boolean;
-    checked: Boolean;
-    roles: Role[]
+    pair: number;
+    roles: Role[];
+    checked: boolean;
+    required: boolean;
 }
