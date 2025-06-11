@@ -3,6 +3,9 @@
 # 發生錯誤時終止腳本
 set -e
 
+# 進入前端目錄
+cd frontend
+
 # 構建
 npm run build
 
@@ -24,3 +27,4 @@ git commit -m 'deploy'
 git push -f https://github.com/kamiiliu/r21b-destop.git master:gh-pages
 
 cd -
+cd ..

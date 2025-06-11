@@ -1,57 +1,20 @@
 {
-  "name": "two-rooms-and-one-boom",
+  "name": "two-rooms-and-one-boom-monorepo",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://c6vnkxv9.github.io/r21b-destop/",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
   "scripts": {
-    "format": "prettier --write 'src/**/*.ts'",
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "push_PROD": "sh deploy.sh prod",
-    "deploy": "npm run build && gh-pages -d dist",
-    "predeploy": "npm run build"
+    "start:frontend": "cd frontend && npm run serve",
+    "build:frontend": "cd frontend && npm run build",
+    "start:backend": "cd backend && npm start",
+    "lint:frontend": "cd frontend && npm run lint",
+    "deploy:frontend": "cd frontend && npm run deploy",
+    "deploy:backend": "curl -X POST ${RENDER_DEPLOY_HOOK_URL}"
   },
-  "dependencies": {
-    "@popperjs/core": "^2.11.8",
-    "bootstrap": "^5.3.2",
-    "bootstrap-icons": "^1.11.1",
-    "bootstrap-vue-3": "^0.5.1",
-    "core-js": "^3.8.3",
-    "lodash": "^4.17.21",
-    "scss": "^0.2.4",
-    "vue": "^3.2.13",
-    "vue-class-component": "^8.0.0-0",
-    "vue-cli-service": "^5.0.10",
-    "vue-router": "^4.0.3",
-    "vuex": "^4.0.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.12.16",
-    "@babel/eslint-parser": "^7.12.16",
-    "@types/lodash": "^4.14.202",
-    "@typescript-eslint/eslint-plugin": "^5.4.0",
-    "@typescript-eslint/parser": "^5.4.0",
-    "@vue/cli-plugin-babel": "~5.0.0",
-    "@vue/cli-plugin-eslint": "~5.0.0",
-    "@vue/cli-plugin-router": "~5.0.0",
-    "@vue/cli-plugin-typescript": "~5.0.0",
-    "@vue/cli-plugin-vuex": "~5.0.0",
-    "@vue/cli-service": "~5.0.0",
-    "@vue/eslint-config-standard": "^7.0.0",
-    "@vue/eslint-config-typescript": "^9.1.0",
-    "eslint": "^8.0.1",
-    "eslint-plugin-import": "^2.25.3",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.0.1",
-    "eslint-plugin-vue": "^8.0.3",
-    "gh-pages": "^6.0.0",
-    "html-webpack-plugin": "^5.5.3",
-    "prettier": "^3.0.3",
-    "pug": "^3.0.2",
-    "pug-plain-loader": "^1.1.0",
-    "sass": "^1.86.3",
-    "sass-loader": "^12.6.0",
-    "typescript": "^4.9.5"
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

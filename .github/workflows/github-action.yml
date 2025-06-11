@@ -8,8 +8,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  lint:
-    name: 代碼品質檢查
+  lint-frontend:
+    name: 前端代碼品質檢查
     runs-on: ubuntu-latest
     steps:
       - name: 檢出代碼
@@ -20,20 +20,21 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
+          cache-dependency-path: 'frontend/package-lock.json'
 
       - name: 安裝依賴
-        run: npm install
+        run: cd frontend && npm install
 
       - name: 運行 Lint
-        run: npm run lint
+        run: cd frontend && npm run lint
 
       - name: 檢查代碼格式
-        run: npm run format -- --check
+        run: cd frontend && npm run format -- --check
 
-  build:
-    name: 建構專案
+  build-frontend:
+    name: 建構前端
     runs-on: ubuntu-latest
-    needs: lint
+    needs: lint-frontend
     steps:
       - name: 檢出代碼
         uses: actions/checkout@v4
@@ -43,26 +44,27 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
+          cache-dependency-path: 'frontend/package-lock.json'
 
       - name: 安裝依賴
-        run: npm install
+        run: cd frontend && npm install
 
-      - name: 建構專案
-        run: npm run build
+      - name: 建構前端
+        run: cd frontend && npm run build
 
       - name: 複製 README 到 dist 目錄
-        run: cp public/gh-pages-readme.md dist/README.md
+        run: cp frontend/public/gh-pages-readme.md frontend/dist/README.md
 
       - name: 上傳建構產物
         uses: actions/upload-artifact@v4
         with:
-          name: production-files
-          path: ./dist
+          name: frontend-production-files
+          path: ./frontend/dist
 
-  deploy:
-    name: 部署到 GitHub Pages
+  deploy-frontend:
+    name: 部署前端到 GitHub Pages
     runs-on: ubuntu-latest
-    needs: build
+    needs: build-frontend
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
     permissions:
       contents: write
@@ -73,11 +75,28 @@ jobs:
       - name: 下載建構產物
         uses: actions/download-artifact@v4
         with:
-          name: production-files
-          path: ./dist
+          name: frontend-production-files
+          path: ./frontend/dist
 
       - name: 部署到 GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.DEPLOY_SECRET }}
-          publish_dir: ./dist
+          publish_dir: ./frontend/dist
+
+  deploy-backend:
+    name: 部署後端到 Render
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    steps:
+      - name: 檢出代碼
+        uses: actions/checkout@v4
+
+      - name: 設置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: 觸發 Render 部署
+        run: |
+          curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
