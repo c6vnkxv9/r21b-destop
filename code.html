@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Game Room Setup - Step 2</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<style type="text/tailwindcss">
+      @layer base {
+        :root {
+          --primary-red: #ec131e;
+          --dark-bg: #1c0e0f;
+          --card-bg: #2a1b1c;--border-red: #4c1d21;
+          --text-muted: #a3a3a3;--glow-yellow: #facc15;--secondary-blue: #3b82f6;
+          --button-icon-color: #636363;--button-icon-hover-glow: #facc15;}
+      }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "var(--primary-red)",
+              "background-light": "#f8f6f6","background-dark": "var(--dark-bg)",
+              "card-bg": "var(--card-bg)",
+              "border-red": "var(--border-red)",
+              "text-muted": "var(--text-muted)",
+              "glow-yellow": "var(--glow-yellow)",
+              "secondary-blue": "var(--secondary-blue)",
+              "red-card-bg": "#3f1c1d","blue-card-bg": "#1c2b3f","darker-red": "#2f1516",
+              "darker-blue": "#151e2f",
+              "button-icon": "var(--button-icon-color)",
+            },
+            fontFamily: {
+              "sans": ["Inter", "sans-serif"],
+            },
+            borderRadius: {"DEFAULT": "0.75rem", "lg": "1.5rem", "xl": "2.25rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .form-select {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a3a3a3' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");background-position: right 0.5rem center;
+        background-repeat: no-repeat;
+        background-size: 1.5em 1.5em;
+        padding-right: 2.5rem;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }.tooltip {
+        position: relative;
+        display: inline-block;
+      }
+      .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 180px;
+        background-color: rgba(34, 34, 34, 0.9);
+        color: #fff;
+        text-align: center;
+        border-radius: 0.5rem;
+        padding: 8px 12px;
+        position: absolute;
+        z-index: 10;
+        bottom: 110%;left: 50%;
+        margin-left: -90px;opacity: 0;
+        transition: opacity 0.3s, visibility 0.3s;
+        font-size: 0.875rem;line-height: 1.25rem;font-weight: 400;
+        pointer-events: none;box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      }
+      .tooltip .tooltiptext::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: rgba(34, 34, 34, 0.9) transparent transparent transparent;
+      }
+      .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+      }
+      .icon-btn {
+        @apply flex items-center justify-center size-7 p-1 rounded-full text-button-icon hover:text-glow-yellow/80 transition-colors duration-200 opacity-0 group-hover:opacity-100;
+        box-shadow: none;}
+      .icon-btn:hover {
+        text-shadow: 0 0 5px var(--button-icon-hover-glow), 0 0 10px var(--button-icon-hover-glow);
+      }
+    </style>
+</head>
+<body class="font-sans">
+<div class="relative flex min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-white/10 px-10 py-5 sm:px-20 md:px-40">
+<div class="flex items-center gap-4 text-white">
+<div class="size-6 text-primary">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.8261 30.5736C16.7203 29.8826 20.2244 29.4783 24 29.4783C27.7756 29.4783 31.2797 29.8826 34.1739 30.5736C36.9144 31.2278 39.9967 32.7669 41.3563 33.8352L24.8486 7.36089C24.4571 6.73303 23.5429 6.73303 23.1514 7.36089L6.64374 33.8352C8.00331 32.7669 11.0856 31.2278 13.8261 30.5736Z" fill="currentColor"></path>
+<path clip-rule="evenodd" d="M39.998 35.764C39.9944 35.7463 39.9875 35.7155 39.9748 35.6706C39.9436 35.5601 39.8949 35.4259 39.8346 35.2825C39.8168 35.2403 39.7989 35.1993 39.7813 35.1602C38.5103 34.2887 35.9788 33.0607 33.7095 32.5189C30.9875 31.8691 27.6413 31.4783 24 31.4783C20.3587 31.4783 17.0125 31.8691 14.2905 32.5189C12.0012 33.0654 9.44505 34.3104 8.18538 35.1832C8.17384 35.2075 8.16216 35.233 8.15052 35.2592C8.09919 35.3751 8.05721 35.4886 8.02977 35.589C8.00356 35.6848 8.00039 35.7333 8.00004 35.7388C8.00004 35.739 8 35.7393 8.00004 35.7388C8.00004 35.7641 8.0104 36.0767 8.68485 36.6314C9.34546 37.1746 10.4222 37.7531 11.9291 38.2772C14.9242 39.319 19.1919 40 24 40C28.8081 40 33.0758 39.319 36.0709 38.2772C37.5778 37.7531 38.6545 37.1746 39.3151 36.6314C39.9006 36.1499 39.9857 35.8511 39.998 35.764ZM4.95178 32.7688L21.4543 6.30267C22.6288 4.4191 25.3712 4.41909 26.5457 6.30267L43.0534 32.777C43.0709 32.8052 43.0878 32.8338 43.104 32.8629L41.3563 33.8352C43.104 32.8629 43.1038 32.8626 43.104 32.8629L43.1051 32.865L43.1065 32.8675L43.1101 32.8739L43.1199 32.8918C43.1276 32.906 43.1377 32.9246 43.1497 32.9473C43.1738 32.9925 43.2062 33.0545 43.244 33.1299C43.319 33.2792 43.4196 33.489 43.5217 33.7317C43.6901 34.1321 44 34.9311 44 35.7391C44 37.4427 43.003 38.7775 41.8558 39.7209C40.6947 40.6757 39.1354 41.4464 37.385 42.0552C33.8654 43.2794 29.133 44 24 44C18.867 44 14.1346 43.2794 10.615 42.0552C8.86463 41.4464 7.30529 40.6757 6.14419 39.7209C4.99695 38.7775 3.99999 37.4427 3.99999 35.7391C3.99999 34.8725 4.29264 34.0922 4.49321 33.6393C4.60375 33.3898 4.71348 33.1804 4.79687 33.0311C4.83898 32.9556 4.87547 32.8935 4.9035 32.8471C4.91754 32.8238 4.92954 32.8043 4.93916 32.7889L4.94662 32.777L4.95178 32.7688ZM35.9868 29.004L24 9.77997L12.0131 29.004C12.4661 28.8609 12.9179 28.7342 13.3617 28.6282C16.4281 27.8961 20.0901 27.4783 24 27.4783C27.9099 27.4783 31.5719 27.8961 34.6383 28.6282C35.082 28.7342 35.5339 28.8609 35.9868 29.004Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">Game Logo</h2>
+</div>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
+<span class="truncate">View Rules</span>
+</button>
+</header>
+<main class="flex-1 px-10 py-12 sm:px-20 md:px-40">
+<div class="grid grid-cols-12 gap-8 h-full">
+<aside class="col-span-12 md:col-span-4 lg:col-span-3">
+<div class="flex flex-col gap-4 sticky top-10">
+<h1 class="text-white text-base font-medium leading-normal px-3">Setup Progress</h1>
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-3 p-3 rounded-lg border-2 border-transparent bg-gradient-to-r from-red-500/50 to-blue-500/50 bg-clip-border cursor-not-allowed">
+<div class="flex items-center gap-3 p-3 rounded bg-transparent w-full">
+<span class="material-symbols-outlined text-emerald-400" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<p class="text-text-muted text-sm font-medium leading-normal">Create Room Basic Info</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-lg border-2 border-transparent bg-gradient-to-r from-red-500 to-blue-500 bg-clip-border">
+<div class="flex items-center gap-3 p-3 rounded bg-[var(--card-bg)] w-full">
+<span class="material-symbols-outlined text-glow-yellow">pending</span>
+<p class="text-white text-sm font-medium leading-normal">Select Character Combination</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-lg border-2 border-transparent bg-gradient-to-r from-red-500/50 to-blue-500/50 bg-clip-border">
+<div class="flex items-center gap-3 p-3 rounded bg-transparent w-full">
+<span class="material-symbols-outlined text-text-muted">radio_button_unchecked</span>
+<p class="text-text-muted text-sm font-medium leading-normal">Share Room Information</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<div class="col-span-12 md:col-span-8 lg:col-span-9">
+<div class="bg-[var(--card-bg)] rounded-lg p-8 flex flex-col h-full">
+<div class="flex-1">
+<div class="flex flex-col gap-3 mb-8">
+<p class="text-white text-4xl font-extrabold leading-tight tracking-[-0.033em]">Select Character Combination</p>
+<p class="text-text-muted text-base font-normal leading-normal">Choose a character pair for the game. Hover to see details and click to select.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 h-full max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
+<style>
+            .custom-scrollbar::-webkit-scrollbar {
+                width: 8px;
+            }
+            .custom-scrollbar::-webkit-scrollbar-track {
+                background: #2a1b1c;border-radius: 10px;
+            }
+            .custom-scrollbar::-webkit-scrollbar-thumb {
+                background: #5a2e30;border-radius: 10px;
+            }
+            .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                background: #7a3e40;}
+          </style>
+<div class="group relative flex flex-col gap-3 p-2 rounded-lg cursor-pointer transition-all ring-2 ring-transparent hover:ring-glow-yellow/50 hover:shadow-lg hover:shadow-glow-yellow/10 focus-within:ring-glow-yellow/70 focus-within:shadow-lg focus-within:shadow-glow-yellow/20 has-[.selected]:ring-glow-yellow/70 has-[.selected]:shadow-lg has-[.selected]:shadow-glow-yellow/20">
+<div class="absolute top-1 right-1 z-20 flex gap-1">
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">edit</span>
+</button>
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">delete</span>
+</button>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-red-card-bg items-center border border-border-red">
+<div class="w-16 h-16 rounded-full bg-darker-red flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path><path d="m15 9-6 6m0-6 6 6"></path></svg>
+<span class="tooltiptext">A master of plans, this character excels in long-term thinking and outwitting opponents through complex schemes.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Strategist</h3>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-blue-card-bg items-center border border-[#324567]">
+<div class="w-16 h-16 rounded-full bg-darker-blue flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-secondary-blue" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path><path d="M12 6v6l4 2"></path></svg>
+<span class="tooltiptext">Controls the flow of time, giving them the ability to foresee moves and alter the sequence of events.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Timekeeper</h3>
+</div>
+<div class="absolute inset-0 z-[1] rounded-lg border-2 border-transparent group-[.selected]:border-glow-yellow group-[.selected]:shadow-glow-yellow/40 group-[.selected]:shadow-lg"></div>
+</div>
+<div class="group relative flex flex-col gap-3 p-2 rounded-lg cursor-pointer transition-all ring-2 ring-glow-yellow/70 shadow-lg shadow-glow-yellow/20 selected">
+<div class="absolute top-1 right-1 z-20 flex gap-1">
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">edit</span>
+</button>
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">delete</span>
+</button>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-red-card-bg items-center border border-border-red">
+<div class="w-16 h-16 rounded-full bg-darker-red flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+<span class="tooltiptext">A defensive powerhouse, focused on protecting allies and thwarting enemy attacks with unwavering resolve.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Guardian</h3>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-blue-card-bg items-center border border-[#324567]">
+<div class="w-16 h-16 rounded-full bg-darker-blue flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-secondary-blue" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m18 8-4-4-4 4m8 8-4 4-4-4"></path><path d="M4 12h16"></path></svg>
+<span class="tooltiptext">Deceives opponents by mimicking others, creating confusion and opportunities through illusion.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Shapeshifter</h3>
+</div>
+<div class="absolute inset-0 z-[1] rounded-lg border-2 border-transparent group-[.selected]:border-glow-yellow group-[.selected]:shadow-glow-yellow/40 group-[.selected]:shadow-lg"></div>
+</div>
+<div class="group relative flex flex-col gap-3 p-2 rounded-lg cursor-pointer transition-all ring-2 ring-transparent hover:ring-glow-yellow/50 hover:shadow-lg hover:shadow-glow-yellow/10 focus-within:ring-glow-yellow/70 focus-within:shadow-lg focus-within:shadow-glow-yellow/20 has-[.selected]:ring-glow-yellow/70 has-[.selected]:shadow-lg has-[.selected]:shadow-glow-yellow/20">
+<div class="absolute top-1 right-1 z-20 flex gap-1">
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">edit</span>
+</button>
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">delete</span>
+</button>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-red-card-bg items-center border border-border-red">
+<div class="w-16 h-16 rounded-full bg-darker-red flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+<span class="tooltiptext">Builds and deploys gadgets and traps, controlling the battlefield through technological superiority.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Engineer</h3>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-blue-card-bg items-center border border-[#324567]">
+<div class="w-16 h-16 rounded-full bg-darker-blue flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-secondary-blue" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
+<span class="tooltiptext">Possesses immense knowledge, able to reveal hidden information and predict outcomes with startling accuracy.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Oracle</h3>
+</div>
+<div class="absolute inset-0 z-[1] rounded-lg border-2 border-transparent group-[.selected]:border-glow-yellow group-[.selected]:shadow-glow-yellow/40 group-[.selected]:shadow-lg"></div>
+</div>
+<div class="group relative flex flex-col gap-3 p-2 rounded-lg cursor-pointer transition-all ring-2 ring-transparent hover:ring-glow-yellow/50 hover:shadow-lg hover:shadow-glow-yellow/10 focus-within:ring-glow-yellow/70 focus-within:shadow-lg focus-within:shadow-glow-yellow/20 has-[.selected]:ring-glow-yellow/70 has-[.selected]:shadow-lg has-[.selected]:shadow-glow-yellow/20">
+<div class="absolute top-1 right-1 z-20 flex gap-1">
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">edit</span>
+</button>
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">delete</span>
+</button>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-red-card-bg items-center border border-border-red">
+<div class="w-16 h-16 rounded-full bg-darker-red flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path><path d="M9 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM15 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM12 17a4 4 0 0 0 4-4H8a4 4 0 0 0 4 4z"></path></svg>
+<span class="tooltiptext">The Jester: Delights in chaos and misdirection, using humor and pranks to confuse foes.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Jester</h3>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-blue-card-bg items-center border border-[#324567]">
+<div class="w-16 h-16 rounded-full bg-darker-blue flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-secondary-blue" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path><path d="M10 10l4 4m0-4-4 4"></path></svg>
+<span class="tooltiptext">The Mystic: Draws power from ancient knowledge, capable of powerful, unpredictable spells.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Mystic</h3>
+</div>
+<div class="absolute inset-0 z-[1] rounded-lg border-2 border-transparent group-[.selected]:border-glow-yellow group-[.selected]:shadow-glow-yellow/40 group-[.selected]:shadow-lg"></div>
+</div>
+<div class="group relative flex flex-col gap-3 p-2 rounded-lg cursor-pointer transition-all ring-2 ring-transparent hover:ring-glow-yellow/50 hover:shadow-lg hover:shadow-glow-yellow/10 focus-within:ring-glow-yellow/70 focus-within:shadow-lg focus-within:shadow-glow-yellow/20 has-[.selected]:ring-glow-yellow/70 has-[.selected]:shadow-lg has-[.selected]:shadow-glow-yellow/20">
+<div class="absolute top-1 right-1 z-20 flex gap-1">
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">edit</span>
+</button>
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">delete</span>
+</button>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-red-card-bg items-center border border-border-red">
+<div class="w-16 h-16 rounded-full bg-darker-red flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 13a5 5 0 0 0 7.54.54l3.9-3.9a2 2 0 0 0 0-2.82L19.5 3.52a2 2 0 0 0-2.82 0l-3.9 3.9a5 5 0 0 0-.54 7.54z"></path><path d="M14.5 19.5l-3.9-3.9a5 5 0 0 0-.54-7.54l-1.41-1.41a2 2 0 0 0-2.83 0L3.5 6.5a2 2 0 0 0 0 2.83l1.41 1.41a5 5 0 0 0 7.54.54z"></path></svg>
+<span class="tooltiptext">The Duelist: Master of one-on-one combat, swift and precise with every strike.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Duelist</h3>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-blue-card-bg items-center border border-[#324567]">
+<div class="w-16 h-16 rounded-full bg-darker-blue flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-secondary-blue" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 19H7a4 4 0 0 1 0-8h10a4 4 0 0 0 0-8H7v16"></path></svg>
+<span class="tooltiptext">The Architect: Designs and controls terrain, creating formidable defenses or deadly traps.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Architect</h3>
+</div>
+<div class="absolute inset-0 z-[1] rounded-lg border-2 border-transparent group-[.selected]:border-glow-yellow group-[.selected]:shadow-glow-yellow/40 group-[.selected]:shadow-lg"></div>
+</div>
+<div class="group relative flex flex-col gap-3 p-2 rounded-lg cursor-pointer transition-all ring-2 ring-transparent hover:ring-glow-yellow/50 hover:shadow-lg hover:shadow-glow-yellow/10 focus-within:ring-glow-yellow/70 focus-within:shadow-lg focus-within:shadow-glow-yellow/20 has-[.selected]:ring-glow-yellow/70 has-[.selected]:shadow-lg has-[.selected]:shadow-glow-yellow/20">
+<div class="absolute top-1 right-1 z-20 flex gap-1">
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">edit</span>
+</button>
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">delete</span>
+</button>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-red-card-bg items-center border border-border-red">
+<div class="w-16 h-16 rounded-full bg-darker-red flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 17l-4 4-4-4"></path><path d="M12 12V21"></path><path d="M19 12H5"></path></svg>
+<span class="tooltiptext">The Berserker: Unleashes raw, untamed power in a furious, uncontrolled assault.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Berserker</h3>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-blue-card-bg items-center border border-[#324567]">
+<div class="w-16 h-16 rounded-full bg-darker-blue flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-secondary-blue" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+<span class="tooltiptext">The Elementalist: Commands the forces of nature, conjuring storms, flames, or ice.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Elementalist</h3>
+</div>
+<div class="absolute inset-0 z-[1] rounded-lg border-2 border-transparent group-[.selected]:border-glow-yellow group-[.selected]:shadow-glow-yellow/40 group-[.selected]:shadow-lg"></div>
+</div>
+<div class="group relative flex flex-col gap-3 p-2 rounded-lg cursor-pointer transition-all ring-2 ring-transparent hover:ring-glow-yellow/50 hover:shadow-lg hover:shadow-glow-yellow/10 focus-within:ring-glow-yellow/70 focus-within:shadow-lg focus-within:shadow-glow-yellow/20 has-[.selected]:ring-glow-yellow/70 has-[.selected]:shadow-lg has-[.selected]:shadow-yellow-500/20">
+<div class="absolute top-1 right-1 z-20 flex gap-1">
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">edit</span>
+</button>
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">delete</span>
+</button>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-red-card-bg items-center border border-border-red">
+<div class="w-16 h-16 rounded-full bg-darker-red flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M10.39 4.39A7.5 7.5 0 0 1 12 2a7.5 7.5 0 0 1 1.61 2.39"></path><path d="M12 22v-3"></path></svg>
+<span class="tooltiptext">The Siren: Charms and manipulates opponents with captivating melodies and illusions.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Siren</h3>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-blue-card-bg items-center border border-[#324567]">
+<div class="w-16 h-16 rounded-full bg-darker-blue flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-secondary-blue" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><path d="M4 22v-7"></path></svg>
+<span class="tooltiptext">The Cartographer: Navigates unseen paths and reveals hidden areas, guiding allies to victory.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Cartographer</h3>
+</div>
+<div class="absolute inset-0 z-[1] rounded-lg border-2 border-transparent group-[.selected]:border-glow-yellow group-[.selected]:shadow-glow-yellow/40 group-[.selected]:shadow-lg"></div>
+</div>
+<div class="group relative flex flex-col gap-3 p-2 rounded-lg cursor-pointer transition-all ring-2 ring-transparent hover:ring-glow-yellow/50 hover:shadow-lg hover:shadow-glow-yellow/10 focus-within:ring-glow-yellow/70 focus-within:shadow-lg focus-within:shadow-glow-yellow/20 has-[.selected]:ring-glow-yellow/70 has-[.selected]:shadow-lg has-[.selected]:shadow-glow-yellow/20">
+<div class="absolute top-1 right-1 z-20 flex gap-1">
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">edit</span>
+</button>
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">delete</span>
+</button>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-red-card-bg items-center border border-border-red">
+<div class="w-16 h-16 rounded-full bg-darker-red flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+<span class="tooltiptext">The Sage: Offers wisdom and guidance, bolstering allies with knowledge and tactical advice.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Sage</h3>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-blue-card-bg items-center border border-[#324567]">
+<div class="w-16 h-16 rounded-full bg-darker-blue flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-secondary-blue" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+<span class="tooltiptext">The Alchemist: Transforms substances and creates potions, providing versatile utility and support.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Alchemist</h3>
+</div>
+<div class="absolute inset-0 z-[1] rounded-lg border-2 border-transparent group-[.selected]:border-glow-yellow group-[.selected]:shadow-glow-yellow/40 group-[.selected]:shadow-lg"></div>
+</div>
+<div class="group relative flex flex-col gap-3 p-2 rounded-lg cursor-pointer transition-all ring-2 ring-transparent hover:ring-glow-yellow/50 hover:shadow-lg hover:shadow-glow-yellow/10 focus-within:ring-glow-yellow/70 focus-within:shadow-lg focus-within:shadow-glow-yellow/20 has-[.selected]:ring-glow-yellow/70 has-[.selected]:shadow-lg has-[.selected]:shadow-glow-yellow/20">
+<div class="absolute top-1 right-1 z-20 flex gap-1">
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">edit</span>
+</button>
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">delete</span>
+</button>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-red-card-bg items-center border border-border-red">
+<div class="w-16 h-16 rounded-full bg-darker-red flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M2 12s3 7 10 7 10-7 10-7-3-7-10-7-10 7-10 7z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+<span class="tooltiptext">The Seer: Possesses visions of the future, revealing enemy movements and hidden paths.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Seer</h3>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-blue-card-bg items-center border border-[#324567]">
+<div class="w-16 h-16 rounded-full bg-darker-blue flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-secondary-blue" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20h0a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1h0a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1z"></path><path d="M12 4v2"></path><path d="M12 14V6"></path><path d="M8 8H6v4h2"></path><path d="M16 8h-2V4h2"></path><path d="M10 14h-2a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2"></path><path d="M14 14h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2"></path></svg>
+<span class="tooltiptext">The Inventor: Creates ingenious contraptions and devices to aid allies and hinder foes.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Inventor</h3>
+</div>
+<div class="absolute inset-0 z-[1] rounded-lg border-2 border-transparent group-[.selected]:border-glow-yellow group-[.selected]:shadow-glow-yellow/40 group-[.selected]:shadow-lg"></div>
+</div>
+<div class="group relative flex flex-col gap-3 p-2 rounded-lg cursor-pointer transition-all ring-2 ring-transparent hover:ring-glow-yellow/50 hover:shadow-lg hover:shadow-glow-yellow/10 focus-within:ring-glow-yellow/70 focus-within:shadow-lg focus-within:shadow-glow-yellow/20 has-[.selected]:ring-glow-yellow/70 has-[.selected]:shadow-lg has-[.selected]:shadow-glow-yellow/20">
+<div class="absolute top-1 right-1 z-20 flex gap-1">
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">edit</span>
+</button>
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">delete</span>
+</button>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-red-card-bg items-center border border-border-red">
+<div class="w-16 h-16 rounded-full bg-darker-red flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><path d="M13 2v7h7"></path></svg>
+<span class="tooltiptext">The Chronicler: Records events and stories, gaining insights from past battles and prophecies.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Chronicler</h3>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-blue-card-bg items-center border border-[#324567]">
+<div class="w-16 h-16 rounded-full bg-darker-blue flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-secondary-blue" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M12 18v-6h4"></path></svg>
+<span class="tooltiptext">The Navigator: Guides allies through treacherous terrain, avoiding traps and finding optimal routes.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Navigator</h3>
+</div>
+<div class="absolute inset-0 z-[1] rounded-lg border-2 border-transparent group-[.selected]:border-glow-yellow group-[.selected]:shadow-glow-yellow/40 group-[.selected]:shadow-lg"></div>
+</div>
+<div class="group relative flex flex-col gap-3 p-2 rounded-lg cursor-pointer transition-all ring-2 ring-transparent hover:ring-glow-yellow/50 hover:shadow-lg hover:shadow-glow-yellow/10 focus-within:ring-glow-yellow/70 focus-within:shadow-lg focus-within:shadow-glow-yellow/20 has-[.selected]:ring-glow-yellow/70 has-[.selected]:shadow-lg has-[.selected]:shadow-glow-yellow/20">
+<div class="absolute top-1 right-1 z-20 flex gap-1">
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">edit</span>
+</button>
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">delete</span>
+</button>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-red-card-bg items-center border border-border-red">
+<div class="w-16 h-16 rounded-full bg-darker-red flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.38 10.62a4.4 4.4 0 0 0-.25-1.74l-.09-.23a4.4 4.4 0 0 0-1.74-1.74l-.23-.09a4.4 4.4 0 0 0-1.74-.25l-2.76-.04a4.4 4.4 0 0 0-2.07.41l-.23.1a4.4 4.4 0 0 0-1.63 1.15l-1.15 1.63a4.4 4.4 0 0 0-.41 2.07l.04 2.76a4.4 4.4 0 0 0 .25 1.74l.09.23a4.4 4.4 0 0 0 1.74 1.74l.23.09a4.4 4.4 0 0 0 1.74.25l2.76.04a4.4 4.4 0 0 0 2.07-.41l.23-.1a4.4 4.4 0 0 0 1.63-1.15l1.15-1.63a4.4 4.4 0 0 0 .41-2.07l-.04-2.76z"></path></svg>
+<span class="tooltiptext">The Assassin: Specializes in stealth and precision, eliminating high-value targets swiftly.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Assassin</h3>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-blue-card-bg items-center border border-[#324567]">
+<div class="w-16 h-16 rounded-full bg-darker-blue flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-secondary-blue" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L6 22h12L12 2z"></path></svg>
+<span class="tooltiptext">The Spirit Weaver: Summons ethereal beings to fight alongside them or provide support.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Spirit Weaver</h3>
+</div>
+<div class="absolute inset-0 z-[1] rounded-lg border-2 border-transparent group-[.selected]:border-glow-yellow group-[.selected]:shadow-glow-yellow/40 group-[.selected]:shadow-lg"></div>
+</div>
+<div class="group relative flex flex-col gap-3 p-2 rounded-lg cursor-pointer transition-all ring-2 ring-transparent hover:ring-glow-yellow/50 hover:shadow-lg hover:shadow-glow-yellow/10 focus-within:ring-glow-yellow/70 focus-within:shadow-lg focus-within:shadow-glow-yellow/20 has-[.selected]:ring-glow-yellow/70 has-[.selected]:shadow-lg has-[.selected]:shadow-glow-yellow/20">
+<div class="absolute top-1 right-1 z-20 flex gap-1">
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">edit</span>
+</button>
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">delete</span>
+</button>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-red-card-bg items-center border border-border-red">
+<div class="w-16 h-16 rounded-full bg-darker-red flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+<span class="tooltiptext">The Knight: A noble warrior, dedicated to protecting the innocent and upholding justice.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Knight</h3>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-blue-card-bg items-center border border-[#324567]">
+<div class="w-16 h-16 rounded-full bg-darker-blue flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-secondary-blue" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 22V8m-4-2H4a2 2 0 0 1-2-2V2h20v2a2 2 0 0 1-2 2h-4"></path></svg>
+<span class="tooltiptext">The Librarian: Guards forgotten lore and ancient secrets, using knowledge as their weapon.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Librarian</h3>
+</div>
+<div class="absolute inset-0 z-[1] rounded-lg border-2 border-transparent group-[.selected]:border-glow-yellow group-[.selected]:shadow-glow-yellow/40 group-[.selected]:shadow-lg"></div>
+</div>
+<div class="group relative flex flex-col gap-3 p-2 rounded-lg cursor-pointer transition-all ring-2 ring-transparent hover:ring-glow-yellow/50 hover:shadow-lg hover:shadow-glow-yellow/10 focus-within:ring-glow-yellow/70 focus-within:shadow-lg focus-within:shadow-glow-yellow/20 has-[.selected]:ring-glow-yellow/70 has-[.selected]:shadow-lg has-[.selected]:shadow-glow-yellow/20">
+<div class="absolute top-1 right-1 z-20 flex gap-1">
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">edit</span>
+</button>
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">delete</span>
+</button>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-red-card-bg items-center border border-border-red">
+<div class="w-16 h-16 rounded-full bg-darker-red flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+<span class="tooltiptext">The Physician: Heals wounds and cures ailments, keeping allies in the fight.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Physician</h3>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-blue-card-bg items-center border border-[#324567]">
+<div class="w-16 h-16 rounded-full bg-darker-blue flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-secondary-blue" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M12 8v4m0 4h.01"></path></svg>
+<span class="tooltiptext">The Bard: Inspires allies with songs and tales, boosting morale and effectiveness.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Bard</h3>
+</div>
+<div class="absolute inset-0 z-[1] rounded-lg border-2 border-transparent group-[.selected]:border-glow-yellow group-[.selected]:shadow-glow-yellow/40 group-[.selected]:shadow-lg"></div>
+</div>
+<div class="group relative flex flex-col gap-3 p-2 rounded-lg cursor-pointer transition-all ring-2 ring-transparent hover:ring-glow-yellow/50 hover:shadow-lg hover:shadow-glow-yellow/10 focus-within:ring-glow-yellow/70 focus-within:shadow-lg focus-within:shadow-glow-yellow/20 has-[.selected]:ring-glow-yellow/70 has-[.selected]:shadow-lg has-[.selected]:shadow-glow-yellow/20">
+<div class="absolute top-1 right-1 z-20 flex gap-1">
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">edit</span>
+</button>
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">delete</span>
+</button>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-red-card-bg items-center border border-border-red">
+<div class="w-16 h-16 rounded-full bg-darker-red flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>
+<span class="tooltiptext">The Reaper: Harvests souls of fallen foes, gaining strength from each defeat.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Reaper</h3>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-blue-card-bg items-center border border-[#324567]">
+<div class="w-16 h-16 rounded-full bg-darker-blue flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-secondary-blue" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M12 18V6"></path><path d="M15 9l-3-3-3 3"></path></svg>
+<span class="tooltiptext">The Ascendant: Rises above earthly limitations, channeling divine power.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Ascendant</h3>
+</div>
+<div class="absolute inset-0 z-[1] rounded-lg border-2 border-transparent group-[.selected]:border-glow-yellow group-[.selected]:shadow-glow-yellow/40 group-[.selected]:shadow-lg"></div>
+</div>
+<div class="group relative flex flex-col gap-3 p-2 rounded-lg cursor-pointer transition-all ring-2 ring-transparent hover:ring-glow-yellow/50 hover:shadow-lg hover:shadow-glow-yellow/10 focus-within:ring-glow-yellow/70 focus-within:shadow-lg focus-within:shadow-glow-yellow/20 has-[.selected]:ring-glow-yellow/70 has-[.selected]:shadow-lg has-[.selected]:shadow-glow-yellow/20">
+<div class="absolute top-1 right-1 z-20 flex gap-1">
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">edit</span>
+</button>
+<button class="icon-btn">
+<span class="material-symbols-outlined text-base">delete</span>
+</button>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-red-card-bg items-center border border-border-red">
+<div class="w-16 h-16 rounded-full bg-darker-red flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 12c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"></path><path d="M12 12v6m0 0v-6"></path><path d="M17.8 14.2l-3-3M6.2 14.2l3-3"></path><path d="M12 22s-8-4-8-10V5l8-3 8 3v7c0 6-8 10-8 10z"></path></svg>
+<span class="tooltiptext">The Necromancer: Commands the undead, raising minions to overwhelm opponents.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Necromancer</h3>
+</div>
+<div class="relative flex flex-col gap-2 p-3 rounded-md bg-blue-card-bg items-center border border-[#324567]">
+<div class="w-16 h-16 rounded-full bg-darker-blue flex items-center justify-center p-2 tooltip">
+<svg class="w-full h-full text-secondary-blue" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path><path d="M12 12L8 8V6h8v2l-4 4z"></path></svg>
+<span class="tooltiptext">The Illusionist: Creates convincing mirages and diversions, disorienting enemies and aiding escapes.</span>
+</div>
+<h3 class="text-white font-medium text-sm text-center">Illusionist</h3>
+</div>
+<div class="absolute inset-0 z-[1] rounded-lg border-2 border-transparent group-[.selected]:border-glow-yellow group-[.selected]:shadow-glow-yellow/40 group-[.selected]:shadow-lg"></div>
+</div>
+</div>
+</div>
+<div class="flex justify-between items-center mt-12 pt-8 border-t border-white/10">
+<button class="flex min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-6 bg-gradient-to-r from-blue-800 to-blue-600 text-white text-base font-bold leading-normal tracking-[0.015em] hover:from-blue-700 hover:to-blue-500 transition-all">
+<span class="truncate">上一步</span>
+</button>
+<button class="flex min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-6 bg-gradient-to-r from-red-600 to-rose-500 text-white text-base font-bold leading-normal tracking-[0.015em] hover:from-red-500 hover:to-rose-400 transition-all">
+<span class="truncate">下一步</span>
+</button>
+</div>
+</div>
+</div>
+</div></main>
+</div>
+</div>
+</body></html>
