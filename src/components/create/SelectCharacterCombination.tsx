@@ -49,12 +49,14 @@ type CharacterItem = {
   src?: string;
 };
 
-export default function SelectCharacterCombination(props: SelectCharacterCombinationProps): JSX.Element {
+export default function SelectCharacterCombination(
+  props: SelectCharacterCombinationProps
+): JSX.Element {
   const { pairs: pairsProp, defaultSelectedId, onChangeSelected, onDeletePair } = props;
   const theme = useTheme();
   const derivedPairs = useMemo<CharacterPair[]>(() => {
     if (pairsProp) return pairsProp;
-    const list = (characters as CharacterItem[]) as CharacterItem[];
+    const list = characters as CharacterItem[] as CharacterItem[];
 
     // 按照 pair 分組，並確保同一 pair 的角色集中在一起
     const byPair = new Map<string, Map<string, Role>>();
@@ -62,7 +64,9 @@ export default function SelectCharacterCombination(props: SelectCharacterCombina
       const pairId = String(c.pair);
       const roleBucket = byPair.get(pairId) ?? new Map<string, Role>();
       const side: Role["side"] =
-        c.color === "red" || c.color === "blue" || c.color === "grey" ? (c.color as Role["side"]) : "grey";
+        c.color === "red" || c.color === "blue" || c.color === "grey"
+          ? (c.color as Role["side"])
+          : "grey";
       const key = `${c.label ?? c.role}-${side}`;
       if (!roleBucket.has(key)) {
         roleBucket.set(key, { name: c.label ?? c.role, description: c.desc ?? "", side });
@@ -74,7 +78,9 @@ export default function SelectCharacterCombination(props: SelectCharacterCombina
     const colorOrder: Record<Role["side"], number> = { red: 0, blue: 1, grey: 2 };
 
     const result: CharacterPair[] = Array.from(byPair.entries()).map(([pairId, roleMap]) => {
-      const roles = Array.from(roleMap.values()).sort((a, b) => colorOrder[a.side] - colorOrder[b.side]);
+      const roles = Array.from(roleMap.values()).sort(
+        (a, b) => colorOrder[a.side] - colorOrder[b.side]
+      );
       return { id: pairId, roles };
     });
 
@@ -85,16 +91,15 @@ export default function SelectCharacterCombination(props: SelectCharacterCombina
   }, [pairsProp]);
 
   const [pairs, setPairs] = useState<CharacterPair[]>(derivedPairs);
-  const [selectedId, setSelectedId] = useState<string | undefined>(defaultSelectedId ?? derivedPairs[0]?.id);
+  const [selectedId, setSelectedId] = useState<string | undefined>(
+    defaultSelectedId ?? derivedPairs[0]?.id
+  );
 
   // Edit dialog state
-  const [editing, setEditing] = useState<
-    | {
-        id: string;
-        roles: { name: string; desc: string }[];
-      }
-    | null
-  >(null);
+  const [editing, setEditing] = useState<{
+    id: string;
+    roles: { name: string; desc: string }[];
+  } | null>(null);
 
   // view options for toggling card content
   const [viewOptions, setViewOptions] = useState<{ title: boolean; desc: boolean; pic: boolean }>({
@@ -109,23 +114,30 @@ export default function SelectCharacterCombination(props: SelectCharacterCombina
 
   const handleSelect = (id: string): void => {
     setSelectedId(id);
-    const found = pairs.find(p => p.id === id);
+    const found = pairs.find((p) => p.id === id);
     if (found) onChangeSelected?.(found);
   };
 
   const openEdit = (pair: CharacterPair): void => {
     setEditing({
       id: pair.id,
-      roles: pair.roles.map(r => ({ name: r.name, desc: r.description })),
+      roles: pair.roles.map((r) => ({ name: r.name, desc: r.description })),
     });
   };
 
   const applyEdit = (): void => {
     if (!editing) return;
-    setPairs(prev =>
-      prev.map(p =>
+    setPairs((prev) =>
+      prev.map((p) =>
         p.id === editing.id
-          ? { ...p, roles: p.roles.map((r, idx) => ({ ...r, name: editing.roles[idx]?.name ?? r.name, description: editing.roles[idx]?.desc ?? r.description })) }
+          ? {
+              ...p,
+              roles: p.roles.map((r, idx) => ({
+                ...r,
+                name: editing.roles[idx]?.name ?? r.name,
+                description: editing.roles[idx]?.desc ?? r.description,
+              })),
+            }
           : p
       )
     );
@@ -133,11 +145,11 @@ export default function SelectCharacterCombination(props: SelectCharacterCombina
   };
 
   const handleDelete = (pairId: string): void => {
-    setPairs(prev => prev.filter(p => p.id !== pairId));
+    setPairs((prev) => prev.filter((p) => p.id !== pairId));
     if (selectedId === pairId) {
-      const next = pairs.find(p => p.id !== pairId)?.id;
+      const next = pairs.find((p) => p.id !== pairId)?.id;
       setSelectedId(next);
-      const found = pairs.find(p => p.id === next);
+      const found = pairs.find((p) => p.id === next);
       if (found) onChangeSelected?.(found);
     }
     onDeletePair?.(pairId);
@@ -163,7 +175,12 @@ export default function SelectCharacterCombination(props: SelectCharacterCombina
                 挑選至多 maxPairs 組角色組合。
               </Typography>
             </Box>
-            <IconButton size="small" sx={{ opacity: 0.9 }} onClick={handleOpenMenu} aria-label="顯示選項">
+            <IconButton
+              size="small"
+              sx={{ opacity: 0.9 }}
+              onClick={handleOpenMenu}
+              aria-label="顯示選項"
+            >
               <ListOutlinedIcon fontSize="small" />
             </IconButton>
           </Box>
@@ -176,7 +193,10 @@ export default function SelectCharacterCombination(props: SelectCharacterCombina
             transformOrigin={{ vertical: "top", horizontal: "right" }}
             slotProps={{ paper: { sx: { minWidth: 220, p: 1 } } }}
           >
-            <MenuItem disableRipple sx={{ ":hover": { backgroundColor: "transparent" }, cursor: "default" }}>
+            <MenuItem
+              disableRipple
+              sx={{ ":hover": { backgroundColor: "transparent" }, cursor: "default" }}
+            >
               <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
                 顯示內容
               </Typography>
@@ -239,26 +259,32 @@ export default function SelectCharacterCombination(props: SelectCharacterCombina
           <DialogContent sx={{ display: "grid", gap: 2, pt: 2 }}>
             {editing?.roles.map((r, idx) => (
               <Box key={idx} sx={{ display: "grid", gap: 1.5 }}>
-                <Typography variant="subtitle2" color="text.secondary">角色 {idx + 1}</Typography>
+                <Typography variant="subtitle2" color="text.secondary">
+                  角色 {idx + 1}
+                </Typography>
                 <TextField
                   label="角色名稱"
                   value={r.name}
-                  onChange={(e) => setEditing(prev => {
-                    if (!prev) return prev;
-                    const next = [...prev.roles];
-                    next[idx] = { ...next[idx], name: e.target.value };
-                    return { ...prev, roles: next };
-                  })}
+                  onChange={(e) =>
+                    setEditing((prev) => {
+                      if (!prev) return prev;
+                      const next = [...prev.roles];
+                      next[idx] = { ...next[idx], name: e.target.value };
+                      return { ...prev, roles: next };
+                    })
+                  }
                 />
                 <TextField
                   label="描述"
                   value={r.desc}
-                  onChange={(e) => setEditing(prev => {
-                    if (!prev) return prev;
-                    const next = [...prev.roles];
-                    next[idx] = { ...next[idx], desc: e.target.value };
-                    return { ...prev, roles: next };
-                  })}
+                  onChange={(e) =>
+                    setEditing((prev) => {
+                      if (!prev) return prev;
+                      const next = [...prev.roles];
+                      next[idx] = { ...next[idx], desc: e.target.value };
+                      return { ...prev, roles: next };
+                    })
+                  }
                   multiline
                   minRows={2}
                 />
@@ -267,12 +293,12 @@ export default function SelectCharacterCombination(props: SelectCharacterCombina
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setEditing(null)}>取消</Button>
-            <Button variant="contained" onClick={applyEdit}>儲存</Button>
+            <Button variant="contained" onClick={applyEdit}>
+              儲存
+            </Button>
           </DialogActions>
         </Dialog>
       </CardContent>
     </Card>
   );
 }
-
-

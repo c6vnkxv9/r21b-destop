@@ -1,4 +1,3 @@
-
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
@@ -18,12 +17,24 @@ function CreateView(): JSX.Element {
 
   const steps = ["創建房間基本資訊", "挑選角色組合", "分享房間資訊"];
   const stepFromUrl = Number(searchParams.get("step") ?? "1");
-  const currentStep = Number.isFinite(stepFromUrl) && stepFromUrl >= 1 && stepFromUrl <= steps.length ? stepFromUrl : 1;
+  const currentStep =
+    Number.isFinite(stepFromUrl) && stepFromUrl >= 1 && stepFromUrl <= steps.length
+      ? stepFromUrl
+      : 1;
   const activeStepIndex = currentStep - 1;
 
   return (
     <DefaultLayout>
-      <Box sx={{ px: { xs: 2, sm: 4, lg: 10 }, py: 3, flex: 1, display: "flex", minHeight: 0, width: "100%" }}>
+      <Box
+        sx={{
+          px: { xs: 2, sm: 4, lg: 10 },
+          py: 3,
+          flex: 1,
+          display: "flex",
+          minHeight: 0,
+          width: "100%",
+        }}
+      >
         <Grid container spacing={{ xs: 2, md: 3, lg: 4 }} sx={{ width: "100%" }}>
           <Grid item xs={12} md={4} lg={3}>
             <StepSidebar
@@ -42,16 +53,37 @@ function CreateView(): JSX.Element {
                 onRoundsChange={(n) => setRounds(n)}
                 onGameMinutesChange={(v) => setGameMinutes(v)}
                 onDiscussionMinutesChange={(v) => setDiscussionMinutes(v)}
-                onNext={() => setSearchParams({ step: String(Math.min(currentStep + 1, steps.length)) })}
+                onNext={() =>
+                  setSearchParams({ step: String(Math.min(currentStep + 1, steps.length)) })
+                }
               />
             ) : activeStepIndex === 1 ? (
               <Box>
                 <SelectCharacterCombination />
-                <Box sx={{ display: "flex", justifyContent: "space-between", mt: 3, pt: 2, borderTop: "1px solid", borderColor: "divider" }}>
-                  <Button variant="contained" color="secondary" sx={{ minWidth: 120 }} onClick={() => setSearchParams({ step: "1" })}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    mt: 3,
+                    pt: 2,
+                    borderTop: "1px solid",
+                    borderColor: "divider",
+                  }}
+                >
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    sx={{ minWidth: 120 }}
+                    onClick={() => setSearchParams({ step: "1" })}
+                  >
                     上一步
                   </Button>
-                  <Button variant="contained" color="primary" sx={{ minWidth: 120 }} onClick={() => setSearchParams({ step: "3" })}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{ minWidth: 120 }}
+                    onClick={() => setSearchParams({ step: "3" })}
+                  >
                     下一步
                   </Button>
                 </Box>
@@ -76,11 +108,7 @@ function CreateView(): JSX.Element {
                     >
                       上一步
                     </Button>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      sx={{ minWidth: 120 }}
-                    >
+                    <Button variant="contained" color="primary" sx={{ minWidth: 120 }}>
                       進入房間
                     </Button>
                   </Box>
@@ -97,4 +125,3 @@ function CreateView(): JSX.Element {
 }
 
 export default CreateView;
-

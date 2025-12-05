@@ -34,7 +34,7 @@ const RoomNameField = ({
   placeholder = "請輸入房間名稱",
 }: RoomNameFieldProps) => {
   const handleRandomize = useCallback(() => {
-    const base = (nickname && nickname.trim()) ? nickname.trim() : "我的房間";
+    const base = nickname && nickname.trim() ? nickname.trim() : "我的房間";
     onChange(`${base}${randomSuffix(4)}`);
   }, [nickname, onChange]);
 
@@ -59,5 +59,3 @@ const RoomNameField = ({
 };
 
 export default RoomNameField;
-
-

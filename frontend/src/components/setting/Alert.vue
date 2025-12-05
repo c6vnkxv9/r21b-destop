@@ -13,44 +13,44 @@ BModal(
   p.mb-0.text-center 請取消不需要的角色後，再開始遊戲。
 </template>
 <script lang="ts">
-import { BModal } from 'bootstrap-vue-3'
-import { computed, defineComponent } from 'vue'
+import { BModal } from "bootstrap-vue-3";
+import { computed, defineComponent } from "vue";
 
 export default defineComponent({
-  name: 'GameDashboard',
+  name: "GameDashboard",
   props: {
     show: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   components: {
-    BModal
+    BModal,
   },
-  setup (props, { emit }) {
+  setup(props, { emit }) {
     const showLoc = computed({
       get: () => props.show,
-      set: (v) => emit('update:show', v)
+      set: (v) => emit("update:show", v),
     });
-    function closeModal(){
-      emit('update:modalShow', false);
-      showLoc.value=!showLoc.value
+    function closeModal() {
+      emit("update:modalShow", false);
+      showLoc.value = !showLoc.value;
       console.log(showLoc.value);
     }
-    return {showLoc ,closeModal}
-  }
-})
+    return { showLoc, closeModal };
+  },
+});
 </script>
 
 <style lang="scss" scoped>
-.icon-color{
-  color:$red-secondary-color
+.icon-color {
+  color: $red-secondary-color;
 }
-.close-icon{
+.close-icon {
   top: 12px;
   right: 12px;
 }
-.fs-48{
+.fs-48 {
   font-size: 48px;
 }
 </style>

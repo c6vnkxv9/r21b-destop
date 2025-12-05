@@ -1,6 +1,14 @@
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import { Box, Container, Divider, IconButton, Link as MuiLink, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  Divider,
+  IconButton,
+  Link as MuiLink,
+  Stack,
+  Typography,
+} from "@mui/material";
 
 export default function Footer(): JSX.Element {
   return (

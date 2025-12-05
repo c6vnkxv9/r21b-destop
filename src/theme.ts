@@ -45,7 +45,7 @@ const theme = createTheme({
     borderRadius: 12,
   },
   typography: {
-    fontFamily: ['Space Grotesk', 'sans-serif'].join(','),
+    fontFamily: ["Space Grotesk", "sans-serif"].join(","),
   },
   components: {
     MuiCssBaseline: {
@@ -53,9 +53,9 @@ const theme = createTheme({
         body: {
           // 玻璃感友善漸層背景（品牌色淡彩光暈 + 深色基底）
           backgroundImage: [
-            `radial-gradient(1000px 600px at 12% 6%, ${alpha("#5595D5", 0.20)} 0%, transparent 60%)`,
+            `radial-gradient(1000px 600px at 12% 6%, ${alpha("#5595D5", 0.2)} 0%, transparent 60%)`,
             `radial-gradient(900px 520px at 88% 12%, ${alpha("#CC333C", 0.18)} 0%, transparent 60%)`,
-            `radial-gradient(700px 600px at 50% 100%, ${alpha("#755BA7", 0.10)} 0%, transparent 60%)`,
+            `radial-gradient(700px 600px at 50% 100%, ${alpha("#755BA7", 0.1)} 0%, transparent 60%)`,
             `linear-gradient(135deg, ${alpha("#151a21", 0.92)} 0%, ${alpha("#0f1216", 0.92)} 100%)`,
           ].join(","),
           backgroundColor: "#0f1216",
@@ -74,10 +74,10 @@ const theme = createTheme({
           backgroundColor: alpha("#FFFFFF", 0.06),
           transition: "background-color 120ms ease, box-shadow 120ms ease",
           "&:hover": {
-            backgroundColor: alpha("#FFFFFF", 0.10),
+            backgroundColor: alpha("#FFFFFF", 0.1),
           },
           "&.Mui-focused": {
-            backgroundColor: alpha("#FFFFFF", 0.10),
+            backgroundColor: alpha("#FFFFFF", 0.1),
             boxShadow: `0 0 0 1px ${alpha("#FFFFFF", 0.18)} inset`,
           },
         },
@@ -140,6 +140,3 @@ const theme = createTheme({
 });
 
 export default theme;
-
-
-

@@ -68,7 +68,9 @@ export default function CreateRoomFormCard(props: CreateRoomFormCardProps): JSX.
             type="number"
             label="請輸入每局遊戲時長（分鐘）"
             value={gameMinutes}
-            onChange={(e) => onGameMinutesChange(e.target.value === "" ? "" : Number(e.target.value))}
+            onChange={(e) =>
+              onGameMinutesChange(e.target.value === "" ? "" : Number(e.target.value))
+            }
             inputProps={{ min: 0 }}
             fullWidth
           />
@@ -77,7 +79,9 @@ export default function CreateRoomFormCard(props: CreateRoomFormCardProps): JSX.
             type="number"
             label="請輸入每局討論時長（分鐘）"
             value={discussionMinutes}
-            onChange={(e) => onDiscussionMinutesChange(e.target.value === "" ? "" : Number(e.target.value))}
+            onChange={(e) =>
+              onDiscussionMinutesChange(e.target.value === "" ? "" : Number(e.target.value))
+            }
             inputProps={{ min: 0 }}
             fullWidth
           />
@@ -92,5 +96,3 @@ export default function CreateRoomFormCard(props: CreateRoomFormCardProps): JSX.
     </Card>
   );
 }
-
-

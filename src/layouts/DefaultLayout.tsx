@@ -7,7 +7,10 @@ function DefaultLayout({ children }: PropsWithChildren): JSX.Element {
   return (
     <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       <Header />
-      <Box component="main" sx={{ flexGrow: 1, display: "flex", flexDirection: "column", minHeight: 0 }}>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, display: "flex", flexDirection: "column", minHeight: 0 }}
+      >
         {children}
       </Box>
       <Footer />
@@ -16,5 +19,3 @@ function DefaultLayout({ children }: PropsWithChildren): JSX.Element {
 }
 
 export default DefaultLayout;
-
-

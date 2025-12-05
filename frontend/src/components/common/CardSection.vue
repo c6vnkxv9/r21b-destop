@@ -13,97 +13,96 @@
                     p.ver-text.card-desc.m-0(:class='item.color') {{ item.desc }}
 </template>
 <script lang="ts">
-import colorList from '@/data/colorList.json';
-import { pairIconList } from '@/data/pairIconList';
-import Role from '@/interfaces/RoleInterface';
-import _ from 'lodash';
-import { computed, defineComponent, PropType } from 'vue';
+import colorList from "@/data/colorList.json";
+import { pairIconList } from "@/data/pairIconList";
+import Role from "@/interfaces/RoleInterface";
+import _ from "lodash";
+import { computed, defineComponent, PropType } from "vue";
 interface PairAttribute {
-    color?: string;
-    icon?: string;
-    card: Role[];
+  color?: string;
+  icon?: string;
+  card: Role[];
 }
 interface CardSection {
-    team: string;
-    color: string;
-    roles: Role[];
-    groupedRoles: GroupedRoles;
+  team: string;
+  color: string;
+  roles: Role[];
+  groupedRoles: GroupedRoles;
 }
 interface GroupedRoles {
-    single: Role[];
-    pair: PairAttribute[]
+  single: Role[];
+  pair: PairAttribute[];
 }
 export default defineComponent({
-    name: 'CardSection',
-    props: {
-        data: {
-            type: Array as PropType<Role[]>,
-            required: true
-        },
-        cardWidth: {
-            type: Number,
-            default: 100 //預設值
-        },
+  name: "CardSection",
+  props: {
+    data: {
+      type: Array as PropType<Role[]>,
+      required: true,
     },
-    setup(props) {
-        const RoleArray = computed(() => processRoles(props.data));
+    cardWidth: {
+      type: Number,
+      default: 100, //預設值
+    },
+  },
+  setup(props) {
+    const RoleArray = computed(() => processRoles(props.data));
 
-        function processRoles(data: Role[]): CardSection[] {
-            let groupedData = groupByTeam(data);
-            return groupedData.map(group => categorizeRoles(group));
-        }
-
-        function groupByTeam(data: Role[]): CardSection[] {
-            return data.reduce((acc, role) => {
-                let team = acc.find(t => t.team === role.color);
-                if (!team) {
-                    team = {
-                        team: role.color,
-                        color: setBGC(role.color),
-                        roles: [],
-                        groupedRoles: { single: [], pair: [] }
-                    };
-                    acc.push(team);
-                }
-                team.roles.push(role);
-                return acc;
-            }, [] as CardSection[]);
-            
-        }
-
-        function categorizeRoles(group: CardSection): CardSection {
-            const counts = _.countBy(group.roles, 'pair');
-            _.forEach(counts, (count, key) => {
-                if (count === 1) {
-                    group.groupedRoles.single.push(...group.roles.filter(role => role.pair === +key));
-                } else if (count > 1) {
-                    let icon=pairIconList.find(x=>x.pair.toString()==key)
-                    let pairAttr={
-                        color:icon?.color,
-                        icon:icon?.icon,
-                        card:group.roles.filter(role => role.pair === +key)
-                    }
-                    group.groupedRoles.pair.push(pairAttr);
-                }
-            });
-            return group;
-        }
-
-        function findIcon(pair: number) {
-            return pairIconList[pair as unknown as keyof typeof pairIconList];
-        }
-        function setBGC(label: string) {
-            return colorList.find(x => x.label === label)?.color || 'fff';
-        }
-        function generateStyle(item: Role) {
-            return {
-                'background-image': `url(./${item.src})`,
-                'width': `${Math.round(props.cardWidth)}px`
-            };
-        };
-        return { RoleArray, findIcon, generateStyle };
+    function processRoles(data: Role[]): CardSection[] {
+      let groupedData = groupByTeam(data);
+      return groupedData.map((group) => categorizeRoles(group));
     }
-})
+
+    function groupByTeam(data: Role[]): CardSection[] {
+      return data.reduce((acc, role) => {
+        let team = acc.find((t) => t.team === role.color);
+        if (!team) {
+          team = {
+            team: role.color,
+            color: setBGC(role.color),
+            roles: [],
+            groupedRoles: { single: [], pair: [] },
+          };
+          acc.push(team);
+        }
+        team.roles.push(role);
+        return acc;
+      }, [] as CardSection[]);
+    }
+
+    function categorizeRoles(group: CardSection): CardSection {
+      const counts = _.countBy(group.roles, "pair");
+      _.forEach(counts, (count, key) => {
+        if (count === 1) {
+          group.groupedRoles.single.push(...group.roles.filter((role) => role.pair === +key));
+        } else if (count > 1) {
+          let icon = pairIconList.find((x) => x.pair.toString() == key);
+          let pairAttr = {
+            color: icon?.color,
+            icon: icon?.icon,
+            card: group.roles.filter((role) => role.pair === +key),
+          };
+          group.groupedRoles.pair.push(pairAttr);
+        }
+      });
+      return group;
+    }
+
+    function findIcon(pair: number) {
+      return pairIconList[pair as unknown as keyof typeof pairIconList];
+    }
+    function setBGC(label: string) {
+      return colorList.find((x) => x.label === label)?.color || "fff";
+    }
+    function generateStyle(item: Role) {
+      return {
+        "background-image": `url(./${item.src})`,
+        width: `${Math.round(props.cardWidth)}px`,
+      };
+    }
+    return { RoleArray, findIcon, generateStyle };
+  },
+});
 </script>
 
 <style scoped lang="scss">
@@ -120,136 +119,136 @@ $grey: $info-grey;
 $shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.25);
 $lg-full-height: calc((100vh - (48px * 4) - 100px) / 2);
 $md-full-height: calc((100vh - (12px * 4) - 100px) / 2);
-.h--30{
-    height: calc(100% - 30px);
+.h--30 {
+  height: calc(100% - 30px);
 }
 .bi {
-    font-size: 20px;
-    &.red {
-        color: $red-icon;
-    }
+  font-size: 20px;
+  &.red {
+    color: $red-icon;
+  }
 
-    &.blue {
-        color: $blue-icon;
-    }
+  &.blue {
+    color: $blue-icon;
+  }
 
-    &.grey {
-        color: $grey-icon;
-    }
-    &.green {
-        color: $green-icon;
-    }
-    &.purple {
-        color: $purple-icon;
-    }
+  &.grey {
+    color: $grey-icon;
+  }
+  &.green {
+    color: $green-icon;
+  }
+  &.purple {
+    color: $purple-icon;
+  }
 }
 
 .home {
-    width: 100vw;
-    height: 100vh;
+  width: 100vw;
+  height: 100vh;
 }
 
 .card-full-height {
-    height: $lg-full-height;
+  height: $lg-full-height;
 
-    @media screen and (max-width: 1280px) {
-        height: $md-full-height;
-    }
+  @media screen and (max-width: 1280px) {
+    height: $md-full-height;
+  }
 }
 
 .card-md-height {
-    height: calc($lg-full-height - 20px);
+  height: calc($lg-full-height - 20px);
 
-    @media screen and (max-width: 1280px) {
-        height: calc($md-full-height - 20px);
-    }
+  @media screen and (max-width: 1280px) {
+    height: calc($md-full-height - 20px);
+  }
 }
 
 .card-padding {
-    padding: 24px 16px 0px 16px;
+  padding: 24px 16px 0px 16px;
 
-    @media screen and (max-width: 1280px) {
-        padding: 32px 16px 0px 16px;
-    }
+  @media screen and (max-width: 1280px) {
+    padding: 32px 16px 0px 16px;
+  }
 }
 
 .card-wrap {
-    border-radius: 8px;
-    box-shadow: $shadow;
-    border-style: solid;
-    border-left-width: 0px;
-    border-top-width: 1px;
-    border-right-width: 1px;
-    border-bottom-width: 1px;
-    min-width: 78px;
-    max-width:150px;
-    &.red {
-        border-color: $red;
-    }
+  border-radius: 8px;
+  box-shadow: $shadow;
+  border-style: solid;
+  border-left-width: 0px;
+  border-top-width: 1px;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+  min-width: 78px;
+  max-width: 150px;
+  &.red {
+    border-color: $red;
+  }
 
-    &.blue {
-        border-color: $blue;
-    }
+  &.blue {
+    border-color: $blue;
+  }
 
-    &.grey {
-        border-color: $grey;
-    }
-    &.green {
-        border-color: $green;
-    }
-    &.purple {
-        border-color: $purple;
-    }
+  &.grey {
+    border-color: $grey;
+  }
+  &.green {
+    border-color: $green;
+  }
+  &.purple {
+    border-color: $purple;
+  }
 }
 
 .card-background {
-    background-size: cover;
-    background-position: center;
+  background-size: cover;
+  background-position: center;
 }
 
-.team-wrap>.card-wrap:first-child {
-    border-left-width: 1px;
+.team-wrap > .card-wrap:first-child {
+  border-left-width: 1px;
 }
 
 .team-wrap {
-    padding: $lg-length;
+  padding: $lg-length;
 
-    @media screen and (max-width: 1280px) {
-        padding: $sm-length;
-    }
+  @media screen and (max-width: 1280px) {
+    padding: $sm-length;
+  }
 }
 
 .card-title {
-    color: #FFF;
-    font-size: 20px;
-    font-weight: 500;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .card-desc {
-    font-size: 14px;
-    font-weight: 400;
+  font-size: 14px;
+  font-weight: 400;
 
-    &.red {
-        color: $red;
-    }
+  &.red {
+    color: $red;
+  }
 
-    &.blue {
-        color: $blue;
-    }
+  &.blue {
+    color: $blue;
+  }
 
-    &.grey {
-        color: $grey;
-    }
-    &.green {
-        color: $green;
-    }
-    &.purple {
-        color: $purple;
-    }
+  &.grey {
+    color: $grey;
+  }
+  &.green {
+    color: $green;
+  }
+  &.purple {
+    color: $purple;
+  }
 }
 
 .ver-text {
-    -webkit-writing-mode: vertical-lr;
-    writing-mode: vertical-lr;
-}</style>
-
+  -webkit-writing-mode: vertical-lr;
+  writing-mode: vertical-lr;
+}
+</style>
