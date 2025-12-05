@@ -5,21 +5,21 @@
 </template>
 <script lang="ts">
 /* eslint-disable */
-import {defineComponent } from 'vue'
+import { defineComponent } from "vue";
 export default defineComponent({
-  name: 'BoomIcon',
+  name: "BoomIcon",
   props: {
     btnIsActive: {
       type: Boolean,
-      required: true
+      required: true,
     },
   },
   setup() {
     // return {
     //   btnIsActive
     // }
-  }
-})
+  },
+});
 </script>
 <style lang="scss" scoped>
 $lighten-grey: #919191;
@@ -27,7 +27,8 @@ $mid-grey: #353535;
 $dark-grey: #222222;
 
 @keyframes swing {
-  0%, 100% {
+  0%,
+  100% {
     transform: rotate(-10deg);
   }
   50% {
@@ -36,7 +37,8 @@ $dark-grey: #222222;
 }
 
 @keyframes heartbeat {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {
@@ -45,7 +47,8 @@ $dark-grey: #222222;
 }
 
 @keyframes sparkFlicker {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -53,16 +56,16 @@ $dark-grey: #222222;
   }
 }
 .bomb-container {
-  position: relative; 
+  position: relative;
   width: 100%;
   height: 100%;
 }
-.bomb-container.active{
+.bomb-container.active {
   animation: swing 2s infinite;
-  .bomb{
+  .bomb {
     animation: heartbeat 0.5s infinite;
   }
-  .spark{
+  .spark {
     animation: sparkFlicker 0.3s infinite;
   }
 }

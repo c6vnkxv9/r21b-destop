@@ -31,20 +31,20 @@ div
           span.ml-2 Players
 </template>
 <script lang="ts">
-import CountdownTimer from '@/components/CountdownTimer.vue';
-import exchangeSetting from '@/data/exchangeSetting.json';
-import { computed, defineComponent, ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import CountdownTimer from "@/components/CountdownTimer.vue";
+import exchangeSetting from "@/data/exchangeSetting.json";
+import { computed, defineComponent, ref } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 export default defineComponent({
-  name: 'GameConfigurationSection',
+  name: "GameConfigurationSection",
   props: {
     configBgc: {
       type: Array,
       default: function () {
-        return ['#942121', '#3C55A5'];//使用一個函數來返回預設值
-      }
-    }
+        return ["#942121", "#3C55A5"]; //使用一個函數來返回預設值
+      },
+    },
   },
   components: {
     CountdownTimer,
@@ -52,36 +52,42 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const router = useRouter();
-    const gameRound = ref<number>(0)
+    const gameRound = ref<number>(0);
     const quantity = computed(() => {
-      return exchangeSetting[gameRound.value]
-    })
-    const playerCount = store.state.gameSetting.count
+      return exchangeSetting[gameRound.value];
+    });
+    const playerCount = store.state.gameSetting.count;
     const gameMode = computed(() => {
-      const { name='', label='' } = store.state.gameSetting.script || {}
-      return { name, label }
+      const { name = "", label = "" } = store.state.gameSetting.script || {};
+      return { name, label };
     });
     function changeGameRound(i: number) {
-      gameRound.value = i - 1
+      gameRound.value = i - 1;
     }
     function addGameRound(i: number) {
       if (gameRound.value < 4) {
-        gameRound.value++
+        gameRound.value++;
       }
     }
     function returnSetting() {
-      router.push({ name: 'home' });
+      router.push({ name: "home" });
     }
     return {
-      playerCount, gameMode, quantity, gameRound, returnSetting, changeGameRound, addGameRound
-    }
-  }
-})
+      playerCount,
+      gameMode,
+      quantity,
+      gameRound,
+      returnSetting,
+      changeGameRound,
+      addGameRound,
+    };
+  },
+});
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .pencil-icon {
-  color: #6866DE;
+  color: #6866de;
   font-size: 20px;
   line-height: 40px;
   margin-left: 8px;
@@ -110,30 +116,30 @@ export default defineComponent({
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
   .title-style {
-    color: #FFF;
+    color: #fff;
     font-size: 40px;
     font-weight: 700;
   }
 
   .subtitle-style {
-    color: #BFBFBF;
+    color: #bfbfbf;
     font-size: 16px;
     font-weight: 400;
   }
 
   .icon-text-style {
-    color: #FFF;
+    color: #fff;
     font-size: 20px;
     font-weight: 400;
 
-    i+i {
+    i + i {
       margin-left: 4px;
     }
   }
 
   .hostage-icon-container {
     font-size: 24px;
-    color: #FFF;
+    color: #fff;
   }
 }
 
@@ -166,7 +172,7 @@ export default defineComponent({
 }
 
 .clock {
-  font-family: 'ClockStyle', sans-serif;
+  font-family: "ClockStyle", sans-serif;
 }
 
 .ho-wrap {
@@ -178,7 +184,7 @@ export default defineComponent({
   left: 0;
 
   .player-style {
-    color: #FFF;
+    color: #fff;
     font-size: 48px;
     font-weight: 700;
     line-height: $configuration-height;
@@ -192,4 +198,5 @@ export default defineComponent({
       height: 100%;
     }
   }
-}</style>
+}
+</style>

@@ -39,271 +39,299 @@
     Alert(:show='modalShow' @update:modalShow="modalShow = $event")
 </template>
 <script lang="ts">
-import FooterCopyright from '@/components/FooterCopyright.vue';
-import Alert from '@/components/setting/Alert.vue';
-import GroupCardPanel from '@/components/setting/GroupCardPanel.vue';
-import { characters } from '@/data/characters';
-import colorList from '@/data/colorList.json';
-import { REQUIRED_ROLES, script } from '@/data/script';
-import GroupedRoles from '@/interfaces/GroupedRolesInterface';
-import Role from '@/interfaces/RoleInterface';
-import { IScript } from '@/interfaces/RoleOptionsInterface';
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import { BButton, BButtonGroup, BFormCheckbox, BFormCheckboxGroup, BFormGroup, BFormSelect } from 'bootstrap-vue-3';
-import { computed, defineComponent, ref, watch } from 'vue';
-import { useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import FooterCopyright from "@/components/FooterCopyright.vue";
+import Alert from "@/components/setting/Alert.vue";
+import GroupCardPanel from "@/components/setting/GroupCardPanel.vue";
+import { characters } from "@/data/characters";
+import colorList from "@/data/colorList.json";
+import { REQUIRED_ROLES, script } from "@/data/script";
+import GroupedRoles from "@/interfaces/GroupedRolesInterface";
+import Role from "@/interfaces/RoleInterface";
+import { IScript } from "@/interfaces/RoleOptionsInterface";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import {
+  BButton,
+  BButtonGroup,
+  BFormCheckbox,
+  BFormCheckboxGroup,
+  BFormGroup,
+  BFormSelect,
+} from "bootstrap-vue-3";
+import { computed, defineComponent, ref, watch } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 interface IRoundOptions {
-    value: string;
-    text: string;
+  value: string;
+  text: string;
 }
 const ROUND_OPTIONS = [
-    {
-        value: 'three',
-        text: '三局'
-    },
-    {
-        value: 'five',
-        text: '五局'
-    },
-]
+  {
+    value: "three",
+    text: "三局",
+  },
+  {
+    value: "five",
+    text: "五局",
+  },
+];
 export default defineComponent({
-    components: {
-        BFormSelect, BFormCheckboxGroup, BFormCheckbox, BFormGroup,
-        GroupCardPanel, FooterCopyright, Alert, BButtonGroup, BButton
-    },
-    setup() {
-        const router = useRouter();
-        const store = useStore();
-        let modalShow = ref<boolean>(false)
-        let roundOptions = ref<IRoundOptions[]>(ROUND_OPTIONS)
-        let selectedRoundOptions = ref<IRoundOptions>(roundOptions.value[0])
-        const SortedCharacters = computed(() => {
-            const _colorList = colorList.map(x => x.label)
-            return characters.sort((a, b) => _colorList.indexOf(a.color) - _colorList.indexOf(b.color))
-        })
-        const defaultScript = {
-            key: 'all',
-            name: '自由',
-            label: '自由',
-            route: 'normal',
-            required: REQUIRED_ROLES,
-            options: SortedCharacters.value.map(x => x.key).filter(x => !REQUIRED_ROLES.includes(x))
-        } as IScript
-        const allScript = computed(() => {
-            return [defaultScript].concat(script)
-        })
+  components: {
+    BFormSelect,
+    BFormCheckboxGroup,
+    BFormCheckbox,
+    BFormGroup,
+    GroupCardPanel,
+    FooterCopyright,
+    Alert,
+    BButtonGroup,
+    BButton,
+  },
+  setup() {
+    const router = useRouter();
+    const store = useStore();
+    let modalShow = ref<boolean>(false);
+    let roundOptions = ref<IRoundOptions[]>(ROUND_OPTIONS);
+    let selectedRoundOptions = ref<IRoundOptions>(roundOptions.value[0]);
+    const SortedCharacters = computed(() => {
+      const _colorList = colorList.map((x) => x.label);
+      return characters.sort((a, b) => _colorList.indexOf(a.color) - _colorList.indexOf(b.color));
+    });
+    const defaultScript = {
+      key: "all",
+      name: "自由",
+      label: "自由",
+      route: "normal",
+      required: REQUIRED_ROLES,
+      options: SortedCharacters.value.map((x) => x.key).filter((x) => !REQUIRED_ROLES.includes(x)),
+    } as IScript;
+    const allScript = computed(() => {
+      return [defaultScript].concat(script);
+    });
 
-        const roleOptions = computed(() => {
-            return allScript.value.map(x => ({ value: x.key, text: x.label }))
-        });
-        const selectedModeId = ref<string>(roleOptions.value[0].value);
-        const roleList = ref<GroupedRoles[]>([])
-        const countChecked = computed(() => {
-            return roleList.value.reduce((total, currentGroup) => {
-                if (currentGroup.checked) {
-                    return total + currentGroup.roles.length;
-                }
-                return total;
-            }, 0);
-        })
-        const roleCheckedList = computed(() => {
-            return roleList.value.filter(x => x.checked)
-        })
-        const groupedRoles = computed(() => {
-            return chunkGroupRoles(roleList.value, 4)
-        })
-        watch(selectedModeId, (newValue) => {
-            const requiredIdList = setRoleGroupList(newValue, 'required')
-            const optionsIdList = setRoleGroupList(newValue, 'options')
-            roleList.value = requiredIdList.concat(optionsIdList)
-        }, { immediate: true });
-        function setRoleGroupList(value: string, attr: "required" | "options") {
-            const _v = attr == 'required' ? true : false
-            const IdList = getRelatedRoleKeys(value, attr)
-            const Roles = filterRolesByKeys(IdList)
-            return pairRoleList(Roles, _v)
+    const roleOptions = computed(() => {
+      return allScript.value.map((x) => ({ value: x.key, text: x.label }));
+    });
+    const selectedModeId = ref<string>(roleOptions.value[0].value);
+    const roleList = ref<GroupedRoles[]>([]);
+    const countChecked = computed(() => {
+      return roleList.value.reduce((total, currentGroup) => {
+        if (currentGroup.checked) {
+          return total + currentGroup.roles.length;
         }
-        function chunkGroupRoles(array: GroupedRoles[], chunkSize: number) {
-            let result = [];
-            for (let i = 0; i < array.length; i += chunkSize) {
-                result.push(array.slice(i, i + chunkSize));
-            }
-            return result;
-        }
-        function getRelatedRoleKeys(newValue: string, attr: "required" | "options") {
-            if(newValue == defaultScript.key){
-                return defaultScript[attr]
-            }
-            const item = allScript.value.find(s => s.key === newValue);
-            return item?.[attr] || [];
-        }
-        function filterRolesByKeys(selectedList: string[]) {
-            const list = SortedCharacters.value.filter(x => selectedList.includes(x.key))
-            return list
-        }
-        function pairRoleList(list: Role[], attr: boolean) {
-            return list.reduce((acc, arr) => {
-                const item = acc.find(x => x.pair == arr.pair)
-                if (item) {
-                    item.roles.push(arr)
-                } else {
-                    acc.push({ pair: arr.pair, required: attr, roles: [arr], checked: attr })
-                }
-                return acc
-            }, [] as GroupedRoles[])
-        }
-        const RoleLength = computed(() => {
-            return roleList.value.reduce((total, currentGroup) => {
-                return total + currentGroup.roles.length;
-            }, 0);
-        })
-        const allStatusStyle = computed(() => {
-            if(RoleLength.value ==countChecked.value){
-                return 'bi bi-check-square-fill fill-color'
-            }else if(countChecked.value >0){
-                return 'bi bi-dash-square'
-            }
-            return 'bi bi-square'
-        });
-        function setAllStatus() {
-            const status = RoleLength.value !== countChecked.value;
-            roleList.value.forEach(x => {
-                if (!x.required) {
-                    x.checked = status;
-                }
-            });
-        }
-        function setGroupStatus(index: number, status: boolean) {
-            const startIndex = index * 4;
-            const endIndex = Math.min(startIndex + 4, roleList.value.length);
-            for (let i = startIndex; i < endIndex; i++) {
-                const x = roleList.value[i];
-                if (!x.required) {
-                    x.checked = status;
-                }
-            }
-        }
-        function setSingleStatus(pair: number) {
-            let item = roleList.value.find(x => x.pair == pair)
-            if (item && !item.required) {
-                item.checked = !item.checked;
-            }
-        }
-        function popUpAlertModal() {
-            modalShow.value = true
-            console.log(modalShow);
-        }
-        function submitSetting() {
-            if (countChecked.value > 20) {
-                popUpAlertModal();
-                return;
-            }
-            const gameMode = allScript.value.find(x => x.key === selectedModeId.value);
-            const setting = {
-                roles: roleCheckedList.value,
-                mode: selectedModeId.value,
-                count: countChecked.value,
-                script: gameMode
-            };
-            store.dispatch('updateGameSetting', setting);
-            router.push({ path: `/game/${gameMode?.route}` });
-        }
-        return {
-            modalShow, roleOptions, selectedModeId, groupedRoles,countChecked, setSingleStatus, setGroupStatus, submitSetting,setAllStatus,allStatusStyle,selectedRoundOptions,roundOptions
-        };
+        return total;
+      }, 0);
+    });
+    const roleCheckedList = computed(() => {
+      return roleList.value.filter((x) => x.checked);
+    });
+    const groupedRoles = computed(() => {
+      return chunkGroupRoles(roleList.value, 4);
+    });
+    watch(
+      selectedModeId,
+      (newValue) => {
+        const requiredIdList = setRoleGroupList(newValue, "required");
+        const optionsIdList = setRoleGroupList(newValue, "options");
+        roleList.value = requiredIdList.concat(optionsIdList);
+      },
+      { immediate: true }
+    );
+    function setRoleGroupList(value: string, attr: "required" | "options") {
+      const _v = attr == "required" ? true : false;
+      const IdList = getRelatedRoleKeys(value, attr);
+      const Roles = filterRolesByKeys(IdList);
+      return pairRoleList(Roles, _v);
     }
+    function chunkGroupRoles(array: GroupedRoles[], chunkSize: number) {
+      let result = [];
+      for (let i = 0; i < array.length; i += chunkSize) {
+        result.push(array.slice(i, i + chunkSize));
+      }
+      return result;
+    }
+    function getRelatedRoleKeys(newValue: string, attr: "required" | "options") {
+      if (newValue == defaultScript.key) {
+        return defaultScript[attr];
+      }
+      const item = allScript.value.find((s) => s.key === newValue);
+      return item?.[attr] || [];
+    }
+    function filterRolesByKeys(selectedList: string[]) {
+      const list = SortedCharacters.value.filter((x) => selectedList.includes(x.key));
+      return list;
+    }
+    function pairRoleList(list: Role[], attr: boolean) {
+      return list.reduce((acc, arr) => {
+        const item = acc.find((x) => x.pair == arr.pair);
+        if (item) {
+          item.roles.push(arr);
+        } else {
+          acc.push({ pair: arr.pair, required: attr, roles: [arr], checked: attr });
+        }
+        return acc;
+      }, [] as GroupedRoles[]);
+    }
+    const RoleLength = computed(() => {
+      return roleList.value.reduce((total, currentGroup) => {
+        return total + currentGroup.roles.length;
+      }, 0);
+    });
+    const allStatusStyle = computed(() => {
+      if (RoleLength.value == countChecked.value) {
+        return "bi bi-check-square-fill fill-color";
+      } else if (countChecked.value > 0) {
+        return "bi bi-dash-square";
+      }
+      return "bi bi-square";
+    });
+    function setAllStatus() {
+      const status = RoleLength.value !== countChecked.value;
+      roleList.value.forEach((x) => {
+        if (!x.required) {
+          x.checked = status;
+        }
+      });
+    }
+    function setGroupStatus(index: number, status: boolean) {
+      const startIndex = index * 4;
+      const endIndex = Math.min(startIndex + 4, roleList.value.length);
+      for (let i = startIndex; i < endIndex; i++) {
+        const x = roleList.value[i];
+        if (!x.required) {
+          x.checked = status;
+        }
+      }
+    }
+    function setSingleStatus(pair: number) {
+      let item = roleList.value.find((x) => x.pair == pair);
+      if (item && !item.required) {
+        item.checked = !item.checked;
+      }
+    }
+    function popUpAlertModal() {
+      modalShow.value = true;
+      console.log(modalShow);
+    }
+    function submitSetting() {
+      if (countChecked.value > 20) {
+        popUpAlertModal();
+        return;
+      }
+      const gameMode = allScript.value.find((x) => x.key === selectedModeId.value);
+      const setting = {
+        roles: roleCheckedList.value,
+        mode: selectedModeId.value,
+        count: countChecked.value,
+        script: gameMode,
+      };
+      store.dispatch("updateGameSetting", setting);
+      router.push({ path: `/game/${gameMode?.route}` });
+    }
+    return {
+      modalShow,
+      roleOptions,
+      selectedModeId,
+      groupedRoles,
+      countChecked,
+      setSingleStatus,
+      setGroupStatus,
+      submitSetting,
+      setAllStatus,
+      allStatusStyle,
+      selectedRoundOptions,
+      roundOptions,
+    };
+  },
 });
 </script>
 <style lang="scss" scoped>
-.wrap{
-    .banner-wrap {
-        background-color: $red-primary-color;
-        padding: 20px 0;
-    }
+.wrap {
+  .banner-wrap {
+    background-color: $red-primary-color;
+    padding: 20px 0;
+  }
 }
 .fs-red {
-    color: $red-primary-color;
+  color: $red-primary-color;
 }
-.mr-12{
-    margin-right: 12px;
+.mr-12 {
+  margin-right: 12px;
 }
 .button-style {
-    border-radius: 12px;
-    background: $red-primary-color;
-    color: #fff;
-    padding: 16px 24px;
-    margin: 24px auto;
+  border-radius: 12px;
+  background: $red-primary-color;
+  color: #fff;
+  padding: 16px 24px;
+  margin: 24px auto;
 
-    &:hover {
-        background: $red-team-dark-color;
-    }
+  &:hover {
+    background: $red-team-dark-color;
+  }
 }
 
 .group-card-wrap {
-    gap: 24px;
+  gap: 24px;
 
-    .group-card-panel {
-        width: calc((100% - 48px)/3);
-        padding: 24px;
-        border-radius: 12px;
-        border: 1px solid #BFBFBF;
-    }
+  .group-card-panel {
+    width: calc((100% - 48px) / 3);
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid #bfbfbf;
+  }
 }
 
 .wrap {
-    width: 100vw;
-    min-height: 100vh;
+  width: 100vw;
+  min-height: 100vh;
 
-    .count-wrap {
-        margin-left: 24px;
-    }
+  .count-wrap {
+    margin-left: 24px;
+  }
 }
 
 .icon {
-    font-size: 20px;
-    color: #000;
+  font-size: 20px;
+  color: #000;
 }
 
 .icon-color {
-    color: var(--color);
+  color: var(--color);
 }
 
-
 .mx-1280 {
-    margin: 0 auto;
-    max-width: 1280px;
+  margin: 0 auto;
+  max-width: 1280px;
 }
 
 .banner-img-wrap {
-    width: 30%;
-    height: 100px;
-    margin: 0 auto;
+  width: 30%;
+  height: 100px;
+  margin: 0 auto;
 
-    img {
-        display: block;
-        max-width: 100%;
-        height: 100px;
-    }
+  img {
+    display: block;
+    max-width: 100%;
+    height: 100px;
+  }
 }
 
 .ml-2 {
-    margin-left: 0.5rem;
+  margin-left: 0.5rem;
 }
 
 .mb-6 {
-    margin-bottom: 24px;
+  margin-bottom: 24px;
 }
-.fs-20{
-    font-size: 20px;
+.fs-20 {
+  font-size: 20px;
 }
 .setting-wrap {
-    padding: 24px 48px;
+  padding: 24px 48px;
 }
 
 .title-style {
-    color: #282828;
-    font-size: 32px;
-    font-weight: 500;
+  color: #282828;
+  font-size: 32px;
+  font-weight: 500;
 }
 </style>

@@ -4,37 +4,37 @@
     i.bi.bi-door-open.door
 </template>
 <script lang="ts">
-import { ref, defineComponent } from 'vue'
+import { ref, defineComponent } from "vue";
 export default defineComponent({
-    name: 'ExchangeIcon',
-    props: {
-        quantity: {
-            type: Number,
-            required: true
-        }
+  name: "ExchangeIcon",
+  props: {
+    quantity: {
+      type: Number,
+      required: true,
     },
-    setup() {
-        const title = ref('這是一個標題')
-        const description = ref('這是一段描述文字。')
+  },
+  setup() {
+    const title = ref("這是一個標題");
+    const description = ref("這是一段描述文字。");
 
-        return {
-            title,
-            description
-        }
-    }
-})
+    return {
+      title,
+      description,
+    };
+  },
+});
 </script>
 <style scoped>
 .container {
-    position: relative;
-    width: 200px;
-    height: 60px;
+  position: relative;
+  width: 200px;
+  height: 60px;
 }
 
 .bi {
-    font-size: 40px;
-    position: absolute;
-    bottom: 0;
+  font-size: 40px;
+  position: absolute;
+  bottom: 0;
 }
 
 /* 
@@ -43,27 +43,27 @@ export default defineComponent({
 } */
 
 .person3 {
-    left: 0;
-    animation-delay: 0s;
+  left: 0;
+  animation-delay: 0s;
 }
 
 .person2 {
-    left: 40px;
-    animation-delay: 1s;
+  left: 40px;
+  animation-delay: 1s;
 }
 
 .person1 {
-    left: 80px;
-    animation-delay: 2s;
+  left: 80px;
+  animation-delay: 2s;
 }
 
 .door {
-    right: 0;
+  right: 0;
 }
 
 @keyframes walkOut {
-    to {
-        transform: translateX(150px);
-    }
+  to {
+    transform: translateX(150px);
+  }
 }
 </style>

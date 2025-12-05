@@ -12,91 +12,94 @@ div
                 | {{ person.label }}
 </template>
 <script lang="ts">
-import colorList from '@/data/colorList.json';
-import Color from '@/interfaces/ColorInterface';
-import GroupedRoles from '@/interfaces/GroupedRolesInterface';
-import { computed, defineComponent, PropType } from 'vue';
+import colorList from "@/data/colorList.json";
+import Color from "@/interfaces/ColorInterface";
+import GroupedRoles from "@/interfaces/GroupedRolesInterface";
+import { computed, defineComponent, PropType } from "vue";
 export default defineComponent({
-    name: 'GroupCardPanel',
-    props: {
-        data: {
-            type: Array as PropType<GroupedRoles[]>,
-            default: () => []
-        },
-        index:{
-            type:Number
-        }
+  name: "GroupCardPanel",
+  props: {
+    data: {
+      type: Array as PropType<GroupedRoles[]>,
+      default: () => [],
     },
-    setup(props,{ emit }) {
-       
-        const colorListTyped: Color[] = colorList as Color[];
-        const groupLength = computed(() => {
-            return props.data?.length
-        })
-        const groupedStatusLength = computed(() => {
-            return props.data.filter(x=>x.checked)?.length
-        })
-        const groupedStatusStyle = computed(() => {
-            if(groupedStatusLength.value ==groupLength.value){
-                return 'bi bi-check-square-fill fill-color'
-            }else if(groupedStatusLength.value >0){
-                return 'bi bi-dash-square'
-            }
-            return 'bi bi-square'
-        });
-        // watch(() => props.data, (newValue) => {
-        //     props.data = cloneDeep(newValue);
-        // }, { immediate: true });
-        function SetTeamColor(color: string) {
-            let colorHex = colorListTyped.find(x => x.label == color)?.color
-            return { '--color': colorHex }
-        }
-        function setSingleCheckColor(status:boolean,required:boolean) {
-            if(required){
-                return 'bi-check-square-fill checked-disable-color'
-            }else if (status) {
-                return 'bi-check-square-fill fill-color'
-            }
-            return 'bi-square'
-            //dash-square
-        }
-        function setGroupStatus(){
-            const status=groupLength.value==groupedStatusLength.value?false:true
-            emit('setGroupStatus', props.index,status);
-        }
-        function setSingleStatus(pair:Number) {
-            emit('setSingleStatus', pair);
-        }
-        return { SetTeamColor,groupedStatusStyle, setSingleStatus,setGroupStatus, setSingleCheckColor }
-
+    index: {
+      type: Number,
+    },
+  },
+  setup(props, { emit }) {
+    const colorListTyped: Color[] = colorList as Color[];
+    const groupLength = computed(() => {
+      return props.data?.length;
+    });
+    const groupedStatusLength = computed(() => {
+      return props.data.filter((x) => x.checked)?.length;
+    });
+    const groupedStatusStyle = computed(() => {
+      if (groupedStatusLength.value == groupLength.value) {
+        return "bi bi-check-square-fill fill-color";
+      } else if (groupedStatusLength.value > 0) {
+        return "bi bi-dash-square";
+      }
+      return "bi bi-square";
+    });
+    // watch(() => props.data, (newValue) => {
+    //     props.data = cloneDeep(newValue);
+    // }, { immediate: true });
+    function SetTeamColor(color: string) {
+      let colorHex = colorListTyped.find((x) => x.label == color)?.color;
+      return { "--color": colorHex };
     }
-}
-)
+    function setSingleCheckColor(status: boolean, required: boolean) {
+      if (required) {
+        return "bi-check-square-fill checked-disable-color";
+      } else if (status) {
+        return "bi-check-square-fill fill-color";
+      }
+      return "bi-square";
+      //dash-square
+    }
+    function setGroupStatus() {
+      const status = groupLength.value == groupedStatusLength.value ? false : true;
+      emit("setGroupStatus", props.index, status);
+    }
+    function setSingleStatus(pair: Number) {
+      emit("setSingleStatus", pair);
+    }
+    return {
+      SetTeamColor,
+      groupedStatusStyle,
+      setSingleStatus,
+      setGroupStatus,
+      setSingleCheckColor,
+    };
+  },
+});
 </script>
 <style lang="scss" scoped>
-.checked-disable-color{
-    color: #646464;
+.checked-disable-color {
+  color: #646464;
 }
 .icon-color {
-    color: var(--color);
+  color: var(--color);
 }
 .mr-12 {
-    margin-right: 12px
+  margin-right: 12px;
 }
-.roles-style{
-    padding: 4px;
-    border-radius: 4px;
+.roles-style {
+  padding: 4px;
+  border-radius: 4px;
 }
-.roles-style:hover{
-    background-color: #EFF1F3;
+.roles-style:hover {
+  background-color: #eff1f3;
 }
-.roles-style+.roles-style{
-    margin-top: 4px;
+.roles-style + .roles-style {
+  margin-top: 4px;
 }
-.title-style{
-    color: #282828;
-font-size: 24px;
-font-weight: 700;
-margin-bottom: 24px;
+.title-style {
+  color: #282828;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
 }
 </style>
