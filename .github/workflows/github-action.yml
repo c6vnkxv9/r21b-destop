@@ -28,8 +28,11 @@ jobs:
       - name: 運行 Lint
         run: npm run lint
 
+      - name: 運行代碼格式
+        run: npm run format
+
       - name: 檢查代碼格式
-        run: npm run format & npm run format:check
+        run: npm run format:check
 
   build-frontend:
     name: 建構前端
