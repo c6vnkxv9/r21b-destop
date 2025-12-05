@@ -1,8 +1,10 @@
 import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
 import path from "path";
+import { defineConfig } from "vite";
 
 export default defineConfig({
+  // 對應 GitHub Pages 專案名稱，避免生產版資源以根路徑載入而 404
+  base: "/r21b-destop/",
   plugins: [react()],
   resolve: {
     alias: {

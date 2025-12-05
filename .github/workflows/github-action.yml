@@ -57,6 +57,8 @@ jobs:
 
       - name: 複製 README 到 dist 目錄
         run: cp public/gh-pages-readme.md dist/README.md
+      - name: 提供 SPA 404 回退
+        run: cp dist/index.html dist/404.html
 
       - name: 上傳建構產物
         uses: actions/upload-artifact@v4
