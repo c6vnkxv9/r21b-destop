@@ -217,7 +217,7 @@ export default function SelectCharacterCombination(props: SelectCharacterCombina
             {pairs.map((pair) => {
               const isSelected = pair.id === selectedId;
               return (
-                <Grid item xs={6} md={4} lg={3} xl={2.4 as any} key={pair.id}>
+                <Grid item xs={6} md={4} lg={3} xl={2} key={pair.id}>
                   <CharacterPairCard
                     pair={pair}
                     isSelected={isSelected}

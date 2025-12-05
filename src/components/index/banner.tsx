@@ -1,9 +1,9 @@
+import { characters } from "@/data/characters.js";
+import { CharacterRecord } from "@/types/characters.d.ts";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
 import { alpha, useTheme } from "@mui/material/styles";
-import { characters } from "../../data/characters.js";
-
+import Typography from "@mui/material/Typography";
 export default function Banner(): JSX.Element {
   const theme = useTheme();
   return (
@@ -93,7 +93,7 @@ export default function Banner(): JSX.Element {
 function CardWall(): JSX.Element {
   const allSrc = Array.from(
     new Set(
-      (characters as any[])
+      (characters as CharacterRecord[])
         .map((c) => (typeof c?.src === "string" ? `/${c.src}` : null))
         .filter(Boolean) as string[]
     )

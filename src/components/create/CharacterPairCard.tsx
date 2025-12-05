@@ -62,7 +62,7 @@ export default function CharacterPairCard(props: CharacterPairCardProps): JSX.El
   };
 
   const getRoleImageSrc = (name: string, side: Role["side"]): string | undefined => {
-    const match = (characters as any[]).find(
+    const match = (characters as CharacterRecord[]).find(
       (c) =>
         (c.label === name || c.role === name) &&
         (c.color === side || (side === "grey" && c.color === "grey"))

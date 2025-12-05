@@ -10,7 +10,7 @@
         "type-check": "tsc --noEmit",
         "format": "prettier --write .",
         "format:check": "prettier --check .",
-        "lint": "eslint . --ext .ts,.tsx --max-warnings 0"
+        "lint": "eslint src vite.config.ts --ext .ts,.tsx --max-warnings 0"
     },
     "dependencies": {
         "@dicebear/collection": "^6.0.3",
@@ -22,9 +22,9 @@
         "@vercel/analytics": "^1.0.2",
         "animate.css": "^4.1.1",
         "peerjs": "^1.4.7",
-        "react-nice-avatar-vite-prod-fork": "^1.6.0",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
+        "react-nice-avatar-vite-prod-fork": "^1.6.0",
         "react-qrcode": "^0.3.6",
         "react-router-dom": "^7.10.0"
     },
@@ -34,6 +34,7 @@
         "@typescript-eslint/eslint-plugin": "^5.62.0",
         "@typescript-eslint/parser": "^5.62.0",
         "@vitejs/plugin-react": "^3.1.0",
+        "daisyui": "^5.5.8",
         "eslint": "^8.57.0",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-react": "^7.35.0",

@@ -2,7 +2,8 @@ import Box from "@mui/material/Box";
 import { PropsWithChildren } from "react";
 import Footer from "../components/footer";
 import Header from "../components/header";
-function DefaultLayout({ children }: PropsWithChildren<{}>): JSX.Element {
+
+function DefaultLayout({ children }: PropsWithChildren): JSX.Element {
   return (
     <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       <Header />
