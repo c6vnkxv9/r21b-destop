@@ -94,7 +94,7 @@ function CardWall(): JSX.Element {
   const allSrc = Array.from(
     new Set(
       (characters as CharacterRecord[])
-        .map((c) => (typeof c?.src === "string" ? `/${c.src}` : null))
+        .map((c) => (typeof c?.src === "string" ? `${import.meta.env.BASE_URL}${c.src}` : null))
         .filter(Boolean) as string[]
     )
   );

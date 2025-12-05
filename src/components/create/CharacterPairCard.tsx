@@ -78,7 +78,7 @@ export default function CharacterPairCard(props: CharacterPairCardProps): JSX.El
         (c.color === side || (side === "grey" && c.color === "grey"))
     );
     if (match?.src) {
-      return `/${match.src}`; // served from /public
+      return `${import.meta.env.BASE_URL}${match.src}`; // served from /public with base path
     }
     return undefined;
   };
