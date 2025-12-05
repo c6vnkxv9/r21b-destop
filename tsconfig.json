@@ -15,7 +15,10 @@
         "noUnusedParameters": false,
         "noFallthroughCasesInSwitch": true,
         "baseUrl": ".",
-        "types": ["vite/client"]
+        "types": ["vite/client"],
+        "paths": {
+            "@/*": ["src/*"]
+        }
     },
     "include": ["src", "vite.config.ts", "index.pug"]
 }

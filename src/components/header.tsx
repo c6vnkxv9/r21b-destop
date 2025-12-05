@@ -18,8 +18,10 @@ export default function Header(): JSX.Element {
             variant="h6"
             noWrap
             sx={{ fontWeight: 700, letterSpacing: "-0.015em", color: "#fff" }}
+            component="a"
+            href="/"
           >
-            BOMB SQUAD
+            TWO ROOMS AND ONE BOOM
           </Typography>
         </Box>
 
