@@ -4,26 +4,24 @@
   LayoutContainer
 </template>
 <script lang="ts">
-import GameConfigurationSection from '@/components/GameConfigurationSection.vue'
-import LayoutContainer from '@/components/common/LayoutContainer.vue'
-import { ref,Ref, defineComponent } from 'vue'
+import GameConfigurationSection from "@/components/GameConfigurationSection.vue";
+import LayoutContainer from "@/components/common/LayoutContainer.vue";
+import { ref, Ref, defineComponent } from "vue";
 
 export default defineComponent({
-  name: 'GameDashboard',
+  name: "GameDashboard",
   components: {
     LayoutContainer,
-    GameConfigurationSection
+    GameConfigurationSection,
   },
-  setup () {
-
-    return {
-    }
-  }
-})
+  setup() {
+    return {};
+  },
+});
 </script>
 
 <style lang="scss" scoped>
-.wrap{
+.wrap {
   width: 100vw;
   height: 100vh;
   background-color: #666;

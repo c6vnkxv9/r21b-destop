@@ -1,4 +1,4 @@
 export default interface Color {
-    label: string;
-    color: string;
+  label: string;
+  color: string;
 }

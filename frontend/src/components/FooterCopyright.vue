@@ -4,13 +4,13 @@
     p.text-end.footer-text All rights reserved.
 </template>
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent } from "vue";
 export default defineComponent({
-  name: 'FooterCopyright'}
-  )
+  name: "FooterCopyright",
+});
 </script>
 <style lang="scss">
-.footer-text{
+.footer-text {
   font-size: 12px;
   margin-bottom: 0;
   width: 100%;

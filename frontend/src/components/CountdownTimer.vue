@@ -11,49 +11,48 @@
           i(class="bi" :class="btnIsActive?'bi-pause-circle-fill':'bi-play-circle-fill'")
 </template>
 <script lang="ts">
-import { computed, defineComponent, onBeforeUnmount, ref, Ref, watch } from 'vue'
+import { computed, defineComponent, onBeforeUnmount, ref, Ref, watch } from "vue";
 const COUNT_DOWN_TIMER_STATUS = [
   {
-    key: 'START',
-    icon: 'bi-alarm'
+    key: "START",
+    icon: "bi-alarm",
   },
   {
-    key: 'PAUSE',
-    icon: 'bi-play-circle'
+    key: "PAUSE",
+    icon: "bi-play-circle",
   },
   {
-    key: 'CONTINUE',
-    icon: 'bi-play-circle-fill'
-  }
-]
+    key: "CONTINUE",
+    icon: "bi-play-circle-fill",
+  },
+];
 interface ButtonStyle {
-  icon: string
-  key: string
+  icon: string;
+  key: string;
 }
 export default defineComponent({
-  name: 'CountdownTimer',
-  components: {
-    
-  }, props: {
+  name: "CountdownTimer",
+  components: {},
+  props: {
     gameRound: {
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
   },
   setup(props, { emit }) {
-    const minuteUnit: number = 5 // 總共五分鐘
-    const timeCountDownUnit: number = 1 // 每五秒倒數一次
-    const timeUnit: number = (60 * minuteUnit) / timeCountDownUnit
-    const timeDuration: Ref<number> = ref(timeUnit)
+    const minuteUnit: number = 5; // 總共五分鐘
+    const timeCountDownUnit: number = 1; // 每五秒倒數一次
+    const timeUnit: number = (60 * minuteUnit) / timeCountDownUnit;
+    const timeDuration: Ref<number> = ref(timeUnit);
     const timeStatus: Ref<ButtonStyle> = ref({
       icon: COUNT_DOWN_TIMER_STATUS[1].icon,
-      key: COUNT_DOWN_TIMER_STATUS[1].key
-    })
-    const btnIsActive: Ref<boolean> = ref(false)
-    const audio = new Audio('/bgm.mp3');
-    let intervalRef:number| undefined = undefined ;
+      key: COUNT_DOWN_TIMER_STATUS[1].key,
+    });
+    const btnIsActive: Ref<boolean> = ref(false);
+    const audio = new Audio("/bgm.mp3");
+    let intervalRef: number | undefined = undefined;
     function toggleCountdown(): void {
-      btnIsActive.value = !btnIsActive.value
+      btnIsActive.value = !btnIsActive.value;
       if (btnIsActive.value) {
         startCountdown();
         playMusic();
@@ -62,71 +61,73 @@ export default defineComponent({
         pauseMusic();
       }
     }
-    function clearTimer(){
+    function clearTimer() {
       clearInterval(intervalRef);
-        intervalRef = undefined;
+      intervalRef = undefined;
     }
-    function stopCountdown() { 
+    function stopCountdown() {
       if (intervalRef !== undefined) {
-        clearTimer()
+        clearTimer();
       }
     }
-    function resetMusic() { 
-      audio.currentTime = 0//重返秒數為0
-      audio.pause()
+    function resetMusic() {
+      audio.currentTime = 0; //重返秒數為0
+      audio.pause();
     }
-    function resetTime() { 
+    function resetTime() {
       timeDuration.value = timeUnit;
       btnIsActive.value = false;
-      
     }
     function startCountdown() {
-      if (intervalRef == undefined ) {
-      intervalRef = setInterval(() => {
-        if (timeDuration.value > 0) {
-          timeDuration.value--;
-        } else {
-          clearTimer()
-          resetTime() 
-          //resetMusic()
-          emit('addGameRound');
-        }
-      }, timeCountDownUnit * 1000);
+      if (intervalRef == undefined) {
+        intervalRef = setInterval(() => {
+          if (timeDuration.value > 0) {
+            timeDuration.value--;
+          } else {
+            clearTimer();
+            resetTime();
+            //resetMusic()
+            emit("addGameRound");
+          }
+        }, timeCountDownUnit * 1000);
       }
     }
-    watch(() => props.gameRound, () => {
-        clearTimer()
-        resetTime() 
-        resetMusic()
-        });
-        
+    watch(
+      () => props.gameRound,
+      () => {
+        clearTimer();
+        resetTime();
+        resetMusic();
+      }
+    );
+
     function playMusic(): void {
       audio.play();
-    };
+    }
     function pauseMusic(): void {
       audio.pause();
-    };
+    }
     const formattedTime = computed(() => {
       const minutes = Math.floor((timeDuration.value * timeCountDownUnit) / 60)
         .toString()
-        .padStart(2, '0')
+        .padStart(2, "0");
       const seconds = Math.floor((timeDuration.value * timeCountDownUnit) % 60)
         .toString()
-        .padStart(2, '0')
-      return `${minutes} : ${seconds}`
-    })
+        .padStart(2, "0");
+      return `${minutes} : ${seconds}`;
+    });
     onBeforeUnmount(() => {
-      resetMusic()
-});
+      resetMusic();
+    });
     return {
       timeDuration,
       formattedTime,
       toggleCountdown,
       timeStatus,
-      btnIsActive
-    }
-  }
-})
+      btnIsActive,
+    };
+  },
+});
 </script>
 <style scoped lang="scss">
 .fz-6 {
@@ -149,7 +150,7 @@ export default defineComponent({
 }
 .boom-style::before,
 .boom-style::after {
-  content: '';
+  content: "";
   display: block;
   width: $boom-bot-w;
   height: $boom-bot-h;
@@ -163,13 +164,13 @@ export default defineComponent({
 .boom-style::before {
   top: 0;
   right: calc(50% - ($boom-bot-w * 2));
-  transform: rotate(45deg)
+  transform: rotate(45deg);
 }
 
 .boom-style::after {
   top: 0;
   left: calc(50% - ($boom-bot-w * 2));
-  transform: rotate(-45deg)
+  transform: rotate(-45deg);
 }
 
 .boom-wrap {
@@ -184,13 +185,13 @@ export default defineComponent({
   width: $boom-rect;
   height: $boom-rect;
   border-radius: $boom-rect;
-  border: 7px solid #FFF;
+  border: 7px solid #fff;
   background: #282828;
   color: #fff;
 
   .timer-banner {
     border-radius: 4px;
-    border: 1px solid #FFF;
+    border: 1px solid #fff;
     padding: 10px 16px 2px;
     width: 240px;
 
@@ -201,14 +202,14 @@ export default defineComponent({
 }
 
 .play-wrap {
-  color: #CC333C;
+  color: #cc333c;
   font-size: 3rem;
   position: relative;
   margin: 0 auto;
   z-index: 1;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     width: 1.5rem;
     height: 1.5rem;
@@ -217,4 +218,5 @@ export default defineComponent({
     left: calc(50% - 0.75rem);
     z-index: -1;
   }
-}</style>
+}
+</style>

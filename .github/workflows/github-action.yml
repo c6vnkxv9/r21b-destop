@@ -29,7 +29,7 @@ jobs:
         run: npm run lint
 
       - name: 檢查代碼格式
-        run: npm run format:check
+        run: npm run format & npm run format:check
 
   build-frontend:
     name: 建構前端

@@ -44,7 +44,15 @@ export default function ShareRoomInfoCard(props: ShareRoomInfoCardProps): JSX.El
       }}
     >
       <CardContent sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        <Box sx={{ textAlign: "center", flexGrow: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <Box
+          sx={{
+            textAlign: "center",
+            flexGrow: 1,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
           <Typography variant="h3" sx={{ fontWeight: 900, letterSpacing: "-0.02em" }}>
             你的房間已準備就緒！
           </Typography>
@@ -116,5 +124,3 @@ function RowItem(props: { label: string; value: string }): JSX.Element {
     </Box>
   );
 }
-
-

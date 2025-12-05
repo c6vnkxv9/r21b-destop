@@ -1,5 +1,5 @@
-declare module 'react-nice-avatar-vite-prod-fork' {
-  import * as React from 'react';
+declare module "react-nice-avatar-vite-prod-fork" {
+  import * as React from "react";
 
   export type AvatarConfig = Record<string, unknown>;
 
@@ -14,5 +14,3 @@ declare module 'react-nice-avatar-vite-prod-fork' {
   const Avatar: React.FC<AvatarProps>;
   export default Avatar;
 }
-
-

@@ -150,5 +150,3 @@ function CardWall(): JSX.Element {
     </Box>
   );
 }
-
-

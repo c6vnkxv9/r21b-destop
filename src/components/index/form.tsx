@@ -32,14 +32,14 @@ const GameModeForm: FC<{ sx?: SxProps<Theme> }> = ({ sx }) => {
   const [returnPassword, setReturnPassword] = useState<string>("");
   const [modalMessage, setModalMessage] = useState<string>("");
   const [showModal, setShowModal] = useState<boolean>(false);
-  
+
   const theme = useTheme();
 
   const tabs = useMemo(
     () => [
-      { key: "join" as const, label: "加入遊戲房間", },
-      { key: "create" as const, label: "創建遊戲房間", },
-      { key: "return" as const, label: "回到我的遊戲房間", },
+      { key: "join" as const, label: "加入遊戲房間" },
+      { key: "create" as const, label: "創建遊戲房間" },
+      { key: "return" as const, label: "回到我的遊戲房間" },
     ],
     []
   );
@@ -76,16 +76,17 @@ const GameModeForm: FC<{ sx?: SxProps<Theme> }> = ({ sx }) => {
   return (
     <Box
       component="section"
-      className="py-16 px-20"
-      sx={Array.isArray(sx) ? [
-        { display: "flex", flex: 1, minHeight: 0, flexDirection: "column" },
-        ...sx,
-      ] : [
-        { display: "flex", flex: 1, minHeight: 0, flexDirection: "column" },
-        sx || {},
-      ]}
+      className="px-20 py-16"
+      sx={
+        Array.isArray(sx)
+          ? [{ display: "flex", flex: 1, minHeight: 0, flexDirection: "column" }, ...sx]
+          : [{ display: "flex", flex: 1, minHeight: 0, flexDirection: "column" }, sx || {}]
+      }
     >
-      <Box className="max-w-4xl mx-auto" sx={{ height: "100%", display: "flex", flexDirection: "column", width: "100%" }}>
+      <Box
+        className="mx-auto max-w-4xl"
+        sx={{ height: "100%", display: "flex", flexDirection: "column", width: "100%" }}
+      >
         <Paper
           elevation={6}
           className="rounded-lg"
@@ -105,7 +106,9 @@ const GameModeForm: FC<{ sx?: SxProps<Theme> }> = ({ sx }) => {
               onChange={(_, v) => setActiveTab(v)}
               variant="fullWidth"
               textColor="inherit"
-              TabIndicatorProps={{ sx: { bgcolor: theme.palette.primary.main, height: 3, borderRadius: 3 } }}
+              TabIndicatorProps={{
+                sx: { bgcolor: theme.palette.primary.main, height: 3, borderRadius: 3 },
+              }}
             >
               {tabs.map((t) => (
                 <Tab
@@ -243,5 +246,3 @@ const GameModeForm: FC<{ sx?: SxProps<Theme> }> = ({ sx }) => {
 };
 
 export default GameModeForm;
-
-

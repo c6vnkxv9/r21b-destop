@@ -10,37 +10,42 @@
 </template>
 <script lang="ts">
 /* eslint-disable */
-import { ref, defineComponent } from 'vue'
+import { ref, defineComponent } from "vue";
 
 // 在這裡先定義好 props 的數據類型
 interface Props {
   member: {
-    key: string, label: string, desc: string, color: string, selected: boolean
-  },
+    key: string;
+    label: string;
+    desc: string;
+    color: string;
+    selected: boolean;
+  };
   color: {
-    label: string, colorLight: string, colorDark: string
-  }
+    label: string;
+    colorLight: string;
+    colorDark: string;
+  };
 }
 
 export default defineComponent({
-  name: 'GameConfigurationSection',
+  name: "GameConfigurationSection",
   props: {
     member: {
-      type: Object as () => Props['member'], // 使用 Props 中對應的成員類型
-      required: true
+      type: Object as () => Props["member"], // 使用 Props 中對應的成員類型
+      required: true,
     },
     color: {
-      type: Object as () => Props['color'], // 使用 Props 中對應的顏色類型
-      required: true
+      type: Object as () => Props["color"], // 使用 Props 中對應的顏色類型
+      required: true,
     },
     title: {
-      type:String,
-      required: true
-    }
+      type: String,
+      required: true,
+    },
   },
-  setup() {
-  }
-})
+  setup() {},
+});
 </script>
 <style scoped lang="scss">
 /* :style="{ backgroundColor: color.colorDark}" */
@@ -55,13 +60,13 @@ p {
   .char-block {
     margin-bottom: 1rem;
   }
-  .w-1-2{
+  .w-1-2 {
     width: 50%;
   }
 }
 
 .desc-font-style {
-  color: '5b5b5b';
+  color: "5b5b5b";
   font-size: 1rem;
 }
 

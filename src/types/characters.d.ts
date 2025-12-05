@@ -6,7 +6,7 @@ type Character = {
   desc: string;
   pair: string;
   src: string;
-}
+};
 declare module "../../data/characters.js" {
   export interface CharacterRecord {
     key?: string;
@@ -21,5 +21,3 @@ declare module "../../data/characters.js" {
 }
 
 declare module "*.js";
-
-

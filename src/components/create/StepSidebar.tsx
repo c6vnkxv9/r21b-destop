@@ -15,7 +15,13 @@ export type StepSidebarProps = {
 };
 
 export default function StepSidebar(props: StepSidebarProps): JSX.Element {
-  const { steps, activeStep, onStepClick, title = "Game Room Setup", subtitle = "Complete the steps" } = props;
+  const {
+    steps,
+    activeStep,
+    onStepClick,
+    title = "Game Room Setup",
+    subtitle = "Complete the steps",
+  } = props;
   const theme = useTheme();
   const isLgUp = useMediaQuery(theme.breakpoints.up("lg"));
   const isHorizontal = useMediaQuery("(max-width:780px)");
@@ -145,5 +151,3 @@ export default function StepSidebar(props: StepSidebarProps): JSX.Element {
     </Box>
   );
 }
-
-
