@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import { alpha, useTheme } from "@mui/material/styles";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import CreateRoomFormCard from "../components/create/CreateRoomFormCard";
 import SelectCharacterCombination from "../components/create/SelectCharacterCombination";
@@ -16,8 +16,6 @@ function CreateView(): JSX.Element {
   const [discussionMinutes, setDiscussionMinutes] = useState<number | "">("");
   const [searchParams, setSearchParams] = useSearchParams();
   const theme = useTheme();
-  const accent = useMemo(() => theme.palette.secondary.main, [theme.palette.secondary.main]);
-
   const steps = ["創建房間基本資訊", "挑選角色組合", "分享房間資訊"];
   const stepFromUrl = Number(searchParams.get("step") ?? "1");
   const currentStep =
