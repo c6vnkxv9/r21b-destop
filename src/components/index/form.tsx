@@ -95,9 +95,16 @@ const GameModeForm: FC<{ sx?: SxProps<Theme> }> = ({ sx }) => {
             display: "flex",
             flexDirection: "column",
             height: "100%",
-            border: `1px solid ${alpha(theme.palette.common.white, 0.12)}`,
-            background: `linear-gradient(180deg, ${alpha("#FFFFFF", 0.08)} 0%, ${alpha("#FFFFFF", 0.02)} 100%)`,
-            backdropFilter: "blur(6px)",
+            border: `1px solid ${alpha(theme.palette.common.white, 0.18)}`,
+            background: `linear-gradient(180deg, ${alpha("#FFFFFF", 0.1)} 0%, ${alpha(
+              "#FFFFFF",
+              0.03
+            )} 100%)`,
+            backdropFilter: "blur(10px)",
+            boxShadow: `0 10px 24px ${alpha(theme.palette.primary.main, 0.25)}, 0 12px 28px ${alpha(
+              theme.palette.secondary.main,
+              0.18
+            )}`,
           }}
         >
           <Box sx={{ px: { xs: 1, sm: 2 }, pt: 2 }}>
@@ -107,7 +114,11 @@ const GameModeForm: FC<{ sx?: SxProps<Theme> }> = ({ sx }) => {
               variant="fullWidth"
               textColor="inherit"
               TabIndicatorProps={{
-                sx: { bgcolor: theme.palette.primary.main, height: 3, borderRadius: 3 },
+                sx: {
+                  height: 3,
+                  borderRadius: 3,
+                  backgroundImage: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                },
               }}
             >
               {tabs.map((t) => (
@@ -118,6 +129,7 @@ const GameModeForm: FC<{ sx?: SxProps<Theme> }> = ({ sx }) => {
                   sx={{
                     color: "rgba(255,255,255,0.72)",
                     "&.Mui-selected": { color: "#fff", fontWeight: 700 },
+                    "&:hover": { color: "#fff" },
                   }}
                 />
               ))}
@@ -137,6 +149,14 @@ const GameModeForm: FC<{ sx?: SxProps<Theme> }> = ({ sx }) => {
                     value={roomNumber}
                     onChange={(e) => setRoomNumber(e.target.value)}
                     placeholder="請輸入房間名稱"
+                    sx={{
+                      borderRadius: 2,
+                      backdropFilter: "blur(4px)",
+                      backgroundColor: alpha("#0b0f17", 0.2),
+                      "&.Mui-focused": {
+                        boxShadow: `0 0 15px ${alpha(theme.palette.secondary.main, 0.3)}`,
+                      },
+                    }}
                   />
                 </FormControl>
                 <Button
@@ -146,6 +166,10 @@ const GameModeForm: FC<{ sx?: SxProps<Theme> }> = ({ sx }) => {
                   fullWidth
                   sx={{
                     background: `linear-gradient(90deg, ${theme.palette.secondary.main} 0%, ${theme.palette.primary.main} 100%)`,
+                    boxShadow: "0 0 20px rgba(220,38,38,0.30)",
+                    "&:hover": {
+                      boxShadow: "0 0 30px rgba(220,38,38,0.45)",
+                    },
                   }}
                 >
                   加入房間
@@ -170,6 +194,14 @@ const GameModeForm: FC<{ sx?: SxProps<Theme> }> = ({ sx }) => {
                     value={createPassword}
                     onChange={(e) => setCreatePassword(e.target.value)}
                     placeholder="請設定密碼"
+                    sx={{
+                      borderRadius: 2,
+                      backdropFilter: "blur(4px)",
+                      backgroundColor: alpha("#0b0f17", 0.2),
+                      "&.Mui-focused": {
+                        boxShadow: `0 0 15px ${alpha(theme.palette.primary.main, 0.3)}`,
+                      },
+                    }}
                   />
                 </FormControl>
                 <Button
@@ -179,6 +211,10 @@ const GameModeForm: FC<{ sx?: SxProps<Theme> }> = ({ sx }) => {
                   fullWidth
                   sx={{
                     background: `linear-gradient(90deg, ${theme.palette.secondary.main} 0%, ${theme.palette.primary.main} 100%)`,
+                    boxShadow: "0 0 20px rgba(59,130,246,0.30)",
+                    "&:hover": {
+                      boxShadow: "0 0 30px rgba(59,130,246,0.45)",
+                    },
                   }}
                 >
                   創建房間
@@ -195,6 +231,14 @@ const GameModeForm: FC<{ sx?: SxProps<Theme> }> = ({ sx }) => {
                     value={returnRoomNumber}
                     onChange={(e) => setReturnRoomNumber(e.target.value)}
                     placeholder="請輸入房間名稱"
+                    sx={{
+                      borderRadius: 2,
+                      backdropFilter: "blur(4px)",
+                      backgroundColor: alpha("#0b0f17", 0.2),
+                      "&.Mui-focused": {
+                        boxShadow: `0 0 15px ${alpha(theme.palette.secondary.main, 0.3)}`,
+                      },
+                    }}
                   />
                 </FormControl>
                 <FormControl variant="filled" fullWidth>
@@ -205,6 +249,14 @@ const GameModeForm: FC<{ sx?: SxProps<Theme> }> = ({ sx }) => {
                     value={returnPassword}
                     onChange={(e) => setReturnPassword(e.target.value)}
                     placeholder="請輸入密碼"
+                    sx={{
+                      borderRadius: 2,
+                      backdropFilter: "blur(4px)",
+                      backgroundColor: alpha("#0b0f17", 0.2),
+                      "&.Mui-focused": {
+                        boxShadow: `0 0 15px ${alpha(theme.palette.primary.main, 0.3)}`,
+                      },
+                    }}
                   />
                 </FormControl>
                 <Button
@@ -214,6 +266,10 @@ const GameModeForm: FC<{ sx?: SxProps<Theme> }> = ({ sx }) => {
                   fullWidth
                   sx={{
                     background: `linear-gradient(90deg, ${theme.palette.secondary.main} 0%, ${theme.palette.primary.main} 100%)`,
+                    boxShadow: "0 0 20px rgba(220,38,38,0.30)",
+                    "&:hover": {
+                      boxShadow: "0 0 30px rgba(220,38,38,0.45)",
+                    },
                   }}
                 >
                   回到我的房間

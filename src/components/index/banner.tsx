@@ -1,9 +1,9 @@
 import { characters } from "@/data/characters.js";
-import { CharacterRecord } from "@/types/characters.d.ts";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { alpha, useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
+type CharacterLike = { src?: string };
 export default function Banner(): JSX.Element {
   const theme = useTheme();
   return (
@@ -37,52 +37,74 @@ export default function Banner(): JSX.Element {
           }}
         >
           <CardWall />
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 2,
-              px: { xs: 2, sm: 4 },
-              py: { xs: 2, sm: 3 },
-              borderRadius: 3,
-              border: `1px solid ${alpha(theme.palette.common.white, 0.16)}`,
-              background: `linear-gradient(180deg, ${alpha("#FFFFFF", 0.08)} 0%, ${alpha(
-                "#FFFFFF",
-                0.02
-              )} 100%)`,
-              backdropFilter: "blur(6px)",
-              boxShadow: `0 10px 24px ${alpha(theme.palette.primary.main, 0.25)}, 0 12px 28px ${alpha(
-                theme.palette.secondary.main,
-                0.18
-              )}`,
-              maxWidth: 960,
-            }}
-          >
-            <Typography
-              component="h1"
+          <Box sx={{ position: "relative", display: "inline-block" }}>
+            {/* Soft gradient glow behind the glass panel */}
+            <Box
+              aria-hidden
               sx={{
-                color: "#fff",
-                fontWeight: 900,
-                letterSpacing: "-0.033em",
-                lineHeight: 1.2,
-                fontSize: { xs: "2.25rem", sm: "3.5rem", md: "4rem" },
+                position: "absolute",
+                inset: -16,
+                borderRadius: 9999,
+                background: `linear-gradient(90deg, ${alpha(
+                  theme.palette.primary.main,
+                  0.2
+                )}, ${alpha(theme.palette.secondary.main, 0.2)})`,
+                filter: "blur(24px)",
+                opacity: 0.8,
+              }}
+            />
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 2,
+                px: { xs: 2.5, sm: 5 },
+                py: { xs: 2.5, sm: 3.5 },
+                borderRadius: 3,
+                border: `1px solid ${alpha(theme.palette.common.white, 0.22)}`,
+                background: `linear-gradient(180deg, ${alpha("#FFFFFF", 0.1)} 0%, ${alpha(
+                  "#FFFFFF",
+                  0.03
+                )} 100%)`,
+                backdropFilter: "blur(10px)",
+                boxShadow: `0 10px 24px ${alpha(theme.palette.primary.main, 0.25)}, 0 12px 28px ${alpha(
+                  theme.palette.secondary.main,
+                  0.18
+                )}`,
+                maxWidth: 960,
+                position: "relative",
               }}
             >
-              Explosive Fun Awaits!
-            </Typography>
-            <Typography
-              component="h2"
-              sx={{
-                color: "rgba(255,255,255,0.85)",
-                fontWeight: 400,
-                lineHeight: 1.6,
-                fontSize: { xs: "0.875rem", sm: "1.125rem" },
-                maxWidth: "42rem",
-                mx: "auto",
-              }}
-            >
-              Join the ultimate game of strategy and wits. Create a room or join your friends now.
-            </Typography>
+              <Typography
+                component="h1"
+                sx={{
+                  color: "transparent",
+                  fontWeight: 900,
+                  letterSpacing: "-0.033em",
+                  lineHeight: 1.2,
+                  fontSize: { xs: "2.25rem", sm: "3.5rem", md: "4rem" },
+                  backgroundImage: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  textShadow: `0 2px 12px ${alpha("#000", 0.25)}`,
+                }}
+              >
+                Explosive Fun Awaits!
+              </Typography>
+              <Typography
+                component="h2"
+                sx={{
+                  color: "rgba(255,255,255,0.85)",
+                  fontWeight: 400,
+                  lineHeight: 1.6,
+                  fontSize: { xs: "0.875rem", sm: "1.125rem" },
+                  maxWidth: "42rem",
+                  mx: "auto",
+                }}
+              >
+                Join the ultimate game of strategy and wits. Create a room or join your friends now.
+              </Typography>
+            </Box>
           </Box>
         </Box>
       </Container>
@@ -93,7 +115,7 @@ export default function Banner(): JSX.Element {
 function CardWall(): JSX.Element {
   const allSrc = Array.from(
     new Set(
-      (characters as CharacterRecord[])
+      (characters as CharacterLike[])
         .map((c) => (typeof c?.src === "string" ? `${import.meta.env.BASE_URL}${c.src}` : null))
         .filter(Boolean) as string[]
     )
