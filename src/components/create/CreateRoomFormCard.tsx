@@ -89,10 +89,8 @@ export default function CreateRoomFormCard(props: CreateRoomFormCardProps): JSX.
               0.5
             )} 25%, ${alpha(accent, 0.5)} 50%, ${alpha(primary, 0.5)} 75%, ${alpha(primary, 0)} 100%)`,
             backgroundSize: "200% 100%",
-            mask:
-              "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)", // show only border
-            WebkitMask:
-              "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+            mask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)", // show only border
+            WebkitMask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
             WebkitMaskComposite: "xor",
             maskComposite: "exclude",
             opacity: 0.25,
@@ -291,7 +289,14 @@ export default function CreateRoomFormCard(props: CreateRoomFormCardProps): JSX.
                 "&:hover": { borderColor: alpha(accent, 0.5) },
               }}
             >
-              <Box sx={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", mb: 1.5 }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "flex-end",
+                  justifyContent: "space-between",
+                  mb: 1.5,
+                }}
+              >
                 <Typography
                   sx={{
                     display: "flex",
@@ -301,8 +306,7 @@ export default function CreateRoomFormCard(props: CreateRoomFormCardProps): JSX.
                     textTransform: "uppercase",
                     letterSpacing: 2,
                     color: accent,
-                    fontFamily:
-                      "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
                   }}
                 >
                   <TimerIcon sx={{ fontSize: 16 }} />
@@ -311,13 +315,13 @@ export default function CreateRoomFormCard(props: CreateRoomFormCardProps): JSX.
                 <Box sx={{ display: "inline-flex", alignItems: "baseline", gap: 0.5 }}>
                   <AnimatedNumber
                     value={typeof gameMinutes === "number" ? gameMinutes : 1}
-                  sx={{
-                    fontFamily:
-                      "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+                    sx={{
+                      fontFamily:
+                        "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
                       fontSize: 24,
                       color: "#fff",
                       fontWeight: 800,
-                  }}
+                    }}
                   />
                   <Typography component="span" sx={{ color: "#fff", fontWeight: 800 }}>
                     MIN
@@ -393,7 +397,14 @@ export default function CreateRoomFormCard(props: CreateRoomFormCardProps): JSX.
                 "&:hover": { borderColor: alpha(accent, 0.5) },
               }}
             >
-              <Box sx={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", mb: 1.5 }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "flex-end",
+                  justifyContent: "space-between",
+                  mb: 1.5,
+                }}
+              >
                 <Typography
                   sx={{
                     display: "flex",
@@ -403,8 +414,7 @@ export default function CreateRoomFormCard(props: CreateRoomFormCardProps): JSX.
                     textTransform: "uppercase",
                     letterSpacing: 2,
                     color: accent,
-                    fontFamily:
-                      "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
                   }}
                 >
                   <RecordVoiceOverIcon sx={{ fontSize: 16 }} />
@@ -413,13 +423,13 @@ export default function CreateRoomFormCard(props: CreateRoomFormCardProps): JSX.
                 <Box sx={{ display: "inline-flex", alignItems: "baseline", gap: 0.5 }}>
                   <AnimatedNumber
                     value={typeof discussionMinutes === "number" ? discussionMinutes : 1}
-                  sx={{
-                    fontFamily:
-                      "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+                    sx={{
+                      fontFamily:
+                        "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
                       fontSize: 24,
                       color: "#fff",
                       fontWeight: 800,
-                  }}
+                    }}
                   />
                   <Typography component="span" sx={{ color: "#fff", fontWeight: 800 }}>
                     MIN
@@ -502,8 +512,7 @@ export default function CreateRoomFormCard(props: CreateRoomFormCardProps): JSX.
                   sx={{
                     fontSize: 10,
                     color: alpha("#fff", 0.6),
-                    fontFamily:
-                      "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
                   }}
                 >
                   ESTIMATED DURATION
@@ -512,8 +521,7 @@ export default function CreateRoomFormCard(props: CreateRoomFormCardProps): JSX.
                   sx={{
                     fontSize: 18,
                     color: "#fff",
-                    fontFamily:
-                      "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
                   }}
                 >
                   ~
@@ -544,7 +552,15 @@ export default function CreateRoomFormCard(props: CreateRoomFormCardProps): JSX.
                   },
                 }}
               >
-                <Box sx={{ position: "relative", zIndex: 1, display: "inline-flex", gap: 1, alignItems: "center" }}>
+                <Box
+                  sx={{
+                    position: "relative",
+                    zIndex: 1,
+                    display: "inline-flex",
+                    gap: 1,
+                    alignItems: "center",
+                  }}
+                >
                   下一步 <ArrowForwardIosIcon sx={{ fontSize: 14 }} />
                 </Box>
                 <Box
@@ -555,7 +571,8 @@ export default function CreateRoomFormCard(props: CreateRoomFormCardProps): JSX.
                     left: "-120%",
                     width: "120%",
                     height: "100%",
-                    background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent)",
+                    background:
+                      "linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent)",
                     transform: "skewX(12deg)",
                     transition: "transform 400ms",
                     "@keyframes shimmer": {

@@ -96,7 +96,7 @@ const GameModeForm: FC<{ sx?: SxProps<Theme> }> = ({ sx }) => {
             flexDirection: "column",
             height: "100%",
             border: `1px solid ${alpha(theme.palette.common.white, 0.18)}`,
-            background: `linear-gradient(180deg, ${alpha("#FFFFFF", 0.10)} 0%, ${alpha(
+            background: `linear-gradient(180deg, ${alpha("#FFFFFF", 0.1)} 0%, ${alpha(
               "#FFFFFF",
               0.03
             )} 100%)`,

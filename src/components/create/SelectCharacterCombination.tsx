@@ -375,7 +375,11 @@ export default function SelectCharacterCombination(
               color: alpha("#fff", 0.7),
               textTransform: "uppercase",
               letterSpacing: 1.2,
-              "&:hover": { borderColor: alpha("#fff", 0.2), color: "#fff", backgroundColor: alpha("#fff", 0.06) },
+              "&:hover": {
+                borderColor: alpha("#fff", 0.2),
+                color: "#fff",
+                backgroundColor: alpha("#fff", 0.06),
+              },
             }}
           >
             Filter

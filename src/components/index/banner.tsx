@@ -62,7 +62,7 @@ export default function Banner(): JSX.Element {
                 py: { xs: 2.5, sm: 3.5 },
                 borderRadius: 3,
                 border: `1px solid ${alpha(theme.palette.common.white, 0.22)}`,
-                background: `linear-gradient(180deg, ${alpha("#FFFFFF", 0.10)} 0%, ${alpha(
+                background: `linear-gradient(180deg, ${alpha("#FFFFFF", 0.1)} 0%, ${alpha(
                   "#FFFFFF",
                   0.03
                 )} 100%)`,
@@ -76,18 +76,18 @@ export default function Banner(): JSX.Element {
               }}
             >
               <Typography
-              component="h1"
-              sx={{
-                color: "transparent",
-                fontWeight: 900,
-                letterSpacing: "-0.033em",
-                lineHeight: 1.2,
-                fontSize: { xs: "2.25rem", sm: "3.5rem", md: "4rem" },
-                backgroundImage: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                textShadow: `0 2px 12px ${alpha("#000", 0.25)}`,
-              }}
+                component="h1"
+                sx={{
+                  color: "transparent",
+                  fontWeight: 900,
+                  letterSpacing: "-0.033em",
+                  lineHeight: 1.2,
+                  fontSize: { xs: "2.25rem", sm: "3.5rem", md: "4rem" },
+                  backgroundImage: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  textShadow: `0 2px 12px ${alpha("#000", 0.25)}`,
+                }}
               >
                 Explosive Fun Awaits!
               </Typography>

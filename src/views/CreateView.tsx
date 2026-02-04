@@ -46,8 +46,12 @@ function CreateView(): JSX.Element {
       document.body.appendChild(el);
       el.animate(
         [
-          { background: `radial-gradient(circle at ${x}px ${y}px, ${bg} 0%, ${bg} 0%, transparent 0%)` },
-          { background: `radial-gradient(circle at ${x}px ${y}px, ${bg} 0%, ${bg} ${r}px, transparent ${r + 1}px)` },
+          {
+            background: `radial-gradient(circle at ${x}px ${y}px, ${bg} 0%, ${bg} 0%, transparent 0%)`,
+          },
+          {
+            background: `radial-gradient(circle at ${x}px ${y}px, ${bg} 0%, ${bg} ${r}px, transparent ${r + 1}px)`,
+          },
         ],
         { duration: 500, easing: "ease-out" }
       ).onfinish = () => el.remove();
@@ -128,8 +132,12 @@ function CreateView(): JSX.Element {
                             width: 10,
                             height: 10,
                             borderRadius: 0.5,
-                            backgroundColor: filled ? theme.palette.primary.main : alpha("#ef4444", 0.15),
-                            boxShadow: filled ? `0 0 8px ${alpha(theme.palette.primary.main, 0.7)}` : "none",
+                            backgroundColor: filled
+                              ? theme.palette.primary.main
+                              : alpha("#ef4444", 0.15),
+                            boxShadow: filled
+                              ? `0 0 8px ${alpha(theme.palette.primary.main, 0.7)}`
+                              : "none",
                             animation: filled ? "magFill 600ms ease-in both" : "none",
                             "@keyframes magFill": {
                               "0%": { transform: "scale(0.6)", opacity: 0.4 },

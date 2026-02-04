@@ -154,8 +154,7 @@ export default function CharacterPairCard(props: CharacterPairCardProps): JSX.El
                   0.4
                 )}, ${alpha(theme.palette.primary.main, 0.4)})`,
                 mask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
-                WebkitMask:
-                  "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+                WebkitMask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
                 WebkitMaskComposite: "xor",
                 maskComposite: "exclude",
                 animation: "borderPulse 1.4s ease-in-out infinite",
